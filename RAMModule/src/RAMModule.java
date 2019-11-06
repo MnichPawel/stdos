@@ -157,12 +157,12 @@ public class RAMModule {
         RAM[adres] = wartosc;
     }
     void zapisz_bajt(byte wartosc, int adres_logiczny, int adres_fizyczny) { RAM[adres_logiczny + adres_fizyczny] = wartosc; }
-    void zapisz_bajt(byte[] wartosc, int adres){
+    void zapisz_bajty(byte[] wartosc, int adres){
         for(int i = adres; i < wartosc.length + adres; ++i) {
             RAM[i] = wartosc[i - adres];
         }
     }
-    void zapisz_bajt(byte[] wartosc, int adres_logiczny, int adres_fizyczny) {
+    void zapisz_bajty(byte[] wartosc, int adres_logiczny, int adres_fizyczny) {
         for(int i = adres_fizyczny + adres_logiczny; i < wartosc.length + adres_fizyczny + adres_logiczny; ++i) {
             RAM[i] = wartosc[i - (adres_fizyczny + adres_logiczny)];
         }
@@ -174,6 +174,24 @@ public class RAMModule {
         return RAM[adres];
     }
     byte odczytaj_bajt(int adres_logiczny, int adres_fizyczny) { return RAM[adres_logiczny + adres_fizyczny]; }
+    byte[] odczytaj_bajty(int adres, int rozmiar){
+        byte ret[] = new byte[rozmiar];
+
+        for(int i = 0; i < rozmiar; ++i){
+            ret[i] = RAM[adres + i];
+        }
+
+        return ret;
+    }
+    byte[] odczytaj_bajty(int adres_logiczny, int adres_fizyczny, int rozmiar) {
+        byte ret[] = new byte[rozmiar];
+
+        for(int i = 0; i < rozmiar; ++i){
+            ret[i] = RAM[adres_logiczny + adres_fizyczny + i];
+        }
+
+        return ret;
+    }
 
     /* wypisuje zawartość ramu */
     void wypisz_pamiec(){

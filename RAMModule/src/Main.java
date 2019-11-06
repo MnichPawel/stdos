@@ -73,13 +73,19 @@ public class Main {
 
         module.wypisz_pamiec();
 
-        byte[] res = new byte[]{ (byte)54, (byte)234, (byte)32, (byte)12, (byte)99 };
+        byte[] res = new byte[]{ (byte)54, (byte)114, (byte)32, (byte)12, (byte)99 };
 
-        module.zapisz_bajt(res, rezerwacja_6);
+        module.zapisz_bajty(res, rezerwacja_6);
 
         System.out.println("----------");
 
         module.wypisz_pamiec();
+
+        byte[] odczyt = module.odczytaj_bajty(rezerwacja_6, 5);
+
+        for(int i = 0; i < odczyt.length; ++i){
+            System.out.println(odczyt[i]);
+        }
 
     }
 }
