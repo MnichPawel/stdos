@@ -2,7 +2,7 @@
 
 <h2>OS created during studies</h2>
 
-<ul>System contains 8 Modules
+<ul>System contains 8 modules: 
 <li>
 <li>
 <li>
