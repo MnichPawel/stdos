@@ -1,4 +1,5 @@
-# stdos Operating System Implemented in Java
+# stdos
+<h1>Operating System Implemented in Java</h1>
 
 <h2>OS created during studies</h2>
 
