@@ -68,6 +68,7 @@ class CheckInput {
                     ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_pP(String.valueOf(arguments[1], Integer.parseInt(arguments[2]);
                     break;
 
+                /*funkcje interfejsu*/
                 case "exit":
                     exitFlag = true;
                     break;
@@ -75,6 +76,7 @@ class CheckInput {
                 case "help":
                     Help.help();
                     break;
+                /*funkcje interfejsu*/
 
               default:
                     System.out.println("[Shell]: Niepoprawna komenda");
