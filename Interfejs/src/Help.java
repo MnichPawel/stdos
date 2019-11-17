@@ -3,7 +3,6 @@ import java.util.Random;
 class Help {
     static void help() {
 
-
         /*interfejs*/
         System.out.println("  exit                              - konczy dzialanie systemu");
         System.out.println("  help                              - wyswietla pomoc");
@@ -55,7 +54,7 @@ class Help {
         /*zarządzanie plikami i katalogami*/
 
         /*interfejs*/
-        System.out.println("  exit                   - konczy dzialanie systemu);
+        System.out.println("  exit                   - konczy dzialanie systemu");
         System.out.println("  help                 -   wyswietla pomoc");
         /*interfejs*/
     }
