@@ -26,6 +26,8 @@ class Help {
 
         /* semafor: tablica procesów i procesor*/
         System.out.println("  semafor_disp nazwa_pliku            - wyswietla obecny stan semafora");
+        System.out.println("  semafor_disp_q                      - wyswietla kolejke semafora");
+
         /* semafor*/
 
         /* zarządzanie procesami: semafor, pamiec ram, pamiec wirtualna*/

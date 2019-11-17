@@ -22,7 +22,10 @@ class CheckInput {
                     PAMIEC_WIRTUALNA.vm_display();
                     break;
                 case "semafor_disp":
-                    SEMAFOR.jp_display();
+                    SEMAFOR.jp_display(String.valueOf(arguments[1]);
+                    break;
+                case "semafor_disp_q":
+                    SEMAFOR.jp_display_queue();
                     break;
                 case "cp":
                     ZARZADZANIE_PROCESAMI.KM_CreateProcess(String.valueOf(arguments[1]), Integer.parseInt(arguments[2]);
