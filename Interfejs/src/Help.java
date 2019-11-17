@@ -34,6 +34,17 @@ class Help {
         System.out.println("  pr_disp_rdy                         - wyswietla listę gotowych procesow i ich chwilowy priorytet");
         /* procesor*/
 
+        /*zarządzanie plikami i katalogami*/
+        System.out.println("  fc nazwa rozmiar(w bajtach)         - utworzenie pliku");
+        System.out.println("  f_disp nazwa                        -  pobranie zawartosci pliku");
+        System.out.println("  f_disp_all                          -  wyswietla wszystkie pliki");
+        System.out.println("  f_rem nazwa                         -  usuniecie pliku");
+        System.out.println("  cc nazwa                            -  utworzenie katalogu");
+        System.out.println("  c_rem nazwa                         -  usuniecie katalogu ze wszystkimi plikami, ktore sie w nim znajduja");
+        System.out.println("  move nazwa_pliku nazwa_katalogu     -  przeniesienie pliku do katalogu");
+
+        /*zarządzanie plikami i katalogami*/
+
     }
 //    private static int getRandomToTest(int min, int max) {
 //        return  new Random().nextInt((max - min) + 1) + min;

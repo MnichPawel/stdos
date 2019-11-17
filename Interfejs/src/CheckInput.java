@@ -46,6 +46,27 @@ class CheckInput {
                     INTERPRETER.FUNKCJAKAMILAKORBIKA();
                     break;
 
+                case "fc": //file create
+                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_utwP(String.valueOf(arguments[1], Integer.parseInt(arguments[2]);
+                    break;
+                case "f_disp ":
+                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_pobP(String.valueOf(arguments[1]);
+                    break;
+                case "f_disp_all":
+                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_pokP();
+                    break;
+                case "f_rem ":
+                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_usunP(arguments[1]);
+                    break;
+                case "cc ":
+                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_utwK(String.valueOf(arguments[1]);
+                    break;
+                case "c_rem ":
+                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_usunK(String.valueOf(arguments[1]);
+                    break;
+                case "move":
+                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_pP(String.valueOf(arguments[1], Integer.parseInt(arguments[2]);
+                    break;
 
                 case "exit":
                     exitFlag = true;
