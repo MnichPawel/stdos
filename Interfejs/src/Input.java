@@ -1,17 +1,14 @@
 import java.util.Scanner;
 
-class UserInputLoop {
-    static class StartLooping{
+class Input{
+    private static Scanner inputScanner= new Scanner(System.in);
+    static void start() {
 
-        private static Scanner reader = new Scanner(System.in);
-
-        static void start() {
-
-            while (!CheckIfInputCorrect.exitFlag) {
+            while (!CheckInput.exitFlag) {
                 System.out.print(">>");
-                String input = reader.nextLine();
+                String input = inputScanner.nextLine();
                 try {
-                    CheckIfInputCorrect.inputData(input);
+                    CheckInput.inputSwitch(input);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     e.printStackTrace();
                     System.out.println("[Shell]: Podano za malo argumentow");
@@ -20,5 +17,5 @@ class UserInputLoop {
                 }
             }
         }
-    }
+
 }
