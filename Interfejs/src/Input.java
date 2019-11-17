@@ -8,7 +8,7 @@ class Input{
                 System.out.print(">>");
                 String input = inputScanner.nextLine();
                 try {
-                    CheckInput.inputData(input);
+                    CheckInput.inputSwitch(input);
                 } catch (ArrayIndexOutOfBoundsException e) {
                     e.printStackTrace();
                     System.out.println("[Shell]: Podano za malo argumentow");

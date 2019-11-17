@@ -2,8 +2,8 @@ class CheckInput {
 
         static boolean exitFlag = false;
 
-        static void inputData(String data){
-            String[] arguments = data.split("\\s+"); //one or more space space after that
+        static void inputSwitch(String data){
+            String[] arguments = data.split("\\s+"); //one or more space space after (splits)
 
             switch (arguments[0]) {
                 case "ram_disp_hex":
