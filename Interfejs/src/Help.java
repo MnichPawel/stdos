@@ -4,23 +4,23 @@ class Help {
     static void help() {
 
         /*interfejs*/
-        System.out.println("  exit                              - konczy dzialanie systemu");
-        System.out.println("  help                              - wyswietla pomoc");
+        System.out.println("  exit                                - konczy dzialanie systemu");
+        System.out.println("  help                                - wyswietla pomoc");
         /*interfejs*/
 
         /* pamięc ram*/
         //nie korzysta z żadnego innego modułu*/
 
-        System.out.println("  ram_disp_hex                     - wypisuje zawartość ramu w zapisie heksadecymalnym");
-        System.out.println("  ram_disp_part                    - wypisuje podzial pamieci ram");
+        System.out.println("  ram_disp_hex                        - wypisuje zawartość ramu w zapisie heksadecymalnym");
+        System.out.println("  ram_disp_part                       - wypisuje podzial pamieci ram");
         /* pamięc ram*/
 
         /* pamięc wirtualna*/
         //korzysta z pamięci fizycznej i operacyjnej
 
-        System.out.println("  vm_ret nazwa_procesu             - zwraca instrukcje dla procesu z pamięci operacyjnej lub fizycznej");
-        System.out.println("  vm_erase                         - czysci segmenty pamieci wirtualnej");
-        System.out.println("  vm_disp                          - wyswietla aktualna zawartosc pamieci wirtualnej");
+        System.out.println("  vm_ret nazwa_procesu                - zwraca instrukcje dla procesu z pamięci operacyjnej lub fizycznej");
+        System.out.println("  vm_erase                            - czysci segmenty pamieci wirtualnej");
+        System.out.println("  vm_disp                             - wyswietla aktualna zawartosc pamieci wirtualnej");
         /* pamięc wirtualna*/
 
         /* semafor: tablica procesów i procesor*/
@@ -44,19 +44,18 @@ class Help {
 
         /*zarządzanie plikami i katalogami*/
         System.out.println("  fc nazwa rozmiar(w bajtach)         - utworzenie pliku");
-        System.out.println("  f_disp nazwa                        -  pobranie zawartosci pliku");
-        System.out.println("  f_disp_all                          -  wyswietla wszystkie pliki");
-        System.out.println("  f_rem nazwa                         -  usuniecie pliku");
-        System.out.println("  cc nazwa                            -  utworzenie katalogu");
-        System.out.println("  c_rem nazwa                         -  usuniecie katalogu ze wszystkimi plikami, ktore sie w nim znajduja");
-        System.out.println("  move nazwa_pliku nazwa_katalogu     -  przeniesienie pliku do katalogu");
+        System.out.println("  f_disp nazwa                        - pobranie zawartosci pliku");
+        System.out.println("  f_disp_all                          - wyswietla wszystkie pliki");
+        System.out.println("  f_rem nazwa                         - usuniecie pliku");
+        System.out.println("  cc nazwa                            - utworzenie katalogu");
+        System.out.println("  c_rem nazwa                         - usuniecie katalogu ze wszystkimi plikami, ktore sie w nim znajduja");
+        System.out.println("  move nazwa_pliku nazwa_katalogu     - przeniesienie pliku do katalogu");
 
         /*zarządzanie plikami i katalogami*/
+        /*interpreter*/
+        System.out.println("  interpreter                         - odczyt bajtów z kodem rozkazu");
+        /*interpreter*/
 
-        /*interfejs*/
-        System.out.println("  exit                   - konczy dzialanie systemu");
-        System.out.println("  help                 -   wyswietla pomoc");
-        /*interfejs*/
     }
 //    private static int getRandomToTest(int min, int max) {
 //        return  new Random().nextInt((max - min) + 1) + min;
