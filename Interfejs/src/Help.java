@@ -53,7 +53,8 @@ class Help {
 
         /*zarządzanie plikami i katalogami*/
         /*interpreter*/
-        System.out.println("  interpreter                         - odczyt bajtów z kodem rozkazu");
+        System.out.println("  inter_read                          - odczyt bajtow z kodem rozkazu");
+        System.out.println("  inter_disp                          - wyswietla stan rejestrow");
         /*interpreter*/
 
     }

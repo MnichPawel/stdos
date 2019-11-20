@@ -59,8 +59,11 @@ class CheckInput {
                 /*procesor*/
 
                 /*interpreter*/
-                case "interpreter": // wywołanie asemblera Kamil Korbik
-                    INTERPRETER.KK_exec_instruction();
+                case "inter_read":
+                    INTERPRETER.KK_interpret();
+                    break;
+                case "inter_disp":
+                    INTERPRETER.KK_dispReg();
                     break;
                 /*interpreter*/
 
