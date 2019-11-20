@@ -2,18 +2,13 @@ import java.util.Scanner;
 
 class Input{
     private static Scanner inputScanner= new Scanner(System.in);
-    static void start() {
-
-            while (!CheckInput.exitFlag) {
-                System.out.print(">>");
+    static void start() throws UnsupportedOperationException {
+            while (!SwitchInput.exitFlag) {
                 String input = inputScanner.nextLine();
                 try {
-                    CheckInput.inputSwitch(input);
-                } catch (ArrayIndexOutOfBoundsException e) {
-                    e.printStackTrace();
-                    System.out.println("[Shell]: Podano za malo argumentow");
+                    SwitchInput.inputSwitch(input);
                 } catch (Exception e) {
-                    System.out.println("Blad");
+                    System.out.println("[Shell]: Blad");
                 }
             }
         }

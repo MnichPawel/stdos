@@ -2,13 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5ca143c8-7215-4dde-af1c-c9dcac334d3a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Interfejs/Help.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interfejs/Help.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Interfejs/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Interfejs/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CheckInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/CheckInput.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CheckInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SwitchInput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Help.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Input.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Input.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

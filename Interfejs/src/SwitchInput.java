@@ -1,9 +1,9 @@
-class CheckInput {
+class SwitchInput {
 
         static boolean exitFlag = false;
 
-        static void inputSwitch(String data){
-            String[] arguments = data.split("\\s+"); //one or more space space after (splits)
+        static void inputSwitch(String komunikat){
+            String[] arguments =  komunikat.split("\\s+"); //one or more space space after (splits)
 
             switch (arguments[0]) {
                 /*pamięć RAM*/
