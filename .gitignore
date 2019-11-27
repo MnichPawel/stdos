@@ -1,2 +1,5 @@
 
 *.class
+*.class
+ProcessManager/out/production/ProcessManager/com/company/Main.class
+ProcessManager/out/production/ProcessManager/com/company/ProcessManager.class

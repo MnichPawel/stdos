@@ -145,7 +145,7 @@ public class ProcessManager {
 
     public static void KM_getAllProcessListPrint() {
         System.out.print("All Process List:\n");
-        System.out.format("%-3s %-16s %-16s %-2s %-2s %-7s\n", "PID", "ProName", "FileName", "PS", "PD", "PState");
+        System.out.format("%-3s %-16s %-16s %-2s %-2s %-7s \n", "PID", "ProName", "FileName", "PS", "PD", "PState");
         for(PCB _p  : activeProcesses) {
             System.out.format("%-3d %-16s %-16s %-2d %-2d %-7s\n", _p.getPid(), _p.getPn(), _p.getFilename(), _p.getPriS(), _p.getPriD(), _p.getPs());
             //System.out.print("- "+_p.getPid()+"\t"+_p.getPn()+"\t"+_p.getFilename()+"\t\t"+_p.getPriS()+"\t\t"+_p.getPriD()+"\t\t"+_p.getPs()+"\n");
