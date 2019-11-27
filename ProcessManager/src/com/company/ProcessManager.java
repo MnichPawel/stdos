@@ -50,7 +50,7 @@ public class ProcessManager {
         return;
     }
 
-    public static void KM_setProcessState (PCB _pcb, ProcessState _ps) {
+    public static void KM_setProcessState (PCB _pcb, ProcessState _ps) { //TODO: list change (adding/removing from readyProcesses)
         _pcb.setPs(_ps);
         return;
     }
