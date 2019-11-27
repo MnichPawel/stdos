@@ -10,28 +10,27 @@ public class ProcessManager {
     private static List<PCB> readyProcesses;
     private static String idleProcessFilename = "PC";
     final static int maxProcesses = 128; //TODO: ??Be or not to be
-    //public int actPid = 0;
 
     public ProcessManager() {
         activeProcesses = new ArrayList<PCB>();
         readyProcesses = new ArrayList<PCB>();
-        //Idle process
         try {
-            KM_CreateProcess(idleProcessFilename, 0);
-            KM_CreateProcess("COS", 1);
+            KM_CreateProcess(idleProcessFilename, "dummy", 0);
         } catch(Exception e) {
             System.out.println(e);
         }
         return;
     }
 
-    public static void KM_CreateProcess (String _filename , int _p) throws Exception {
+    @Deprecated
+    public static void KM_CreateProcess (String _filename, int _p) throws Exception {
         if(_filename.equals(idleProcessFilename)) {
             if(_p!=0) throw new Exception("KM_CreateProcess:idleProcessPriorityMustBeZero");
         } else {
             if(_p==0) throw new Exception("KM_CreateProcess:notIdleProcessPriorityMustBeGreaterThanZero");
         }
         if(true) {//TODO: File exist?
+            //TODO: add somewhere loading to virtual memory
             int _pl = 1; //TODO: Program length
             PCB pcb1 = new PCB(actPid, _filename, 0, _p, _pl);
             actPid++; //TODO: if actPid less than maxProcesses / Windows PID Management
@@ -44,18 +43,97 @@ public class ProcessManager {
         return;
     }
 
+    public static void KM_CreateProcess (String _filename, String _processname, int _p) throws Exception {
+        if(_filename.trim().equals("")) { //Check if filename is not ""
+            throw new Exception("KM_CreateProcess:fileNameMustNotBeNull");
+        }
+        if(_processname.trim().equals("")) { // Check if processname is not ""
+            throw new Exception("KM_CreateProcess:processNameMustNotBeNull");
+        }
+        if(_filename.equals(idleProcessFilename)) { // Check if filename is not idle process filename
+            if(_p!=0) throw new Exception("KM_CreateProcess:idleProcessPriorityMustBeZero");
+        } else {
+            if(_p==0) throw new Exception("KM_CreateProcess:notIdleProcessPriorityMustBeGreaterThanZero");
+        }
+        if(true) {//TODO: File exist?
+            //TODO: add somewhere loading to virtual memory
+            int _pl = 1; //TODO: Program length
+            PCB pcb1 = new PCB(actPid, _filename, _processname, 0, _p, _pl);
+            actPid++; //TODO: if actPid less than maxProcesses / Windows PID Management
+            activeProcesses.add(pcb1);
+            //TODO: semaphore
+            if(_filename.equals(idleProcessFilename)) { pcb1.setPs(ProcessState.READY); readyProcesses.add(pcb1); }
+        } else {
+            throw new Exception("KM_CreateProcess:FileNotExist");
+        }
+        return;
+    }
+
+    public static void KM_CreateProcess (String _filename, String _processname) throws Exception {
+        ProcessManager.KM_CreateProcess(_filename, _processname, 1);
+    }
+
+    public static void KM_CreateProcess (String _filename) throws Exception {
+        ProcessManager.KM_CreateProcess(_filename, _filename, 1);
+    }
+
     public static void KM_TerminateProcess (PCB pcb) { //TODO: function
+        if(pcb.getPid()==0) {
+            return;
+        }
         activeProcesses.remove(pcb);
         readyProcesses.remove(pcb);
+        //TODO: remove from VM
         return;
     }
 
-    public static void KM_setProcessState (PCB _pcb, ProcessState _ps) { //TODO: list change (adding/removing from readyProcesses)
-        _pcb.setPs(_ps);
+    /*
+    Allowed ProcessState changes
+    NEW -> READY
+    NEW -> WAITING
+
+    READY -> RUNNING
+    READY -> WAITING
+
+    WAITING -> READY
+
+    RUNNING -> READY
+    RUNNING -> WAITING
+
+     */
+
+    public static void KM_setProcessState (PCB _pcb, ProcessState _ps) {
+        if(_ps==_pcb.getPs()) { //Before = after
+            //NULL
+        } else if(_ps==ProcessState.NEW) { //Error
+            //NULL
+        } else if(_ps==ProcessState.READY) {
+            if(_pcb.getPs()==ProcessState.WAITING||_pcb.getPs()==ProcessState.NEW) {
+                _pcb.setPs(_ps);
+                readyProcesses.add(_pcb);
+            } else if(_pcb.getPs()==ProcessState.RUNNING) {
+                _pcb.setPs(_ps);
+                //TODO: add to ready after RUNNING->READY?
+            }
+        } else if(_ps==ProcessState.RUNNING) {
+            if(_pcb.getPs()==ProcessState.READY) {
+                //TODO: remove from ready after READY->RUNNING?
+                _pcb.setPs(_ps);
+            }
+        } else if(_ps==ProcessState.WAITING) {
+            if(_pcb.getPs()==ProcessState.RUNNING||_pcb.getPs()==ProcessState.READY) {
+                //TODO: remove from ready RUNNING->WAITING?
+                readyProcesses.remove(_pcb);
+                _pcb.setPs(_ps);
+            } else if(_pcb.getPs()==ProcessState.NEW) {
+                _pcb.setPs(_ps);
+            }
+        }
         return;
     }
 
-    public static void KM_setProcessStaticPriority(PCB _pcb, int p) {
+    @Deprecated
+    public static void KM_setProcessStaticPriority(PCB _pcb, int p) { //TODO: useless, CPU don't change it, CPU change only dynamic priority
         _pcb.setPriS(p);
         return;
     }
@@ -66,19 +144,20 @@ public class ProcessManager {
     }
 
     public static void KM_getAllProcessListPrint() {
-        System.out.println("All Process List: ");
-        System.out.println("PID\tFile\tSPrio\tDPrio\tPS");
+        System.out.print("All Process List:\n");
+        System.out.format("%-3s %-16s %-16s %-2s %-2s %-7s\n", "PID", "ProName", "FileName", "PS", "PD", "PState");
         for(PCB _p  : activeProcesses) {
-            System.out.print("- "+_p.getPid()+"\t"+_p.getFilename()+"\t\t"+_p.getPriS()+"\t\t"+_p.getPriD()+"\t\t"+_p.getPs()+"\n");
+            System.out.format("%-3d %-16s %-16s %-2d %-2d %-7s\n", _p.getPid(), _p.getPn(), _p.getFilename(), _p.getPriS(), _p.getPriD(), _p.getPs());
+            //System.out.print("- "+_p.getPid()+"\t"+_p.getPn()+"\t"+_p.getFilename()+"\t\t"+_p.getPriS()+"\t\t"+_p.getPriD()+"\t\t"+_p.getPs()+"\n");
         }
         return;
     }
 
     public static void KM_getReadyProcessListPrint() {
-        System.out.println("Ready Process List: ");
-        System.out.println("PID\tFile\tSPrio\tDPrio");
+        System.out.print("Ready Process List:\n");
+        System.out.format("%-3s %-16s %-16s %-2s %-2s\n", "PID", "ProName", "FileName", "PS", "PD");
         for(PCB _p  : readyProcesses) {
-            System.out.print("- "+_p.getPid()+"\t"+_p.getFilename()+"\t\t"+_p.getPriS()+"\t\t"+_p.getPriD()+"\n");
+            System.out.format("%-3d %-16s %-16s %-2d %-2d\n", _p.getPid(), _p.getPn(), _p.getFilename(), _p.getPriS(), _p.getPriD());
         }
         return;
     }

@@ -29,6 +29,7 @@ public class PCB {
         this.dx = 0;
     }
 
+    @Deprecated
     public PCB(int pid, String filename, int priD, int priS, int pl) {
         this.pid = pid;
         this.filename = filename;

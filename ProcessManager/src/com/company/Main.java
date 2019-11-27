@@ -6,20 +6,17 @@ public class Main {
         ProcessManager pm = new ProcessManager();
         ProcessManager.KM_getAllProcessListPrint();
         try {
-            ProcessManager.KM_CreateProcess("SOC", 3);
-            ProcessManager.KM_CreateProcess("SOCCOS", 1);
+            ProcessManager.KM_CreateProcess("SOC", "p2", 3);
+            ProcessManager.KM_CreateProcess("SOCCOS", "p3");
 
         } catch (Exception e) {
             System.out.println(e);
         }
         ProcessManager.KM_getAllProcessListPrint();
-        try {
-            ProcessManager.KM_TerminateProcess(ProcessManager.KM_getPCBbyPID(1));
-            ProcessManager.KM_TerminateProcess(ProcessManager.KM_getPCBbyPID(2));
-
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        ProcessManager.KM_setProcessState(ProcessManager.KM_getPCBbyPID(2), ProcessState.READY);
+        ProcessManager.KM_setProcessState(ProcessManager.KM_getPCBbyPID(2), ProcessState.RUNNING);
+        ProcessManager.KM_setProcessState(ProcessManager.KM_getPCBbyPID(1), ProcessState.WAITING);
         ProcessManager.KM_getAllProcessListPrint();
+        ProcessManager.KM_getReadyProcessListPrint();
     }
 }
