@@ -22,7 +22,6 @@ public class PriorityList {
         for(int i=0; i<15; i++){
             if(priorityList.get(i).isEmpty()) boolPriorityList.set(i,false);
             else boolPriorityList.set(i,true);
-
         }
     }
 
@@ -37,7 +36,7 @@ public class PriorityList {
         priorityList.get(p1.getPriS()).add(p1);
     }
 
-    public void deleteProcess(){}
+    public void deleteProcess(int pid){}
 
     public void updateDynamicPriority(){
         int tmp;
@@ -51,6 +50,20 @@ public class PriorityList {
             }
         }
         cleanUpPriority();
+        updateBoolean();
+    }
+
+    public void displayQueues(){
+        PCB tmp;
+        for(int i = 0; i < 15; i++){
+            System.out.print((i+1) + ": ");
+            for(int j = 0; j < priorityList.get(i).size(); j++){
+                tmp = priorityList.get(i).poll();
+                System.out.print("[ " + tmp.getPid() + " " + tmp.getPn() + " ] ");
+                priorityList.get(i).add(tmp);
+            }
+            System.out.print("\n");
+        }
     }
 
   /*--------------------------------------------------------------------------*/

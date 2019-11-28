@@ -19,7 +19,10 @@ public class CPU {
     public void MM_find_ready(){
         PCB tmp;
         tmp = priorityList.getHighestPriority();
-        if(tmp != null) RUNNING = tmp;
+        if(tmp != null) {
+            tmp.setPs(ProcessState.RUNNING);
+            RUNNING = tmp;
+        }
         else RUNNING = ZEROPRIORITY;
     }
 
@@ -30,7 +33,7 @@ public class CPU {
     }
 
     public void MM_unreadyProcess(int pid){
-
+        priorityList.deleteProcess(pid);
     }
 
     //aktualizuje priorytet chwilowy
@@ -46,6 +49,7 @@ public class CPU {
 
     //wyswietla liste gotowych procesow wraz z priorytetami
     public void MM_show_actual_priority(){
-
+        priorityList.displayQueues();
+        System.out.print("RUNNING: [ "+ RUNNING.getPid() + " " + RUNNING.getPn() + " " + RUNNING.getPriS() + " " + RUNNING.getPriD());
     }
 }
