@@ -1,6 +1,6 @@
 package CPU;
 
-import ProcessManager.*;
+import Processes.*;
 
 import java.util.*;
 
@@ -36,6 +36,8 @@ public class PriorityList {
     public void addProcess(PCB p1){
         priorityList.get(p1.getPriS()).add(p1);
     }
+
+    public void deleteProcess(){}
 
     public void updateDynamicPriority(){
         int tmp;

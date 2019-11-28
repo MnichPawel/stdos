@@ -1,6 +1,6 @@
 package CPU;
 
-import ProcessManager.*;
+import Processes.*;
 
 import java.util.Queue;
 
@@ -27,6 +27,10 @@ public class CPU {
     public void MM_add_ready(PCB ready_process){
         priorityList.addProcess(ready_process);
         ready_process.setPs(ProcessState.READY);
+    }
+
+    public void MM_unreadyProcess(int pid){
+
     }
 
     //aktualizuje priorytet chwilowy
