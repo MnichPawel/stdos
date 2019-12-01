@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="04f1dfe9-8b7d-4ebc-a1f1-fa99e64d2eef" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1UIMSv44KuPOPlKUvuqdTqwcsbc" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\osakk\Desktop\VirtualMemory\src\RAMModule" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="VirtualMemory" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="VirtualMemory.VirtualMemory" />
+      <module name="VirtualMemory" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="VirtualMemory.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.VirtualMemory" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="viewStates">
+      <list>
+        <serviceView>
+          <treeState>
+            <expand />
+            <select />
+          </treeState>
+        </serviceView>
+      </list>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="04f1dfe9-8b7d-4ebc-a1f1-fa99e64d2eef" name="Default Changelist" comment="" />
+      <created>1575039658741</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1575039658741</updated>
+      <workItem from="1575039667652" duration="41000" />
+      <workItem from="1575040748496" duration="871000" />
+      <workItem from="1575186498771" duration="1380000" />
+      <workItem from="1575188266071" duration="14198000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="1245" y="232" key="#com.intellij.ide.util.MemberChooser" timestamp="1575188367357">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1245" y="232" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040@0.0.1920.1040" timestamp="1575188367357" />
+    <state x="1194" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1575188312462">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1194" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575188312462" />
+    <state x="1062" y="270" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog" timestamp="1575200850702">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1062" y="270" key="#com.intellij.refactoring.typeMigration.ui.FailedConversionsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1575200850702" />
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom" timestamp="1575206721322">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="281" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1575206721322" />
+    <state width="1877" height="281" key="GridCell.Tab.0.center" timestamp="1575206721322">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="281" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1575206721322" />
+    <state width="1877" height="281" key="GridCell.Tab.0.left" timestamp="1575206721322">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="281" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1575206721322" />
+    <state width="1877" height="281" key="GridCell.Tab.0.right" timestamp="1575206721322">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="281" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1575206721322" />
+  </component>
+</project>
