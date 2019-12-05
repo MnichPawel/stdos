@@ -1,4 +1,6 @@
-package com.company;
+package ProcessManager;
+
+import ProcessManager.ProcessManager;
 
 public class Main {
 

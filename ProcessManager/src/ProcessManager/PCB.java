@@ -1,4 +1,6 @@
-package com.company;
+package ProcessManager;
+
+import ProcessManager.ProcessManager;
 
 public class PCB {
     private int pid; //PID - processID
@@ -126,9 +128,7 @@ public class PCB {
         this.cx = cx;
     }
 
-    public int getDx() {
-        return dx;
-    }
+    public int getDx() { return dx; }
 
     public void setDx(int dx) {
         this.dx = dx;

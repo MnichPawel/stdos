@@ -1,8 +1,21 @@
-package com.company;
+package ProcessManager;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import CPU.*;
+
+/*
+FROM CPU
+//dodaje proces do listy gotowych procesow
+    public void MM_add_ready(PCB ready_process){
+        priorityList.addProcess(ready_process);
+        ready_process.setPs(ProcessState.READY);
+    }
+
+    public void MM_unreadyProcess(int pid){
+        priorityList.deleteProcess(pid);
+    }
+ */
 
 public class ProcessManager {
     private static int actPid;
@@ -10,6 +23,8 @@ public class ProcessManager {
     private static List<PCB> readyProcesses;
     private static String idleProcessFilename = "PC";
     final static int maxProcesses = 128; //TODO: ??Be or not to be
+
+    static CPU cpu = new CPU();
 
     public ProcessManager() {
         activeProcesses = new ArrayList<PCB>();
@@ -34,8 +49,8 @@ public class ProcessManager {
             int _pl = 1; //TODO: Program length
             PCB pcb1 = new PCB(actPid, _filename, 0, _p, _pl);
             actPid++; //TODO: if actPid less than maxProcesses / Windows PID Management
-            activeProcesses.add(pcb1);
-            //TODO: semaphore
+            //activeProcesses.add(pcb1); //TODO: activeProcesses remove, just use CPU priorityList
+
             if(_filename.equals(idleProcessFilename)) { pcb1.setPs(ProcessState.READY); readyProcesses.add(pcb1); }
         } else {
             throw new Exception("KM_CreateProcess:FileNotExist");
@@ -60,8 +75,8 @@ public class ProcessManager {
             int _pl = 1; //TODO: Program length
             PCB pcb1 = new PCB(actPid, _filename, _processname, 0, _p, _pl);
             actPid++; //TODO: if actPid less than maxProcesses / Windows PID Management
-            activeProcesses.add(pcb1);
-            //TODO: semaphore
+            //activeProcesses.add(pcb1); //TODO: activeProcesses remove, just use CPU priorityList
+            cpu.MM_add_ready(pcb1);
             if(_filename.equals(idleProcessFilename)) { pcb1.setPs(ProcessState.READY); readyProcesses.add(pcb1); }
         } else {
             throw new Exception("KM_CreateProcess:FileNotExist");
@@ -82,7 +97,8 @@ public class ProcessManager {
             return;
         }
         activeProcesses.remove(pcb);
-        readyProcesses.remove(pcb);
+        //readyProcesses.remove(pcb); //TODO: activeProcesses remove, just use CPU priorityList
+        cpu.MM_unreadyProcess(pcb.getPid());
         //TODO: remove from VM
         return;
     }
@@ -90,10 +106,9 @@ public class ProcessManager {
     /*
     Allowed ProcessState changes
     NEW -> READY
-    NEW -> WAITING
 
     READY -> RUNNING
-    READY -> WAITING
+    READY -> WAITING - maybe not allowed
 
     WAITING -> READY
 
@@ -121,11 +136,9 @@ public class ProcessManager {
                 _pcb.setPs(_ps);
             }
         } else if(_ps==ProcessState.WAITING) {
-            if(_pcb.getPs()==ProcessState.RUNNING||_pcb.getPs()==ProcessState.READY) {
+            if(_pcb.getPs()==ProcessState.RUNNING||_pcb.getPs()==ProcessState.READY) { //TODO: READY->WAITING?
                 //TODO: remove from ready RUNNING->WAITING?
                 readyProcesses.remove(_pcb);
-                _pcb.setPs(_ps);
-            } else if(_pcb.getPs()==ProcessState.NEW) {
                 _pcb.setPs(_ps);
             }
         }
@@ -156,8 +169,10 @@ public class ProcessManager {
     public static void KM_getReadyProcessListPrint() {
         System.out.print("Ready Process List:\n");
         System.out.format("%-3s %-16s %-16s %-2s %-2s\n", "PID", "ProName", "FileName", "PS", "PD");
-        for(PCB _p  : readyProcesses) {
-            System.out.format("%-3d %-16s %-16s %-2d %-2d\n", _p.getPid(), _p.getPn(), _p.getFilename(), _p.getPriS(), _p.getPriD());
+        for(PCB _p  : activeProcesses) {
+            if(_p.getPs()==ProcessState.READY) {
+                System.out.format("%-3d %-16s %-16s %-2d %-2d\n", _p.getPid(), _p.getPn(), _p.getFilename(), _p.getPriS(), _p.getPriD());
+            }
         }
         return;
     }
@@ -167,7 +182,14 @@ public class ProcessManager {
     }
 
     public static List<PCB> KM_getReadyProcessList() {
-        return readyProcesses;
+        //return readyProcesses; //too simple
+        List<PCB> readyProc = new ArrayList<PCB>();
+        for (PCB _p : activeProcesses) {
+            if(_p.getPs()==ProcessState.READY) {
+                readyProc.add(_p);
+            }
+        }
+        return readyProc;
     }
 
     //TODO: Useless
