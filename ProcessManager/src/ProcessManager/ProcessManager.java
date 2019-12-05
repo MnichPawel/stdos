@@ -47,7 +47,7 @@ public class ProcessManager {
         if(true) {//TODO: File exist?
             //TODO: add somewhere loading to virtual memory
             int _pl = 1; //TODO: Program length
-            PCB pcb1 = new PCB(actPid, _filename, 0, _p, _pl);
+            PCB pcb1 = new PCB(actPid, _filename, _p);
             actPid++; //TODO: if actPid less than maxProcesses / Windows PID Management
             //activeProcesses.add(pcb1); //TODO: activeProcesses remove, just use CPU priorityList
 
@@ -72,8 +72,8 @@ public class ProcessManager {
         }
         if(true) {//TODO: File exist?
             //TODO: add somewhere loading to virtual memory
-            int _pl = 1; //TODO: Program length
-            PCB pcb1 = new PCB(actPid, _filename, _processname, 0, _p, _pl);
+            //int _pl = 1; //TODO: Program length - useless
+            PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
             actPid++; //TODO: if actPid less than maxProcesses / Windows PID Management
             //activeProcesses.add(pcb1); //TODO: activeProcesses remove, just use CPU priorityList
             cpu.MM_add_ready(pcb1);
@@ -145,11 +145,14 @@ public class ProcessManager {
         return;
     }
 
+    //useless, CPU don't change it, CPU change only dynamic priority
+    /*
     @Deprecated
     public static void KM_setProcessStaticPriority(PCB _pcb, int p) { //TODO: useless, CPU don't change it, CPU change only dynamic priority
         _pcb.setPriS(p);
         return;
     }
+     */
 
     public static void KM_setProcessDynamicPriority (PCB _pcb, int p) {
         _pcb.setPriD(p);

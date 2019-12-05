@@ -10,7 +10,7 @@ public class PCB {
     private int priS; //Static priority
     private ProcessState ps; //ProcessState
     private int wt; //Waiting time
-    private int pl; //Program length
+    //private int pl; //Program length TODO: useless
     private int PC; //Program Counter ?
     private int ax,bx,cx,dx; //Registry
 
@@ -23,7 +23,7 @@ public class PCB {
         this.priS = 0;
         this.ps = ProcessState.NEW;
         this.wt = 0;
-        this.pl = 0;
+        //this.pl = 0;
         this.PC = 0;
         this.ax = 0;
         this.bx = 0;
@@ -32,15 +32,15 @@ public class PCB {
     }
 
     @Deprecated
-    public PCB(int pid, String filename, int priD, int priS, int pl) {
+    public PCB(int pid, String filename, int priS) {
         this.pid = pid;
         this.filename = filename;
         this.pn = filename;
-        this.priD = priD;
+        this.priD = priS; //At start -> priorityDynamic = priorityStatic
         this.priS = priS;
         this.ps = ProcessState.NEW;
         this.wt = 0;
-        this.pl = pl;
+        //this.pl = pl;
         this.PC = 0;
         this.ax = 0;
         this.bx = 0;
@@ -48,15 +48,15 @@ public class PCB {
         this.dx = 0;
     }
 
-    public PCB(int pid, String filename, String pn, int priD, int priS, int pl) {
+    public PCB(int pid, String filename, String pn, int priS) {
         this.pid = pid;
         this.filename = filename;
         this.pn = pn;
-        this.priD = priD;
+        this.priD = priS; //At start -> priorityDynamic = priorityStatic
         this.priS = priS;
         this.ps = ProcessState.NEW;
         this.wt = 0;
-        this.pl = pl;
+        //this.pl = pl;
         this.PC = 0;
         this.ax = 0;
         this.bx = 0;
@@ -76,9 +76,12 @@ public class PCB {
         return pid;
     }
 
+    //useless, no one change PID
+    /*
     public void setPid(int pid) {
         this.pid = pid;
     }
+     */
 
     public String getFilename() {
         return filename;
@@ -88,13 +91,17 @@ public class PCB {
         this.filename = filename;
     }
 
+    /*
     public int getPl() {
         return pl;
     }
+    */
 
+    /*
     public void setPl(int pl) {
         this.pl = pl;
     }
+    */
 
     public int getPC() {
         return PC;
@@ -146,9 +153,12 @@ public class PCB {
         return priS;
     }
 
+    //Useless, noone change static priority
+    /*
     public void setPriS(int priS) {
         this.priS = priS;
     }
+    */
 
     public ProcessState getPs() {
         return ps;
