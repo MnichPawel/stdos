@@ -1,3 +1,4 @@
+package CPU;
 import java.util.ArrayDeque;
 
 public class semafor {

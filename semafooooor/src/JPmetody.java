@@ -1,17 +1,14 @@
-
+package CPU;
 public class JPmetody {
     void wakeup(PCB p){
-        //tu tez to Kapcrowe
-        KM_setProcessState (p, ProcessState.READY)
-        MM_add_ready(p);
+        KM_setProcessState (p, ProcessState.READY);//zmiana stanu procesu na ready
+        MM_addReadyProcess(p);//dodanie procesu do listy kolejek priorytetowych
     }
     void block(PCB p){
-        //kapcer tutaj sobie prawda ugulem cale te. NO zeby tam zmienic
-        KM_setProcessState (p, ProcessState.WAITING)
-        MM_unreadyProcess(p.pid);
+        KM_setProcessState (p, ProcessState.WAITING);//zmiana stanu procesu na waiting
+        MM_unreadyProcess(p);//usuniecie procesu z listy kolejek priorytetowych
     }
     void signal(semafor S){
-
         S.wartosc+=1;
         if(S.wartosc>0) {
             PCB pom = S.kolejka.poll();
@@ -19,13 +16,14 @@ public class JPmetody {
         }
     }
     void wait(semafor S){
-        PCB pro=new PCB ;
         S.wartosc-=1;
         if(S.wartosc<=0) {
-            block(pro);
-             S.kolejka.offer(pro);
-
+            block(RUNNING);
+             S.kolejka.offer(RUNNING);
         }
+    }
+    int JPwypisz(semafor S){ //wypisanie wartosci semafora
+        return S.wartosc;
     }
     public static int main(){
 
