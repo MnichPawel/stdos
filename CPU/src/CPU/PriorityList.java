@@ -1,51 +1,61 @@
 package CPU;
 
-import Processes.*;
+import ProcessManager.*;
+import static ProcessManager.ProcessManager.*;
 
 import java.util.*;
 
 public class PriorityList {
 
-    private List<Queue<PCB>> priorityList = new ArrayList<>(15);
-    private List<Boolean> boolPriorityList = new ArrayList<>(15);
+    private static final int NOP = 15; //Number of Priorities
+
+    private ArrayList<PCB>[] priorityList = new ArrayList[NOP];
+    private Boolean[] boolPriorityList = new Boolean[NOP];
 
   /*------------------------------------------------------------------------*/
  /*---------Public functions-----------------------------------------------*/
 /*------------------------------------------------------------------------*/
     public PriorityList() {
-        for(int i=0; i<15; i++){
-            priorityList.add(new LinkedList<>());
+        for(int i=0; i<NOP; i++){
+            priorityList[i] = new ArrayList<PCB>();
         }
     }
 
-    public void updateBoolean(){
-        for(int i=0; i<15; i++){
-            if(priorityList.get(i).isEmpty()) boolPriorityList.set(i,false);
-            else boolPriorityList.set(i,true);
-        }
-    }
+
 
     public PCB getHighestPriority(){
-        for(int i = 0; i < 15; i++)
-            if(!this.boolPriorityList.get(i))
-                return this.priorityList.get(i).poll();
+        for(int i = 0; i < NOP; i++)
+            if(!this.boolPriorityList[i])
+                return this.priorityList[i].remove(0);
         return null;
     }
 
     public void addProcess(PCB p1){
-        priorityList.get(p1.getPriS()).add(p1);
+        priorityList[p1.getPriS()].add(p1);
+        updateBoolean();
     }
 
-    public void deleteProcess(int pid){}
+    public void deleteProcess(int pid){
+        for(int i = 0; i < NOP; i++){
+            for(int j = 0; j < priorityList[i].size(); j++){
+                if(priorityList[i].get(j).getPid() == pid){
+                    priorityList[i].remove(j);
+                    updateBoolean();
+                    return;
+                }
+            }
+        }
+    }
 
     public void updateDynamicPriority(){
         int tmp;
-        for (int i = 0; i < 15; i++){
-            for(PCB e: priorityList.get(i)){
-                e.setWt(e.getWt()+1);
+        for (int i = 0; i < NOP; i++){
+            for(PCB e: priorityList[i]){
+                e.setWt(e.getWt() + 1);
                 tmp = e.getPriS() + e.getWt() - e.getPC();
                 if(tmp > 15) tmp = 15;
-                if(tmp < 1) tmp = 1;
+                else if(tmp < 1) tmp = 1;
+                else if(tmp < e.getPriS()) tmp = e.getPriS();
                 e.setPriD(tmp);
             }
         }
@@ -54,13 +64,11 @@ public class PriorityList {
     }
 
     public void displayQueues(){
-        PCB tmp;
-        for(int i = 0; i < 15; i++){
+        System.out.println("Priority Queues:");
+        for(int i = 0; i < NOP; i++){
             System.out.print((i+1) + ": ");
-            for(int j = 0; j < priorityList.get(i).size(); j++){
-                tmp = priorityList.get(i).poll();
-                System.out.print("[ " + tmp.getPid() + " " + tmp.getPn() + " ] ");
-                priorityList.get(i).add(tmp);
+            for(int j = 0; j < priorityList[i].size(); j++){
+                System.out.print("[ " + priorityList[i].get(j).getPid() + " " + priorityList[i].get(j).getPn() + " ] ");
             }
             System.out.print("\n");
         }
@@ -71,10 +79,28 @@ public class PriorityList {
 /*------------------------------------------------------------------------*/
 
     private void cleanUpPriority(){
-        priorityList.get(14).addAll(priorityList.get(13));
+        priorityList[14].addAll(priorityList[13]);
         for(int i = 13; i > 0; i--){
-            priorityList.set(i, priorityList.get(i-1));
+            priorityList[i] = priorityList[i-1];
         }
-        priorityList.set(0, null);
+        priorityList[0].clear();
+    }
+
+    public void printObjectID(){
+        System.out.println("Priority Queues:");
+        for(int i = 0; i < NOP; i++){
+            System.out.print((i+1) + ": ");
+            for(int j = 0; j < priorityList[i].size(); j++){
+                System.out.print(priorityList[i].get(j).toString());
+            }
+            System.out.print("\n");
+        }
+    }
+
+    private void updateBoolean(){
+        for(int i=0; i<NOP; i++){
+            if(priorityList[i].isEmpty()) boolPriorityList[i] = false;
+            else boolPriorityList[i] = true;
+        }
     }
 }
