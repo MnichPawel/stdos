@@ -1,12 +1,16 @@
 package CPU;
 
+import ProcessManager.PCB;
+import ProcessManager.ProcessState;
+
 import java.util.List;
 
-import ProcessManager.*;
 import static ProcessManager.ProcessManager.KM_getReadyProcessList;
 import static ProcessManager.ProcessManager.KM_setProcessState;
 
 public class CPU {
+
+    private static final int TIME_QUANTUM = 1;
 
     public static PCB RUNNING;
     public static PCB ZEROPRIORITY;
@@ -24,7 +28,16 @@ public class CPU {
     }
 
     //TODO: metoda go()?, kontrola  assemblera, żeby nie wykonał za dużo rozkazów
+    public void MM_go(){
+        int executedOrders = 0;
 
+        MM_scheduler();
+
+        while(executedOrders < TIME_QUANTUM){
+            if(!KK_Interpret()) break;  //funkcja zwraca  0, gdy wykona ostatni rozkaz lub nie ma dalszych rozkazów
+            else executedOrders++;
+        }
+    }
 
     public void MM_scheduler(){
         PCB tmp;
@@ -36,10 +49,8 @@ public class CPU {
             KM_setProcessState(RUNNING, ProcessState.READY);
             //TODO: add previous RUNNING to priority list????
             KM_setProcessState(tmp, ProcessState.RUNNING);
-
+            RUNNING = tmp;
         }
-
-
     }
 
     //szuka procesu o najwyzszym priorytecie
@@ -55,11 +66,11 @@ public class CPU {
     //dodaje proces do listy gotowych procesow
     public void MM_addReadyProcess(PCB ready_process){    //for semafor usage
         priorityList.addProcess(ready_process);
-        KM_setProcessState(ready_process, ProcessState.READY);
+        KM_setProcessState(ready_process, ProcessState.READY); //TODO: useless, semafor do same thing
     }
 
     public void MM_unreadyProcess(PCB pcb){         //for semafor usage
-        KM_setProcessState(pcb, ProcessState.WAITING);
+        KM_setProcessState(pcb, ProcessState.WAITING); //TODO: useless, semafor do same thing
         priorityList.deleteProcess(pcb.getPid());
     }
 
