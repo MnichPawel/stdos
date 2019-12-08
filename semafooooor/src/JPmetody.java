@@ -22,8 +22,19 @@ public class JPmetody {
              S.kolejka.offer(RUNNING);
         }
     }
-    int JPwypisz(semafor S){ //wypisanie wartosci semafora
+    /*int JPwypisz(semafor S){ //wypisanie wartosci semafora
         return S.wartosc;
+    }*/
+    int JPwypisz(semafor S){ //wypisanie wartosci semafora
+       System.out.println(S.wartosc);
+    }
+    int JPwypiszKolejke(semafor S){ //wypisanie wartosci semafora
+        Deque<PCB> pom = S.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
+        PCB pompcb;
+        for(int i=0; i<pom.size();i++){
+            pompcb=pom.pollFirst();
+            System.out.println(pompcb.pid,pompcb.pn);
+        }
     }
     public static int main(){
 
