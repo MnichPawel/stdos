@@ -2,59 +2,63 @@ import java.util.Random;
 
 class Help {
     static void help() {
-
+        System.out.println("  -------------------------------------HELP------------------------------------------------");
         /*interfejs*/
-        System.out.println("  exit                                - konczy dzialanie systemu");
-        System.out.println("  help                                - wyswietla pomoc");
+        System.out.println("  exit                                  - konczy dzialanie systemu");
+        System.out.println("  help                                  - wyswietla pomoc");
         /*interfejs*/
 
         /* pamięc ram*/
         //nie korzysta z żadnego innego modułu*/
-
-        System.out.println("  ram_disp_hex                        - wypisuje zawartość ramu w zapisie heksadecymalnym");
-        System.out.println("  ram_disp_part                       - wypisuje podzial pamieci ram");
+        System.out.println("  -------------------------------------PAMIĘĆ RAM-------------------------------------------");
+        System.out.println("  ram_hex                              - wypisuje zawartość ramu w zapisie heksadecymalnym");
+        System.out.println("  ram_part                             - wypisuje podzial pamieci ram");
         /* pamięc ram*/
 
         /* pamięc wirtualna*/
         //korzysta z pamięci fizycznej i operacyjnej
-
-        System.out.println("  vm_ret nazwa_procesu                - zwraca instrukcje dla procesu z pamięci operacyjnej lub fizycznej");
-        System.out.println("  vm_erase                            - czysci segmenty pamieci wirtualnej");
-        System.out.println("  vm_disp                             - wyswietla aktualna zawartosc pamieci wirtualnej");
+        System.out.println("  -------------------------------------PAMIĘĆ WIRTUALNA--------------------------------------");
+        System.out.println("  ret [nazwa_procesu]                   - zwraca instrukcje dla procesu z pamięci operacyjnej");
+        System.out.println("  erasevm                               - czysci segmenty pamieci wirtualnej");
+        System.out.println("  dvm                                   - wyswietla aktualna zawartosc pamieci wirtualnej");
         /* pamięc wirtualna*/
-
+        System.out.println("  -------------------------------------SEMAFOR----------------------------------------------");
         /* semafor: tablica procesów i procesor*/
-        System.out.println("  semafor_disp nazwa_pliku            - wyswietla obecny stan semafora");
-        System.out.println("  semafor_disp_q                      - wyswietla kolejke semafora");
+        System.out.println("  semstate [nazwa_pliku]                - wyswietla obecny stan semafora");
+        System.out.println("  queue                                 - wyswietla kolejke semafora");
 
         /* semafor*/
 
+        System.out.println("  -------------------------------------PROCESOR---------------------------------------------");
         /* zarządzanie procesami: semafor, pamiec ram, pamiec wirtualna*/
-        System.out.println("  cp nazwa_pliku priorytet            - tworzenie procesu");
-        System.out.println("  kill nazwa procesu                  - zakonczenie dzialania danego procesu");
-        System.out.println("  pr_disp                             - wyswietla liste wszystkich procesow");
+        System.out.println("  taskcreate [nazwa_pliku] {priorytet}  - tworzenie procesu");
+        System.out.println("  kill [nazwa_procesu]                  - zakonczenie dzialania danego procesu");
+        System.out.println("  tasklist                              - wyswietla liste wszystkich procesow");
+
 
         /* zarządzanie procesami*/
 
 
         /* procesor : korzysta z zarzadzania procesami*/
-        System.out.println("  pr_disp_executing                   - wyswietla wykonywany proces");
-        System.out.println("  pr_disp_rdy                         - wyswietla listę gotowych procesow i ich chwilowy priorytet");
+        System.out.println("  task_exec                             - wyswietla wykonywany proces");
+        System.out.println("  rdy_tasklist                          - wyswietla listę gotowych procesow i ich chwilowy priorytet");
         /* procesor*/
-
+        System.out.println("  -------------------------------------PLIKI I KATALOGI--------------------------------------");
         /*zarządzanie plikami i katalogami*/
-        System.out.println("  fc nazwa rozmiar(w bajtach)         - utworzenie pliku");
-        System.out.println("  f_disp nazwa                        - pobranie zawartosci pliku");
-        System.out.println("  f_disp_all                          - wyswietla wszystkie pliki");
-        System.out.println("  f_rem nazwa                         - usuniecie pliku");
-        System.out.println("  cc nazwa                            - utworzenie katalogu");
-        System.out.println("  c_rem nazwa                         - usuniecie katalogu ze wszystkimi plikami, ktore sie w nim znajduja");
-        System.out.println("  move nazwa_pliku nazwa_katalogu     - przeniesienie pliku do katalogu");
+        System.out.println("  mkfile [nazwa_pliku]                  - utworzenie pliku");
+        System.out.println("  opnfile [nazwa_pliku]                 - pobranie zawartosci pliku");
+        System.out.println("  dir                                   - wyswietla wszystkie pliki");
+        System.out.println("  erase [nazwa_pliku]                   - usuniecie pliku");
+        System.out.println("  mkdir [nazwa_katalogu]                - utworzenie katalogu");
+        System.out.println("  rmdir [nazwa_katalogu]                - usuniecie katalogu ze wszystkimi plikami, ktore sie w nim znajduja");
+        System.out.println("  move [nazwa_pliku] [nazwa_katalogu]   - przeniesienie pliku do katalogu");
 
         /*zarządzanie plikami i katalogami*/
         /*interpreter*/
-        System.out.println("  inter_read                          - odczyt bajtow z kodem rozkazu");
-        System.out.println("  inter_disp                          - wyswietla stan rejestrow");
+        System.out.println("  ------------------------------------ASSEMBLER----------------------------------------------");
+        System.out.println("  step                                  - assembler praca krokowa");
+        System.out.println("  register                              - wyswietla stan rejestrow");
+
         /*interpreter*/
 
     }
