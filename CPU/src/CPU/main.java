@@ -2,28 +2,26 @@ package CPU;
 
 import java.util.LinkedList;
 import java.util.Queue;
-import Processes.*;
+import static ProcessManager.ProcessManager.*;
+import ProcessManager.*;
 
 public class main {
-    public static void main(String[] args){
-        Queue<PCB> q1 = new LinkedList<>();
-        PCB p1 = new PCB(0,"p1",0,15,10);
-        PCB p2 = new PCB(1,"p2",0,15,10);
-        PCB p3 = new PCB(2,"p3",0,15,10);
-        PCB tmp;
-        q1.add(p1);
-        q1.add(p2);
-        q1.add(p3);
-        for(int j = 0; j < q1.size(); j++){
-            tmp = q1.poll();
-            System.out.print("[ " + tmp.getPid() + tmp.getPn() + " ] ");
-            q1.add(tmp);
+    public static void main(String[] args) {
+        ProcessManager pm = new ProcessManager();
+        ProcessManager.KM_getAllProcessListPrint();
+        try {
+            ProcessManager.KM_CreateProcess("SOC", "p2", 3);
+            ProcessManager.KM_CreateProcess("SOCCOS", "p3");
+
+        } catch (Exception e) {
+            System.out.println(e);
         }
-        System.out.print("\n");
-        for(int j = 0; j < q1.size(); j++){
-            tmp = q1.poll();
-            System.out.print("[ " + tmp.getPid() + tmp.getPn() + " ] ");
-            q1.add(tmp);
-        }
+        ProcessManager.KM_getAllProcessListPrint();
+        ProcessManager.KM_setProcessState(ProcessManager.KM_getPCBbyPID(1), ProcessState.READY);
+        ProcessManager.KM_setProcessState(ProcessManager.KM_getPCBbyPID(1), ProcessState.RUNNING);
+        ProcessManager.KM_setProcessState(ProcessManager.KM_getPCBbyPID(2), ProcessState.WAITING);
+        ProcessManager.KM_getAllProcessListPrint();
+        ProcessManager.KM_getReadyProcessListPrint();
+        CPU cpu = new CPU();
     }
 }

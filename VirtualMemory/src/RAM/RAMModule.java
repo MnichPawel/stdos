@@ -3,138 +3,8 @@ package RAM;
 import java.util.Arrays;
 import java.util.Stack;
 
-class Node{
-    private static int minimal_size = 4;
-
-    private boolean reserved = false;
-    private boolean divided = false;
-
-    public int size;
-    public int start;
-
-    public Node left_node;
-    public Node right_node;
-
-    public Node(int _size, int _start){
-        size = _size;
-        start = _start;
-    }
-
-    public boolean is_divided(){
-        return divided;
-    }
-
-    public void divide(){
-        left_node = new Node(size / 2, start);
-        right_node = new Node(size / 2, start + size / 2);
-        divided = true;
-    }
-
-    public void merge(){
-        left_node = null;
-        right_node = null;
-        divided = false;
-    }
-
-    public void reserve(){ reserved = true; }
-    public void free(){ reserved = false; }
-    public boolean is_reserved(){ return reserved; }
-
-    int find_free_place(int searched_size){
-        if(is_reserved()){
-            return -1;
-        }
-
-        if(size < searched_size){
-            return -1;
-        }
-
-        if(size < searched_size * 2 || size == minimal_size){
-            if(divided) {
-                return -1;
-            }
-
-            reserve();
-            return start;
-        } else {
-            if(!divided){
-                divide();
-            }
-
-            int found_left_node = left_node.find_free_place(searched_size);
-            if(found_left_node != -1){
-                return found_left_node;
-            }
-
-            int found_right_node = right_node.find_free_place(searched_size);
-            if(found_right_node != -1){
-                return found_right_node;
-            }
-        }
-
-        return -1;
-    }
-
-    void free_place(int address){
-        if(divided){
-            if(address >= right_node.start){
-                right_node.free_place(address);
-            } else {
-                left_node.free_place(address);
-            }
-        } else {
-            if (address == start) {
-                free();
-                return;
-            }
-        }
-
-
-        if(divided){
-            if(!right_node.is_reserved() && !left_node.is_reserved() && !right_node.divided && !left_node.divided){
-                merge();
-            }
-        }
-    }
-
-    void print_division(){
-        if(!divided){
-            String status;
-            if(reserved){
-                status = "Zarezerwowany";
-            }else{
-                status = "Wolny";
-            }
-            System.out.println("Od: " + start + ", rozmiar: " + size + ", " + status);
-        }else{
-            left_node.print_division();
-            right_node.print_division();
-        }
-    }
-}
-
-class BinaryTree {
-    private Node main_node;
-
-    public BinaryTree(int size){
-        main_node = new Node(size, 0);
-    }
-
-    public int reserve_place_for_memory(int size){
-        return main_node.find_free_place(size);
-    }
-
-    public void free_place_from_memory(int address){
-        main_node.free_place(address);
-    }
-
-    public void print_division(){
-        main_node.print_division();
-    }
-}
-
 public class RAMModule {
-    public final static int RAM_SIZE = 128;
+    final int RAM_SIZE = 128;
     byte RAM[];
     BinaryTree binary_tree;
 
@@ -150,7 +20,7 @@ public class RAMModule {
     }
 
     /* rezerwuje pamiec zarezerwowana pod adresem */
-    void zwolnij_pamiec(int adres){
+    public void zwolnij_pamiec(int adres){
         binary_tree.free_place_from_memory(adres);
     }
 
@@ -159,7 +29,7 @@ public class RAMModule {
         RAM[adres] = wartosc;
     }
     void zapisz_bajt(byte wartosc, int adres_logiczny, int adres_fizyczny) { RAM[adres_logiczny + adres_fizyczny] = wartosc; }
-    void zapisz_bajty(byte[] wartosc, int adres){
+    public void zapisz_bajty(byte[] wartosc, int adres){
         for(int i = adres; i < wartosc.length + adres; ++i) {
             RAM[i] = wartosc[i - adres];
         }
@@ -172,10 +42,10 @@ public class RAMModule {
 
 
     /* zwraca wartość bajtu z podanego adresu */
-    byte odczytaj_bajt(int adres){
+    public byte odczytaj_bajt(int adres){
         return RAM[adres];
     }
-    byte odczytaj_bajt(int adres_logiczny, int adres_fizyczny) { return RAM[adres_logiczny + adres_fizyczny]; }
+    public byte odczytaj_bajt(int adres_logiczny, int adres_fizyczny) { return RAM[adres_logiczny + adres_fizyczny]; }
     byte[] odczytaj_bajty(int adres, int rozmiar){
         byte ret[] = new byte[rozmiar];
 
@@ -196,7 +66,7 @@ public class RAMModule {
     }
 
     /* wypisuje zawartość ramu */
-    void wypisz_pamiec(){
+    public void wypisz_pamiec(){
         for(int x = 0; x < RAM_SIZE; x += 16) {
             for (int i = 0; i < 16; ++i) {
                 System.out.print(String.format("%02X", RAM[i + x]) + " ");
@@ -206,7 +76,7 @@ public class RAMModule {
     }
 
     /* wypisuje podział */
-    void wypisz_podzial(){
+    public void wypisz_podzial(){
         binary_tree.print_division();
     }
 }
