@@ -29,10 +29,10 @@ public class JPmetody {
        System.out.println(S.wartosc);
     }
   public  void JPwypisz(plik P){ //wypisanie wartosci semafora
-        System.out.println(P.semafor.wartosc);
+        System.out.println(P.sem.wartosc);
     }
    public void JPwypiszKolejke(plik P){ //wypisanie wartosci semafora
-        Deque<PCB> pom = P.semafor.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
+        Deque<PCB> pom = P.sem.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
         PCB pompcb;
         for(int i=0; i<pom.size();i++){
             pompcb=pom.pollFirst();
