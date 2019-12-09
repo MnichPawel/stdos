@@ -1,21 +1,21 @@
 package CPU;
 public class JPmetody {
-    void wakeup(PCB p){
+    private void wakeup(PCB p){
         KM_setProcessState (p, ProcessState.READY);//zmiana stanu procesu na ready
         MM_addReadyProcess(p);//dodanie procesu do listy kolejek priorytetowych
     }
-    void block(PCB p){
+    private void block(PCB p){
         KM_setProcessState (p, ProcessState.WAITING);//zmiana stanu procesu na waiting
         MM_unreadyProcess(p);//usuniecie procesu z listy kolejek priorytetowych
     }
-    void signal(semafor S){
+   public void signal(semafor S){
         S.wartosc+=1;
         if(S.wartosc>0) {
             PCB pom = S.kolejka.poll();
             wakeup(pom);
         }
     }
-    void wait(semafor S){
+  public  void wait(semafor S){
         S.wartosc-=1;
         if(S.wartosc<=0) {
             block(RUNNING);
@@ -25,10 +25,21 @@ public class JPmetody {
     /*int JPwypisz(semafor S){ //wypisanie wartosci semafora
         return S.wartosc;
     }*/
-    int JPwypisz(semafor S){ //wypisanie wartosci semafora
+   public void JPwypiszOgolne(semafor S){ //wypisanie wartosci semafora zakladajaca ze semafory sa nie tylko w plikach
        System.out.println(S.wartosc);
     }
-    int JPwypiszKolejke(semafor S){ //wypisanie wartosci semafora
+  public  void JPwypisz(plik P){ //wypisanie wartosci semafora
+        System.out.println(P.sem.wartosc);
+    }
+   public void JPwypiszKolejke(plik P){ //wypisanie wartosci semafora
+        Deque<PCB> pom = P.sem.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
+        PCB pompcb;
+        for(int i=0; i<pom.size();i++){
+            pompcb=pom.pollFirst();
+            System.out.println(pompcb.pid,pompcb.pn);
+        }
+    }
+   public void JPwypiszKolejkeOgolne(semafor S){ //wypisanie wartosci semafora, wersja zakladajaca ze semafory sa nie tylko w plikach
         Deque<PCB> pom = S.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
         PCB pompcb;
         for(int i=0; i<pom.size();i++){
