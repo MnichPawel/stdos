@@ -3,9 +3,9 @@ import java.util.ArrayDeque;
 
 public class semafor {
 
-   public int wartosc=1;
-   public ArrayDeque<PBC> kolejka= new ArrayDeque<>();
-   public semafor(int war){
+    int wartosc=1;
+    ArrayDeque<PBC> kolejka= new ArrayDeque<>();
+    semafor(int war){
         wartosc = war;
     }
 

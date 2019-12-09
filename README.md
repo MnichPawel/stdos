@@ -10,6 +10,6 @@
 <li>
 <li>
 <li>
-<li>Assembler, Interpreter and two testing programs
+<li>
 <li>Text Interface
 </ul>
