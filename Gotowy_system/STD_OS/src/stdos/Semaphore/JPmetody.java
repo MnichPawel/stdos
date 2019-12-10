@@ -6,7 +6,8 @@ import stdos.Processes.ProcessState;
 import static stdos.CPU.CPU.*;
 import static stdos.CPU.CPU.MM_getRUNNING;
 import static stdos.Processes.ProcessManager.KM_setProcessState;
-
+import java.util.ArrayDeque;
+import java.util.Deque;
 public class JPmetody {
     private void wakeup(PCB p){
         KM_setProcessState (p, ProcessState.READY);//zmiana stanu procesu na ready
