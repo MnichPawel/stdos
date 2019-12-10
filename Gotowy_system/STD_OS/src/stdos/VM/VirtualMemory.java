@@ -1,6 +1,6 @@
-package VirtualMemory;
+package stdos.VM;
 
-import RAM.RAMModule;
+import stdos.RAM.RAMModule;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,7 +8,7 @@ import java.util.Vector;
 
 public class VirtualMemory {
     //obiekt pamięci RAM
-    static RAMModule RAM = new RAMModule();
+    //static RAMModule RAM = new RAMModule();
 
     //mapa pamieci wirtualnej Integer to PID, wektor oznacza identyfikatory segmentow w tablicy segmentow
     static Map<Integer, Vector<Integer>> VM = new HashMap<>();

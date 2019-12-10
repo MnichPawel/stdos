@@ -1,15 +1,15 @@
-package Interpreter;
+package stdos.Interpreter;
 
-import CPU.*;
-import ProcessManager.*;
-import VirtualMemory.*;
+import stdos.CPU.*;
+import stdos.Processes.*;
+import stdos.VM.*;
 
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Vector;
 
-import static CPU.CPU.MM_getRUNNING;
-import static VirtualMemory.VirtualMemory.get_value;
+import static stdos.CPU.CPU.MM_getRUNNING;
+import static stdos.VM.VirtualMemory.*;
 //TODO Byte Receiver from Virtual Memory Method //DONE
 //TODO Assembler Instruction Map //DONE
 //TODO getRegisters Method
@@ -212,11 +212,11 @@ public class Interpreter {
         }
     }
 
-    public static void KK_Interpret(){
+    public static boolean KK_Interpret(){
         getORDER();
         getARGUMENTS(arguments.get(Instruction.firstElement()));
         makeINSTRUCTION();
         pcb.setPC(address);
-
+        return true;
     }
 }

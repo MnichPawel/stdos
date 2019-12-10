@@ -7,6 +7,7 @@ import java.util.List;
 
 import static stdos.Processes.ProcessManager.KM_getReadyProcessList;
 import static stdos.Processes.ProcessManager.KM_setProcessState;
+import static stdos.Interpreter.Interpreter.*;
 
 public class CPU {
 
@@ -64,12 +65,12 @@ public class CPU {
     }
 
     //dodaje proces do listy gotowych procesow
-    public void MM_addReadyProcess(PCB ready_process){    //for semafor usage
+    public static void MM_addReadyProcess(PCB ready_process){    //for semafor usage
         priorityList.addProcess(ready_process);
         KM_setProcessState(ready_process, ProcessState.READY); //TODO: useless, semafor do same thing
     }
 
-    public void MM_unreadyProcess(PCB pcb){         //for semafor usage
+    public static  void MM_unreadyProcess(PCB pcb){         //for semafor usage
         KM_setProcessState(pcb, ProcessState.WAITING); //TODO: useless, semafor do same thing
         priorityList.deleteProcess(pcb.getPid());
     }

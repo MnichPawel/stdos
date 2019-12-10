@@ -1,3 +1,5 @@
+package stdos.Interface;
+
 import java.util.Scanner;
 
 class Input{

@@ -1,4 +1,12 @@
-package SEM;
+package stdos.Semaphore;
+
+import stdos.Processes.PCB;
+import stdos.Processes.ProcessState;
+
+import static stdos.CPU.CPU.*;
+import static stdos.CPU.CPU.MM_getRUNNING;
+import static stdos.Processes.ProcessManager.KM_setProcessState;
+
 public class JPmetody {
     private void wakeup(PCB p){
         KM_setProcessState (p, ProcessState.READY);//zmiana stanu procesu na ready
@@ -18,8 +26,8 @@ public class JPmetody {
   public  void wait(semafor S){
         S.wartosc-=1;
         if(S.wartosc<=0) {
-            block(RUNNING);
-             S.kolejka.offer(RUNNING);
+            block(MM_getRUNNING());
+             S.kolejka.offer(MM_getRUNNING());
         }
     }
     /*int JPwypisz(semafor S){ //wypisanie wartosci semafora

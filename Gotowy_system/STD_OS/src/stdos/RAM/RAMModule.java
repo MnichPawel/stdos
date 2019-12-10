@@ -1,3 +1,5 @@
+package stdos.RAM;
+
 import java.util.Arrays;
 import java.util.Stack;
 
@@ -136,7 +138,7 @@ public class RAMModule {
     byte RAM[];
     BinaryTree binary_tree;
 
-    RAMModule(){
+    public RAMModule(){
         RAM = new byte[RAM_SIZE];
         Arrays.fill(RAM, (byte)0);
         binary_tree = new BinaryTree(RAM_SIZE);

@@ -1,3 +1,5 @@
+package stdos.Interface;
+
 class SwitchInput {
 
         static boolean exitFlag = false;

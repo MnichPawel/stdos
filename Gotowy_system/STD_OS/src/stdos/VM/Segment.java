@@ -1,4 +1,4 @@
-package VirtualMemory;
+package stdos.VM;
 
 public class Segment {
     int beginAddress;
