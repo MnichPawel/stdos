@@ -3,6 +3,7 @@ package stdos.Processes;
 import java.util.ArrayList;
 import java.util.List;
 import stdos.CPU.*;
+import stdos.VM.VirtualMemory;
 
 /*
 FROM CPU
@@ -37,27 +38,6 @@ public class ProcessManager {
         return;
     }
 
-    @Deprecated
-    public static void KM_CreateProcess (String _filename, int _p) throws Exception {
-        if(_filename.equals(idleProcessFilename)) {
-            if(_p!=0) throw new Exception("KM_CreateProcess:idleProcessPriorityMustBeZero");
-        } else {
-            if(_p==0) throw new Exception("KM_CreateProcess:notIdleProcessPriorityMustBeGreaterThanZero");
-        }
-        if(true) {//TODO: File exist?
-            //TODO: add somewhere loading to virtual memory
-            int _pl = 1; //TODO: Program length
-            PCB pcb1 = new PCB(actPid, _filename, _p);
-            actPid++; //TODO: if actPid less than maxProcesses / Windows PID Management
-            //activeProcesses.add(pcb1); //TODO: activeProcesses remove, just use CPU priorityList
-
-            if(_filename.equals(idleProcessFilename)) { pcb1.setPs(ProcessState.READY); readyProcesses.add(pcb1); }
-        } else {
-            throw new Exception("KM_CreateProcess:FileNotExist");
-        }
-        return;
-    }
-
     public static void KM_CreateProcess (String _filename, String _processname, int _p) throws Exception {
         if(_filename.trim().equals("")) { //Check if filename is not ""
             throw new Exception("KM_CreateProcess:fileNameMustNotBeNull");
@@ -70,12 +50,17 @@ public class ProcessManager {
         } else {
             if(_p==0) throw new Exception("KM_CreateProcess:notIdleProcessPriorityMustBeGreaterThanZero");
         }
+        if(_p<1&&_p>15&&(!_filename.equals(idleProcessFilename))) {
+            throw new Exception("KM_CreateProcess:"); //TODO:!!!
+        }
         if(true) {//TODO: File exist?
             //TODO: add somewhere loading to virtual memory
+            VirtualMemory.load_to_virtualmemory(actPid, ""); //TODO: program data
             //int _pl = 1; //TODO: Program length - useless
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
             actPid++; //TODO: if actPid less than maxProcesses / Windows PID Management
-            //activeProcesses.add(pcb1); //TODO: activeProcesses remove, just use CPU priorityList
+            activeProcesses.add(pcb1); //TODO: readyProcesses remove, just use CPU priorityList
+            readyProcesses.add(pcb1);
             CPU.MM_addReadyProcess(pcb1);
             if(_filename.equals(idleProcessFilename)) { pcb1.setPs(ProcessState.READY); readyProcesses.add(pcb1); }
         } else {
@@ -97,8 +82,9 @@ public class ProcessManager {
             return;
         }
         activeProcesses.remove(pcb);
-        //readyProcesses.remove(pcb); //TODO: activeProcesses remove, just use CPU priorityList
+        readyProcesses.remove(pcb); //TODO: activeProcesses remove, just use CPU priorityList
         CPU.MM_unreadyProcess(pcb);
+        VirtualMemory.remove_from_virtualmemory(pcb.getPid());
         //TODO: remove from VM
         return;
     }
@@ -144,15 +130,6 @@ public class ProcessManager {
         }
         return;
     }
-
-    //useless, CPU don't change it, CPU change only dynamic priority
-    /*
-    @Deprecated
-    public static void KM_setProcessStaticPriority(PCB _pcb, int p) { //TODO: useless, CPU don't change it, CPU change only dynamic priority
-        _pcb.setPriS(p);
-        return;
-    }
-     */
 
     public static void KM_setProcessDynamicPriority (PCB _pcb, int p) {
         _pcb.setPriD(p);

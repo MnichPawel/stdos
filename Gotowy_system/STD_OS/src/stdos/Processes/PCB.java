@@ -66,7 +66,9 @@ public class PCB {
 
     public String getPn() { return pn; }
 
+    /*
     public void setPn(String pn) { this.pn = pn; }
+    */
 
     public int getWt() { return wt; }
 
@@ -87,9 +89,11 @@ public class PCB {
         return filename;
     }
 
+    /*
     public void setFilename(String filename) {
         this.filename = filename;
     }
+    */
 
     /*
     public int getPl() {
