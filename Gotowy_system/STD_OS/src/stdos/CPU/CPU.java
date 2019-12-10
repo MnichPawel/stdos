@@ -1,6 +1,7 @@
 package stdos.CPU;
 
 import stdos.Processes.PCB;
+import stdos.Processes.ProcessManager;
 import stdos.Processes.ProcessState;
 
 import java.util.List;
@@ -10,8 +11,6 @@ import static stdos.Processes.ProcessManager.KM_setProcessState;
 import static stdos.Interpreter.Interpreter.*;
 
 public class CPU {
-
-    private static final int TIME_QUANTUM = 1;
 
     public static PCB RUNNING;
     public static PCB ZEROPRIORITY;
@@ -28,34 +27,45 @@ public class CPU {
         }
     }
 
-    //TODO: metoda go()?, kontrola  assemblera, żeby nie wykonał za dużo rozkazów
-    public void MM_go(){
-        int executedOrders = 0;
+    public static void MM_go(){
 
         MM_scheduler();
 
-        while(executedOrders < TIME_QUANTUM){
-            if(!KK_Interpret()) break;  //funkcja zwraca  0, gdy wykona ostatni rozkaz lub nie ma dalszych rozkazów
-            else executedOrders++;
+        if(!KK_Interpret()){//funkcja zwraca  0, gdy wykona ostatni rozkaz lub nie ma dalszych rozkazów
+            //TODO: delete running process
+            ProcessManager.KM_TerminateProcess(RUNNING);
         }
+        /*else{
+            //TODO: change state from running to ready? ? ? ? ? [?](?){?}??????? ? ? ? ? ? ? ?? ?? ? ?? ? - nie bo refresh potem jest
+            ProcessManager.KM_setProcessState(RUNNING, ProcessState.READY);
+        }*/
+        MM_refreshPriority();
+
     }
 
-    public void MM_scheduler(){
+    public static void MM_scheduler(){
         PCB tmp;
-        MM_refreshPriority();
 
         tmp = MM_findReady();
 
-        if(tmp.getPriS() > RUNNING.getPriS()){
-            KM_setProcessState(RUNNING, ProcessState.READY);
-            //TODO: add previous RUNNING to priority list????
-            KM_setProcessState(tmp, ProcessState.RUNNING);
+        if(RUNNING == null){
             RUNNING = tmp;
+            ProcessManager.KM_setProcessState(RUNNING, ProcessState.RUNNING);
+        }
+        else {
+            if (tmp.getPriS() > RUNNING.getPriS()) {
+                KM_setProcessState(RUNNING, ProcessState.READY);
+                KM_setProcessState(tmp, ProcessState.RUNNING);
+                RUNNING = tmp;
+            }
+            else{
+
+            }
         }
     }
 
     //szuka procesu o najwyzszym priorytecie
-    public PCB MM_findReady(){
+    public static PCB MM_findReady(){
         PCB tmp;
         tmp = priorityList.getHighestPriority();
         if(tmp != null) {
@@ -65,19 +75,20 @@ public class CPU {
     }
 
     //dodaje proces do listy gotowych procesow
-    public static void MM_addReadyProcess(PCB ready_process){    //for semafor usage
+    public static void MM_addReadyProcess(PCB ready_process){
         priorityList.addProcess(ready_process);
-        KM_setProcessState(ready_process, ProcessState.READY); //TODO: useless, semafor do same thing
     }
 
-    public static  void MM_unreadyProcess(PCB pcb){         //for semafor usage
-        KM_setProcessState(pcb, ProcessState.WAITING); //TODO: useless, semafor do same thing
+    public static  void MM_unreadyProcess(PCB pcb){
         priorityList.deleteProcess(pcb.getPid());
     }
 
     //aktualizuje priorytet chwilowy
-    public void MM_refreshPriority(){
+    public static void MM_refreshPriority(){
         priorityList.updateDynamicPriority();
+        if(RUNNING != ZEROPRIORITY){
+            if(RUNNING.getPriD() > RUNNING.getPriS()) RUNNING.setPriD(RUNNING.getPriD()-1);
+        }
     }
 
 /* -----------------STEP MODE---------------------------------------------------------------------*/

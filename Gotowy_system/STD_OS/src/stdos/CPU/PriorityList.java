@@ -22,16 +22,17 @@ public class PriorityList {
     }
 
 
-
+    /*Iterates from top to bottom. If it finds not empty queue, returns first element*/
     public PCB getHighestPriority(){
-        for(int i = 0; i < NOP; i++)
-            if(!this.boolPriorityList[i])
-                return this.priorityList[i].remove(0);
+        for(int i = NOP; i > -1; i--)
+            if(this.boolPriorityList[i])
+                return this.priorityList[i].get(0);
         return null;
     }
 
+
     public void addProcess(PCB p1){
-        priorityList[p1.getPriS()].add(p1);
+        priorityList[p1.getPriD()].add(p1);
         updateBoolean();
     }
 
@@ -47,12 +48,12 @@ public class PriorityList {
         }
     }
 
-    public void updateDynamicPriority(){
+    public void updateDynamicPriority(){//TODO: PC don't work dat way
         int tmp;
         for (int i = 0; i < NOP; i++){
             for(PCB e: priorityList[i]){
                 e.setWt(e.getWt() + 1);
-                tmp = e.getPriS() + e.getWt() - e.getPC();
+                tmp = e.getPriD() + 1;
                 if(tmp > 15) tmp = 15;
                 else if(tmp < 1) tmp = 1;
                 else if(tmp < e.getPriS()) tmp = e.getPriS();
@@ -79,11 +80,13 @@ public class PriorityList {
 /*------------------------------------------------------------------------*/
 
     private void cleanUpPriority(){
-        priorityList[14].addAll(priorityList[13]);
-        for(int i = 13; i > 0; i--){
-            priorityList[i] = priorityList[i-1];
+        for(int i = 0; i < NOP; i++){
+            for(int j = (priorityList[i].size() - 1); j > -1; j--){ //bo jak usune element to sie przesuną do poczatku listy
+                if(priorityList[i].get(j).getPriD() != i+1){
+                    priorityList[priorityList[i].get(j).getPriD()].add(priorityList[i].remove(j));
+                }
+            }
         }
-        priorityList[0].clear();
     }
 
     public void printObjectID(){
