@@ -50,8 +50,12 @@ public class ProcessManager {
         } else {
             if(_p==0) throw new Exception("KM_CreateProcess:notIdleProcessPriorityMustBeGreaterThanZero");
         }
-        if(_p<1&&_p>15&&(!_filename.equals(idleProcessFilename))) {
-            throw new Exception("KM_CreateProcess:"); //TODO:!!!
+        if(_p<1&&_p>15) {
+            if(_p==0&&(_filename.equals(idleProcessFilename))) {
+                //null
+            } else {
+                throw new Exception("KM_CreateProcess:");
+            }
         }
         if(true) {//TODO: File exist?
             //TODO: add somewhere loading to virtual memory
