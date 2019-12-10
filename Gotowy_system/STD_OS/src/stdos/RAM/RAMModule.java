@@ -134,9 +134,9 @@ class BinaryTree {
 }
 
 public class RAMModule {
-    final int RAM_SIZE = 128;
-    byte RAM[];
-    BinaryTree binary_tree;
+    static final int RAM_SIZE = 128;
+    static byte[] RAM;
+    static BinaryTree binary_tree;
 
     public RAMModule(){
         RAM = new byte[RAM_SIZE];
@@ -145,12 +145,12 @@ public class RAMModule {
     }
 
     /* rezerwuje i zwraca adres w którym zaczyna się blok przydzielonej pamięci*/
-    int zarezerwuj_pamiec(int rozmiar){
+    public static int zarezerwuj_pamiec(int rozmiar){
         return binary_tree.reserve_place_for_memory(rozmiar);
     }
 
     /* rezerwuje pamiec zarezerwowana pod adresem */
-    void zwolnij_pamiec(int adres){
+    public static void zwolnij_pamiec(int adres){
         binary_tree.free_place_from_memory(adres);
     }
 
@@ -159,12 +159,12 @@ public class RAMModule {
         RAM[adres] = wartosc;
     }
     void zapisz_bajt(byte wartosc, int adres_logiczny, int adres_fizyczny) { RAM[adres_logiczny + adres_fizyczny] = wartosc; }
-    void zapisz_bajty(byte[] wartosc, int adres){
+    public static void zapisz_bajty(byte[] wartosc, int adres){
         for(int i = adres; i < wartosc.length + adres; ++i) {
             RAM[i] = wartosc[i - adres];
         }
     }
-    void zapisz_bajty(byte[] wartosc, int adres_logiczny, int adres_fizyczny) {
+    public static void zapisz_bajty(byte[] wartosc, int adres_logiczny, int adres_fizyczny) {
         for(int i = adres_fizyczny + adres_logiczny; i < wartosc.length + adres_fizyczny + adres_logiczny; ++i) {
             RAM[i] = wartosc[i - (adres_fizyczny + adres_logiczny)];
         }
@@ -175,8 +175,8 @@ public class RAMModule {
     byte odczytaj_bajt(int adres){
         return RAM[adres];
     }
-    byte odczytaj_bajt(int adres_logiczny, int adres_fizyczny) { return RAM[adres_logiczny + adres_fizyczny]; }
-    byte[] odczytaj_bajty(int adres, int rozmiar){
+    public static byte odczytaj_bajt(int adres_logiczny, int adres_fizyczny) { return RAM[adres_logiczny + adres_fizyczny]; }
+    public byte[] odczytaj_bajty(int adres, int rozmiar){
         byte ret[] = new byte[rozmiar];
 
         for(int i = 0; i < rozmiar; ++i){
@@ -185,7 +185,7 @@ public class RAMModule {
 
         return ret;
     }
-    byte[] odczytaj_bajty(int adres_logiczny, int adres_fizyczny, int rozmiar) {
+    public static byte[] odczytaj_bajty(int adres_logiczny, int adres_fizyczny, int rozmiar) {
         byte ret[] = new byte[rozmiar];
 
         for(int i = 0; i < rozmiar; ++i){
@@ -196,7 +196,7 @@ public class RAMModule {
     }
 
     /* wypisuje zawartość ramu */
-    void wypisz_pamiec(){
+    public static void wypisz_pamiec(){
         for(int x = 0; x < RAM_SIZE; x += 16) {
             for (int i = 0; i < 16; ++i) {
                 System.out.print(String.format("%02X", RAM[i + x]) + " ");
@@ -206,7 +206,7 @@ public class RAMModule {
     }
 
     /* wypisuje podział */
-    void wypisz_podzial(){
+    public static void wypisz_podzial(){
         binary_tree.print_division();
     }
 }
