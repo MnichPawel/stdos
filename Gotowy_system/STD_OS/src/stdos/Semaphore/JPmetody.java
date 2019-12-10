@@ -44,7 +44,7 @@ public class JPmetody {
         PCB pompcb;
         for(int i=0; i<pom.size();i++){
             pompcb=pom.pollFirst();
-            System.out.println(pompcb.pid,pompcb.pn);
+            System.out.println(pompcb.getPid()+" "+pompcb.getPn());
         }
     }
    public void JPwypiszKolejkeOgolne(semafor S){ //wypisanie wartosci semafora, wersja zakladajaca ze semafory sa nie tylko w plikach
@@ -52,7 +52,7 @@ public class JPmetody {
         PCB pompcb;
         for(int i=0; i<pom.size();i++){
             pompcb=pom.pollFirst();
-            System.out.println(pompcb.pid,pompcb.pn);
+            System.out.println(pompcb.getPid()+" "+pompcb.getPn());
         }
     }
     public static int main(){
