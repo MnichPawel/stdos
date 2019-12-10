@@ -31,18 +31,18 @@ public class VirtualMemory {
                 bytes_code[i] = (byte)code.charAt(i);
             if(i>=2) {
                 if(i==2)
-                    reservation = RAM.zarezerwuj_pamiec(2);
+                    reservation = RAMModule.zarezerwuj_pamiec(2);
 
                 bytes_value[i-2] = (byte)code.charAt(i);
                 if(i+1 == code.length())
-                    reservation = RAM.zarezerwuj_pamiec(code.length()-2);
+                    reservation = RAMModule.zarezerwuj_pamiec(code.length()-2);
 
             }
             if(i == 2 || i+1 == code.length()) {
                 if(i==2)
-                    RAM.zapisz_bajty(bytes_code, reservation);
+                    RAMModule.zapisz_bajty(bytes_code, reservation);
                 if(i+1 == code.length())
-                    RAM.zapisz_bajty(bytes_value, reservation);
+                    RAMModule.zapisz_bajty(bytes_value, reservation);
                 Segment segment = new Segment();
                 segment.beginAddress = reservation;
 
@@ -64,7 +64,7 @@ public class VirtualMemory {
         Vector<Integer> keys = VM.get(PID);
         VM.remove(PID);
         for(int i = 0; i<keys.size(); i++) {
-            RAM.zwolnij_pamiec(segmentTable.get(keys.get((i))).beginAddress);
+            RAMModule.zwolnij_pamiec(segmentTable.get(keys.get((i))).beginAddress);
             segmentTable.remove(keys.get(i));
         }
     }
@@ -77,7 +77,7 @@ public class VirtualMemory {
         int offset = address % 1000;
         Segment temp = segmentTable.get(nr_seg);
         if(temp.limit >= offset)
-            return RAM.odczytaj_bajt(temp.beginAddress, offset);
+            return RAMModule.odczytaj_bajt(temp.beginAddress, offset);
         return -1;
     }
     /*===============================/ASEMBLER=================================*/
@@ -87,7 +87,7 @@ public class VirtualMemory {
         for(Map.Entry<Integer, Vector<Integer>> entry : VM.entrySet()) {
             keys = entry.getValue();
             for(int j=0; j<keys.size(); j++) {
-                RAM.zwolnij_pamiec(segmentTable.get(keys.get(j)).beginAddress);
+                RAMModule.zwolnij_pamiec(segmentTable.get(keys.get(j)).beginAddress);
             }
         }
         VM.clear();
@@ -106,10 +106,10 @@ public class VirtualMemory {
     }
 
     public static void displayRAM() {
-        RAM.wypisz_pamiec();
+        RAMModule.wypisz_pamiec();
     }
 
     public static void displayBinaryTree() {
-        RAM.wypisz_podzial();
+        RAMModule.wypisz_podzial();
     }
 }
