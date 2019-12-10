@@ -1,12 +1,12 @@
-package CPU;
+package stdos.CPU;
 
-import ProcessManager.PCB;
-import ProcessManager.ProcessState;
+import stdos.Processes.PCB;
+import stdos.Processes.ProcessState;
 
 import java.util.List;
 
-import static ProcessManager.ProcessManager.KM_getReadyProcessList;
-import static ProcessManager.ProcessManager.KM_setProcessState;
+import static stdos.Processes.ProcessManager.KM_getReadyProcessList;
+import static stdos.Processes.ProcessManager.KM_setProcessState;
 
 public class CPU {
 

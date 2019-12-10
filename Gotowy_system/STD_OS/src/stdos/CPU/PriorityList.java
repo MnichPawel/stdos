@@ -1,7 +1,7 @@
-package CPU;
+package stdos.CPU;
 
-import ProcessManager.*;
-import static ProcessManager.ProcessManager.*;
+import stdos.Processes.*;
+import static stdos.Processes.ProcessManager.*;
 
 import java.util.*;
 

@@ -1,8 +1,8 @@
-package ProcessManager;
+package stdos.Processes;
 
 import java.util.ArrayList;
 import java.util.List;
-import CPU.*;
+import stdos.CPU.*;
 
 /*
 FROM CPU
@@ -76,7 +76,7 @@ public class ProcessManager {
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
             actPid++; //TODO: if actPid less than maxProcesses / Windows PID Management
             //activeProcesses.add(pcb1); //TODO: activeProcesses remove, just use CPU priorityList
-            cpu.MM_add_ready(pcb1);
+            CPU.MM_addReadyProcess(pcb1);
             if(_filename.equals(idleProcessFilename)) { pcb1.setPs(ProcessState.READY); readyProcesses.add(pcb1); }
         } else {
             throw new Exception("KM_CreateProcess:FileNotExist");
@@ -98,7 +98,7 @@ public class ProcessManager {
         }
         activeProcesses.remove(pcb);
         //readyProcesses.remove(pcb); //TODO: activeProcesses remove, just use CPU priorityList
-        cpu.MM_unreadyProcess(pcb.getPid());
+        CPU.MM_unreadyProcess(pcb);
         //TODO: remove from VM
         return;
     }

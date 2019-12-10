@@ -16,13 +16,17 @@
     </option>
   </component>
   <component name="ProjectId" id="1UnBP0X1oin8VSdjql4alAz4VrB" />
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/stdos" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+  </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Lenovo\IdeaProjects\STD_OS\src\stdos\Filesystem" />
       <recent name="C:\Users\Lenovo\IdeaProjects\STD_OS\src\stdos\Semaphore" />
       <recent name="C:\Users\Lenovo\IdeaProjects\STD_OS\src\stdos\RAM" />
       <recent name="C:\Users\Lenovo\IdeaProjects\STD_OS\src\stdos\Processes" />
       <recent name="C:\Users\Lenovo\IdeaProjects\STD_OS\src\stdos\Process" />
-      <recent name="C:\Users\Lenovo\IdeaProjects\STD_OS\src\stdos\Interpreter" />
     </key>
   </component>
   <component name="RunDashboard">

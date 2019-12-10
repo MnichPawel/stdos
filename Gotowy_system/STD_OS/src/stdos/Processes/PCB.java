@@ -1,6 +1,6 @@
-package ProcessManager;
+package stdos.Processes;
 
-import ProcessManager.ProcessManager;
+import stdos.Processes.ProcessManager;
 
 public class PCB {
     private int pid; //PID - processID
