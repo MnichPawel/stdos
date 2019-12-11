@@ -50,11 +50,9 @@ public class ProcessManager {
         } else {
             if(_p==0) throw new Exception("KM_CreateProcess:notIdleProcessPriorityMustBeGreaterThanZero");
         }
-        if(_p<1&&_p>15) {
-            if(_p==0&&(_filename.equals(idleProcessFilename))) {
-                //null
-            } else {
-                throw new Exception("KM_CreateProcess:");
+        if(_p<1||_p>15) {
+            if(!(_p==0&&_filename.equals(idleProcessFilename))) {
+                throw new Exception("KM_CreateProcess:priorityOutsideRange");
             }
         }
         if(true) {//TODO: File exist?
@@ -86,7 +84,7 @@ public class ProcessManager {
             return;
         }
         activeProcesses.remove(pcb);
-        readyProcesses.remove(pcb); //TODO: activeProcesses remove, just use CPU priorityList
+        readyProcesses.remove(pcb);
         CPU.MM_unreadyProcess(pcb);
         VirtualMemory.remove_from_virtualmemory(pcb.getPid());
         //TODO: remove from VM
@@ -98,12 +96,13 @@ public class ProcessManager {
     NEW -> READY
 
     READY -> RUNNING
-    READY -> WAITING - maybe not allowed
 
     WAITING -> READY
 
     RUNNING -> READY
     RUNNING -> WAITING
+
+    Removed: READY -> WAITING
 
      */
 
@@ -116,19 +115,18 @@ public class ProcessManager {
             if(_pcb.getPs()==ProcessState.WAITING||_pcb.getPs()==ProcessState.NEW) {
                 _pcb.setPs(_ps);
                 readyProcesses.add(_pcb);
+                CPU.MM_addReadyProcess(_pcb);
             } else if(_pcb.getPs()==ProcessState.RUNNING) {
                 _pcb.setPs(_ps);
-                //TODO: add to ready after RUNNING->READY?
             }
         } else if(_ps==ProcessState.RUNNING) {
             if(_pcb.getPs()==ProcessState.READY) {
-                //TODO: remove from ready after READY->RUNNING?
                 _pcb.setPs(_ps);
             }
         } else if(_ps==ProcessState.WAITING) {
-            if(_pcb.getPs()==ProcessState.RUNNING||_pcb.getPs()==ProcessState.READY) { //TODO: READY->WAITING?
-                //TODO: remove from ready RUNNING->WAITING?
+            if(_pcb.getPs()==ProcessState.RUNNING) {
                 readyProcesses.remove(_pcb);
+                CPU.MM_unreadyProcess(_pcb);
                 _pcb.setPs(_ps);
             }
         }
@@ -176,9 +174,10 @@ public class ProcessManager {
         return readyProc;
     }
 
-    //TODO: Useless
-    public static PCB KM_getPCBbyPCB (PCB pcb) { //TODO: be or not to be
-        return pcb;
+    public static void KM_printRunningRegisters() { //For Interface
+        PCB pcb = CPU.RUNNING;
+        System.out.printf("Register state for process PID: %d, ProcessName: %s, Filename: %s\n", pcb.getPid(), pcb.getPn(), pcb.getFilename());
+        System.out.printf("AX: %d, BX: %d, CX: %d, DX: %d\n", pcb.getAx(), pcb.getBx(), pcb.getCx(), pcb.getDx());
     }
 
     public static PCB KM_getPCBbyPID (int pid) { //TODO: be or not to be

@@ -31,23 +31,6 @@ public class PCB {
         this.dx = 0;
     }
 
-    @Deprecated
-    public PCB(int pid, String filename, int priS) {
-        this.pid = pid;
-        this.filename = filename;
-        this.pn = filename;
-        this.priD = priS; //At start -> priorityDynamic = priorityStatic
-        this.priS = priS;
-        this.ps = ProcessState.NEW;
-        this.wt = 0;
-        //this.pl = pl;
-        this.PC = 0;
-        this.ax = 0;
-        this.bx = 0;
-        this.cx = 0;
-        this.dx = 0;
-    }
-
     public PCB(int pid, String filename, String pn, int priS) {
         this.pid = pid;
         this.filename = filename;
