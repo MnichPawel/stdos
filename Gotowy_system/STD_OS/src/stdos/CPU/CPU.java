@@ -47,7 +47,8 @@ public class CPU {
 
     //dodaje proces do listy gotowych procesow
     public static void MM_addReadyProcess(PCB ready_process){
-        priorityList.addProcess(ready_process);
+        if(ready_process.getPs() == ProcessState.READY)
+            priorityList.addProcess(ready_process);
     }
 
     public static  void MM_unreadyProcess(PCB pcb){
