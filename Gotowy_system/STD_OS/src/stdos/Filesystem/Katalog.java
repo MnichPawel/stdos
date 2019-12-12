@@ -1,4 +1,4 @@
-package stdos.Filesystem;
+package KP;
 
 import java.util.Vector;
 
@@ -8,7 +8,7 @@ public class Katalog {
     private Pliki files;
 
     Katalog(String nazwa) {
-       // files = new Pliki();
+       files = new Pliki();
         this.nazwa = nazwa;
     }
 

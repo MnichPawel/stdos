@@ -1,4 +1,4 @@
-package stdos.Filesystem;
+package KP;
 //w trakcie budowy
 import java.util.ArrayList;
 import java.util.Arrays;
