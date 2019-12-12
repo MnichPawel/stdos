@@ -176,7 +176,7 @@ public class RAMModule {
         return RAM[adres];
     }
     public static byte odczytaj_bajt(int adres_logiczny, int adres_fizyczny) { return RAM[adres_logiczny + adres_fizyczny]; }
-    public byte[] odczytaj_bajty(int adres, int rozmiar){
+    public static byte[] odczytaj_bajty(int adres, int rozmiar){
         byte ret[] = new byte[rozmiar];
 
         for(int i = 0; i < rozmiar; ++i){
