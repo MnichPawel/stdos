@@ -64,13 +64,10 @@ public class ProcessManager {
             activeProcesses.add(pcb1);
             readyProcesses.add(pcb1);
             CPU.MM_addReadyProcess(pcb1);
-            //TODO: line under is useless?
-            if(_filename.equals(idleProcessFilename)) { pcb1.setPs(ProcessState.READY); readyProcesses.add(pcb1); }
+            return pcb1;
         } else {
             throw new Exception("KM_CreateProcess:FileNotExist");
         }
-        //TODO: check this
-        return null;
     }
 
     public static void KM_CreateProcess (String _filename, int _p) throws Exception {
