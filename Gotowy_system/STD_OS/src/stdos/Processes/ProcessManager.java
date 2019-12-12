@@ -11,6 +11,7 @@ public class ProcessManager {
     private static List<PCB> readyProcesses;
     private static String idleProcessFilename = "DUMMYFILE";
 
+    private static PCB zeroPriority;
     //static CPU cpu = new CPU();
 
     /*
@@ -22,7 +23,7 @@ public class ProcessManager {
         activeProcesses = new ArrayList<PCB>();
         readyProcesses = new ArrayList<PCB>();
         try {
-            KM_CreateProcess(idleProcessFilename, "DUMMY", 0);
+            zeroPriority = KM_CreateProcess(idleProcessFilename, "DUMMY", 0);
         } catch(Exception e) {
             System.out.println(e);
         }
@@ -198,6 +199,10 @@ public class ProcessManager {
             }
         }
         return;
+    }
+
+    public static PCB KM_getZeroPriorityPCB() {
+        return zeroPriority;
     }
 
     public static List<PCB> KM_getAllProcessList() {
