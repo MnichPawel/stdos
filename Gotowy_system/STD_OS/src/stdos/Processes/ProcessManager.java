@@ -91,6 +91,9 @@ public class ProcessManager {
         readyProcesses.remove(pcb);
         CPU.MM_unreadyProcess(pcb);
         VirtualMemory.remove_from_virtualmemory(pcb.getPid());
+        if(pcb==CPU.MM_getRUNNING()) {
+            CPU.MM_terminateRunning();
+        }
         return true;
     }
 
