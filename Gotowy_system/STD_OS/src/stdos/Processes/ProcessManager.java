@@ -9,7 +9,7 @@ public class ProcessManager {
     private static int actPid;
     private static List<PCB> activeProcesses;
     private static List<PCB> readyProcesses;
-    private static String idleProcessFilename = "PC";
+    private static String idleProcessFilename = "DUMMYFILE";
 
     //static CPU cpu = new CPU();
 
@@ -59,6 +59,7 @@ public class ProcessManager {
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
             actPid++;
             VirtualMemory.load_to_virtualmemory(actPid, ""); //TODO: program data
+            KM_setProcessState(pcb1, ProcessState.READY);
             activeProcesses.add(pcb1);
             readyProcesses.add(pcb1);
             CPU.MM_addReadyProcess(pcb1);
