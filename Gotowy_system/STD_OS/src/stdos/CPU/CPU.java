@@ -100,7 +100,7 @@ public class CPU {
             RUNNING = tmp;
             ProcessManager.KM_setProcessState(RUNNING, ProcessState.RUNNING); //Zwraca T / F
         } else {
-            if (tmp.getPriS() > RUNNING.getPriS()) {
+            if (tmp.getPriD() > RUNNING.getPriD()) {
                 KM_setProcessState(RUNNING, ProcessState.READY); //Zwraca T / F
                 KM_setProcessState(tmp, ProcessState.RUNNING); // Zwraca T / F
                 RUNNING = tmp;
