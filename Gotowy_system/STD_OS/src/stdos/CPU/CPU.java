@@ -29,7 +29,7 @@ public class CPU {
         }
     }
 
-    public static void MM_go(){
+    public static void MM_go() throws Exception {
 
         MM_scheduler();
 
@@ -45,7 +45,24 @@ public class CPU {
 
     }
 
-    public static void MM_scheduler(){
+    //dodaje proces do listy gotowych procesow
+    public static void MM_addReadyProcess(PCB ready_process){
+        priorityList.addProcess(ready_process);
+    }
+
+    public static  void MM_unreadyProcess(PCB pcb){
+        priorityList.deleteProcess(pcb.getPid());
+    }
+
+    //aktualizuje priorytet chwilowy
+    private static void MM_refreshPriority(){
+        priorityList.updateDynamicPriority();
+        if(RUNNING != ZEROPRIORITY){
+            if(RUNNING.getPriD() > RUNNING.getPriS()) RUNNING.setPriD(RUNNING.getPriD()-1);
+        }
+    }
+
+    private static void MM_scheduler(){
         PCB tmp;
 
         tmp = MM_findReady();
@@ -67,30 +84,13 @@ public class CPU {
     }
 
     //szuka procesu o najwyzszym priorytecie
-    public static PCB MM_findReady(){
+    private static PCB MM_findReady(){
         PCB tmp;
         tmp = priorityList.getHighestPriority();
         if(tmp != null) {
             return tmp;
         }
         else return ZEROPRIORITY;
-    }
-
-    //dodaje proces do listy gotowych procesow
-    public static void MM_addReadyProcess(PCB ready_process){
-        priorityList.addProcess(ready_process);
-    }
-
-    public static  void MM_unreadyProcess(PCB pcb){
-        priorityList.deleteProcess(pcb.getPid());
-    }
-
-    //aktualizuje priorytet chwilowy
-    public static void MM_refreshPriority(){
-        priorityList.updateDynamicPriority();
-        if(RUNNING != ZEROPRIORITY){
-            if(RUNNING.getPriD() > RUNNING.getPriS()) RUNNING.setPriD(RUNNING.getPriD()-1);
-        }
     }
 
 /* -----------------STEP MODE---------------------------------------------------------------------*/
