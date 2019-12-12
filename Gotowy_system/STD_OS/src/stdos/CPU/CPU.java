@@ -6,9 +6,8 @@ import stdos.Processes.ProcessState;
 
 import java.util.List;
 
-import static stdos.Processes.ProcessManager.KM_getReadyProcessList;
-import static stdos.Processes.ProcessManager.KM_setProcessState;
 import static stdos.Interpreter.Interpreter.*;
+import static stdos.Processes.ProcessManager.*;
 
 public class CPU {
 
@@ -18,7 +17,7 @@ public class CPU {
 
     //Konstruktor
     public CPU() {
-        //TODO: getZeroPrioirity do ZEROPRIORITy
+        ZEROPRIORITY = KM_getZeroPriorityPCB();
         if(KM_getReadyProcessList() != null) {
             List<PCB> tmp = KM_getReadyProcessList();
             for (int i = 0; i < tmp.size(); i++) {
@@ -36,13 +35,8 @@ public class CPU {
         MM_scheduler();
 
         if(!KK_Interpret()){//funkcja zwraca  0, gdy wykona ostatni rozkaz lub nie ma dalszych rozkazów
-            //TODO: delete running process
             ProcessManager.KM_TerminateProcess(RUNNING);
         }
-        /*else{
-            //TODO: change state from running to ready? ? ? ? ? [?](?){?}??????? ? ? ? ? ? ? ?? ?? ? ?? ? - nie bo refresh potem jest
-            ProcessManager.KM_setProcessState(RUNNING, ProcessState.READY);
-        }*/
         MM_refreshPriority();
 
     }
@@ -81,9 +75,6 @@ public class CPU {
                 KM_setProcessState(tmp, ProcessState.RUNNING); // Zwraca T / F
                 RUNNING = tmp;
             }
-            else{
-
-            }
         }
     }
 
@@ -117,5 +108,5 @@ public class CPU {
     }
     public static PCB MM_getZEROPRIORITY(){            //may be useless
         return ZEROPRIORITY;
-    }
+    } //TODO: useless
 }

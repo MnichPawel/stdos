@@ -24,7 +24,7 @@ public class PriorityList {
 
     /*Iterates from top to bottom. If it finds not empty queue, returns first element*/
     public PCB getHighestPriority(){
-        for(int i = NOP; i > -1; i--)
+        for(int i = NOP - 1; i > -1; i--)
             if(this.boolPriorityList[i])
                 return this.priorityList[i].get(0);
         return null;
