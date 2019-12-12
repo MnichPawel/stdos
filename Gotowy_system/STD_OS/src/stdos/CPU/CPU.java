@@ -18,11 +18,13 @@ public class CPU {
 
     //Konstruktor
     public CPU() {
-        List<PCB> tmp = KM_getReadyProcessList();
-        for(int i = 0; i < tmp.size(); i++){
-            if(tmp.get(i).getPriS() == 0) ZEROPRIORITY = tmp.get(i);
-            else{
-                priorityList.addProcess(tmp.get(i));
+        if(KM_getReadyProcessList() != null) {
+            List<PCB> tmp = KM_getReadyProcessList();
+            for (int i = 0; i < tmp.size(); i++) {
+                if (tmp.get(i).getPriS() == 0) ZEROPRIORITY = tmp.get(i);
+                else {
+                    priorityList.addProcess(tmp.get(i));
+                }
             }
         }
     }
