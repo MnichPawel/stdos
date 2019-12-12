@@ -142,10 +142,14 @@ public class ProcessManager {
                 return true;
             } else if(_pcb.getPs()==ProcessState.RUNNING) {
                 _pcb.setPs(_ps);
+                readyProcesses.add(_pcb);
+                CPU.MM_addReadyProcess(_pcb);
                 return true;
             }
         } else if(_ps==ProcessState.RUNNING) {
             if(_pcb.getPs()==ProcessState.READY) {
+                readyProcesses.remove(_pcb);
+                CPU.MM_unreadyProcess(_pcb);
                 _pcb.setPs(_ps);
                 return true;
             }
