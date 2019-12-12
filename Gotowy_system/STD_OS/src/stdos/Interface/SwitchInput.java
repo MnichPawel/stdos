@@ -10,12 +10,12 @@ class SwitchInput {
     /*flaga kończąca działanie*/
         static boolean exitFlag = false;
 
-        static void inputSwitch(String komunikat) throws Exception {
+        static void inputSwitch(String komunikat)  {
             String[] arguments =  komunikat.split("\\s+"); //one or more space space after (splits)
 
             switch (arguments[0]) {
                 /*pamięć RAM*/
-                case "ram_hex":
+                case "ram":
                     VirtualMemory.displayRAM();
                     break;
                 case "ram_part":
@@ -44,7 +44,12 @@ class SwitchInput {
 
                     /*zarządzanie procesami*/
                 case "taskcreate":
-                    ProcessManager.KM_CreateProcess(String.valueOf(arguments[1]), String.valueOf(arguments[2]), Integer.parseInt(arguments[3]));
+                    try {
+                        ProcessManager.KM_CreateProcess(String.valueOf(arguments[1]), String.valueOf(arguments[2]), Integer.parseInt(arguments[3]));
+                    }
+                    catch(Exception e){
+                        System.out.println(e.getMessage() + "Process create blad");
+                    }
                     break;
                 case "kill":
                     ProcessManager.KM_TerminateProcess(String.valueOf(arguments[1]));
@@ -70,7 +75,13 @@ class SwitchInput {
 
                 /*interpreter*/
                 case "step":
-                    CPU.MM_go();
+                    try {
+                        CPU.MM_go();
+                    }
+                    catch(Exception e){
+                        System.out.println(e.getMessage() + "Step blad mm_go");
+
+                    }
                     break;
                     /* wyświetlaj krokowo*/
 

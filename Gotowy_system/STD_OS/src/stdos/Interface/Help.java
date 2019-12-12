@@ -34,14 +34,13 @@ class Help {
         System.out.println("  -------------------------------------PROCESOR---------------------------------------------");
         /* zarządzanie procesami: semafor, pamiec ram, pamiec wirtualna*/
         System.out.println("  taskcreate [nazwa_pliku] [nazwa_procesu} {priorytet}  - tworzenie procesu");
+
+        //#TODO: kill  ProcessManager.KM_TerminateProcess - usuwa poprawnie, ale w pamięci wirtualnej zostaje, do poprawy
         System.out.println("  kill [nazwa_procesu]                  - zakonczenie dzialania danego procesu");
         System.out.println("  tasklist                              - wyswietla liste wszystkich procesow");
         System.out.println("  rtasklist                             - wyswietla listę gotowych procesow");
 
-
-
         /* zarządzanie procesami*/
-
 
         /* procesor : korzysta z zarzadzania procesami*/
         System.out.println("  task_exec                             - wyswietla wykonywany proces");
