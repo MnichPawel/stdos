@@ -58,8 +58,4 @@ public class JPmetody {
             System.out.println(pompcb.getPid()+" "+pompcb.getPn());
         }
     }
-    public static int main(){
-
-        return 0;
-    }
 }

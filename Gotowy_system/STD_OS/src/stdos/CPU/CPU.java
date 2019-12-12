@@ -50,12 +50,12 @@ public class CPU {
 
         if(RUNNING == null){
             RUNNING = tmp;
-            ProcessManager.KM_setProcessState(RUNNING, ProcessState.RUNNING);
+            ProcessManager.KM_setProcessState(RUNNING, ProcessState.RUNNING); //Zwraca T / F
         }
         else {
             if (tmp.getPriS() > RUNNING.getPriS()) {
-                KM_setProcessState(RUNNING, ProcessState.READY);
-                KM_setProcessState(tmp, ProcessState.RUNNING);
+                KM_setProcessState(RUNNING, ProcessState.READY); //Zwraca T / F
+                KM_setProcessState(tmp, ProcessState.RUNNING); // Zwraca T / F
                 RUNNING = tmp;
             }
             else{
