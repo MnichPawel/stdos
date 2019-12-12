@@ -71,6 +71,10 @@ public class ProcessManager {
         return;
     }
 
+    public static void KM_CreateProcess (String _filename, int _p) throws Exception {
+        ProcessManager.KM_CreateProcess(_filename, _filename, _p);
+    }
+
     public static void KM_CreateProcess (String _filename, String _processname) throws Exception {
         ProcessManager.KM_CreateProcess(_filename, _processname, 1);
     }
@@ -133,9 +137,24 @@ public class ProcessManager {
         return;
     }
 
-    public static void KM_setProcessDynamicPriority (PCB _pcb, int p) {
-        _pcb.setPriD(p);
-        return;
+    /*
+    KM_setProcessDynamicPriority - set dynamic priority of process, by given PCB (_pcb) and priority (p)
+     */
+    public static boolean KM_setProcessDynamicPriority (PCB _pcb, int p) {
+        if(p>=1&&p<=15) {
+            _pcb.setPriD(p);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /*
+    KM_setProcessDynamicPriorityDefault - set dynamic priority of process, by given PCB (_pcb) and priority (p)
+    */
+    public static boolean KM_setProcessDynamicPriorityDefault (PCB _pcb) {
+        _pcb.setPriD(_pcb.getPriS());
+        return true;
     }
 
     public static void KM_getAllProcessListPrint() {
@@ -180,7 +199,7 @@ public class ProcessManager {
         System.out.printf("AX: %d, BX: %d, CX: %d, DX: %d\n", pcb.getAx(), pcb.getBx(), pcb.getCx(), pcb.getDx());
     }
 
-    public static PCB KM_getPCBbyPID (int pid) { //TODO: be or not to be
+    public static PCB KM_getPCBbyPID (int pid) {
         for(PCB _p : activeProcesses) {
             if(_p.getPid()==pid) {
                 return _p;
