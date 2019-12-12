@@ -2,6 +2,7 @@ package stdos.Interpreter;
 
 import stdos.Processes.*;
 import stdos.Filesystem.*;
+import stdos.Processes.ProcessManager;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -9,6 +10,7 @@ import java.util.Vector;
 
 import static stdos.CPU.CPU.MM_getRUNNING;
 import static stdos.VM.VirtualMemory.*;
+import static stdos.Processes.ProcessManager.*;
 //TODO Byte Receiver from Virtual Memory Method //DONE
 //TODO Assembler Instruction Map //DONE
 //TODO getRegisters Method
@@ -46,8 +48,8 @@ public class Interpreter {
         arguments.put("MF", 2);  //MOVING FILE TO CATALOG
         arguments.put("TC", 1);  //TERMINATE CATALOG WITH ALL FILES
         //PROCESS OPERATION
-        arguments.put("CP", 2);  //CREATE PROCESS
-        arguments.put("DP", 1);  //DELETE PROCESS
+        arguments.put("CP", 3);  //CREATE PROCESS //filename, processname and priority
+        arguments.put("DP", 1);  //DELETE PROCESS //processname
     }
 
      private static void getORDER(){  //
@@ -103,7 +105,7 @@ public class Interpreter {
     }
     /*JEŚLI TO CZYTASZ, POMÓŻ MI WYMYŚLiĆ JAK ZAPROGRAMOWAĆ TO INNACZEJ, PONIEWAŻ WZIĘCIE POD UWAGĘ WSZYSTKICH OPCJI TO
     * BĘDZIE MASAKRYCZNA ILOŚĆ KODU DO NAPISANIA*/
-    private static void makeINSTRUCTION() {
+    private static void makeINSTRUCTION() throws Exception {
         /*==============ARITHMETIC=======================*/
         if (Instruction.get(0).equals("AD")) {
             switch (Instruction.get(1)) {
@@ -712,13 +714,17 @@ public class Interpreter {
         else if (Instruction.get(0).equals("MF")){}
         else if (Instruction.get(0).equals("TC")){}
         /*==============PROCESS OPERATION================*/
-        else if (Instruction.get(0).equals("CP")){}
-        else if (Instruction.get(0).equals("DP")){}
+        else if (Instruction.get(0).equals("CP")){
+            KM_CreateProcess(Instruction.get(1),Instruction.get(2),Integer.parseInt(Instruction.get(3)));
+        }
+        else if (Instruction.get(0).equals("DP")){
+            KM_TerminateProcess(Instruction.get(1));
+        }
 
     }
 
 
-    public static boolean KK_Interpret(){
+    public static boolean KK_Interpret() throws Exception {
         PCB pcb = MM_getRUNNING();
         int address = pcb.getPC();
 
