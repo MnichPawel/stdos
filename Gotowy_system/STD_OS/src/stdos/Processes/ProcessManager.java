@@ -5,27 +5,13 @@ import java.util.List;
 import stdos.CPU.*;
 import stdos.VM.VirtualMemory;
 
-/*
-FROM CPU
-//dodaje proces do listy gotowych procesow
-    public void MM_add_ready(PCB ready_process){
-        priorityList.addProcess(ready_process);
-        ready_process.setPs(ProcessState.READY);
-    }
-
-    public void MM_unreadyProcess(int pid){
-        priorityList.deleteProcess(pid);
-    }
- */
-
 public class ProcessManager {
     private static int actPid;
     private static List<PCB> activeProcesses;
     private static List<PCB> readyProcesses;
     private static String idleProcessFilename = "PC";
-    final static int maxProcesses = 128; //TODO: ??Be or not to be
 
-    static CPU cpu = new CPU();
+    //static CPU cpu = new CPU();
 
     /*
     Constructor of ProcessManager()
@@ -68,12 +54,11 @@ public class ProcessManager {
             }
         }
         if(true) {//TODO: File exist?
-            //TODO: add somewhere loading to virtual memory
-            VirtualMemory.load_to_virtualmemory(actPid, ""); //TODO: program data
-            //int _pl = 1; //TODO: Program length - useless
+            //TODO: czyPjest -> is file exist
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
-            actPid++; //TODO: if actPid less than maxProcesses / Windows PID Management
-            activeProcesses.add(pcb1); //TODO: readyProcesses remove, just use CPU priorityList
+            actPid++;
+            VirtualMemory.load_to_virtualmemory(actPid, ""); //TODO: program data
+            activeProcesses.add(pcb1);
             readyProcesses.add(pcb1);
             CPU.MM_addReadyProcess(pcb1);
             //TODO: line under is useless?
@@ -105,7 +90,6 @@ public class ProcessManager {
         readyProcesses.remove(pcb);
         CPU.MM_unreadyProcess(pcb);
         VirtualMemory.remove_from_virtualmemory(pcb.getPid());
-        //TODO: remove from VM
         return true;
     }
 
@@ -130,7 +114,7 @@ public class ProcessManager {
 
     public static boolean KM_setProcessState (PCB _pcb, ProcessState _ps) {
         if(_ps==_pcb.getPs()) { //Before = after
-            return false;
+            return true;
         } else if(_ps==ProcessState.NEW) { //Error
             return false;
         } else if(_ps==ProcessState.READY) {
@@ -206,6 +190,9 @@ public class ProcessManager {
 
     public static List<PCB> KM_getReadyProcessList() {
         //return readyProcesses; //too simple
+        if(activeProcesses.isEmpty()) {
+            return null;
+        }
         List<PCB> readyProc = new ArrayList<PCB>();
         for (PCB _p : activeProcesses) {
             if(_p.getPs()==ProcessState.READY) {
