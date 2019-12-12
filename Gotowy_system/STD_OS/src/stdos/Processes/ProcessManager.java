@@ -44,17 +44,16 @@ public class ProcessManager {
         if(_processname.trim().equals("")) { // Check if processname is not ""
             throw new Exception("KM_CreateProcess:processNameMustNotBeNull");
         }
-        if(_filename.equals(idleProcessFilename)) { // Check if filename is not idle process filename
+        if(_filename.equalsIgnoreCase(idleProcessFilename)) { // Check if filename is not idle process filename
             if(_p!=0) throw new Exception("KM_CreateProcess:idleProcessPriorityMustBeZero");
         } else {
             if(_p==0) throw new Exception("KM_CreateProcess:notIdleProcessPriorityMustBeGreaterThanZero");
         }
         if(_p<1||_p>15) {
-            if(!(_p==0&&_filename.equals(idleProcessFilename))) {
+            if(!(_p==0&&_filename.equalsIgnoreCase(idleProcessFilename))) {
                 throw new Exception("KM_CreateProcess:priorityOutsideRange");
             }
         }
-
         if(true) {//TODO: File exist?
             //TODO: czyPjest -> is file exist
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
@@ -63,7 +62,9 @@ public class ProcessManager {
             KM_setProcessState(pcb1, ProcessState.READY);
             activeProcesses.add(pcb1);
             readyProcesses.add(pcb1);
-            CPU.MM_addReadyProcess(pcb1);
+            if(!pcb1.getFilename().equalsIgnoreCase(idleProcessFilename)) {
+                CPU.MM_addReadyProcess(pcb1);
+            }
             return pcb1;
         } else {
             throw new Exception("KM_CreateProcess:FileNotExist");
@@ -135,7 +136,9 @@ public class ProcessManager {
             if(_pcb.getPs()==ProcessState.WAITING||_pcb.getPs()==ProcessState.NEW) {
                 _pcb.setPs(_ps);
                 readyProcesses.add(_pcb);
-                CPU.MM_addReadyProcess(_pcb);
+                if(!_pcb.getFilename().equalsIgnoreCase(idleProcessFilename)) {
+                    CPU.MM_addReadyProcess(_pcb);
+                }
                 return true;
             } else if(_pcb.getPs()==ProcessState.RUNNING) {
                 _pcb.setPs(_ps);
