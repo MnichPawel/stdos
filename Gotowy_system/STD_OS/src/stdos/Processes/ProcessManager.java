@@ -155,8 +155,6 @@ public class ProcessManager {
             }
         } else if(_ps==ProcessState.WAITING) {
             if(_pcb.getPs()==ProcessState.RUNNING) {
-                readyProcesses.remove(_pcb);
-                CPU.MM_unreadyProcess(_pcb);
                 _pcb.setPs(_ps);
                 return true;
             }
