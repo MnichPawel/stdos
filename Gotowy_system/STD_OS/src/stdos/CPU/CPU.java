@@ -18,7 +18,6 @@ public class CPU {
 
     //Konstruktor
     public CPU() {
-        //TODO: getZeroPrioirity do ZEROPRIORITy
         if(KM_getReadyProcessList() != null) {
             List<PCB> tmp = KM_getReadyProcessList();
             for (int i = 0; i < tmp.size(); i++) {
@@ -28,7 +27,6 @@ public class CPU {
                 }
             }
         }
-        MM_scheduler();
     }
 
     public static void MM_go() throws Exception {
@@ -49,9 +47,7 @@ public class CPU {
 
     //dodaje proces do listy gotowych procesow
     public static void MM_addReadyProcess(PCB ready_process){
-        if(ready_process.getPs() == ProcessState.READY)
-            priorityList.addProcess(ready_process);
-        MM_scheduler();
+        priorityList.addProcess(ready_process);
     }
 
     public static  void MM_unreadyProcess(PCB pcb){
