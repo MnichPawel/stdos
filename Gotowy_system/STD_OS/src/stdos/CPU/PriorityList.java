@@ -32,7 +32,8 @@ public class PriorityList {
 
 
     public void addProcess(PCB p1){
-        priorityList[p1.getPriD()].add(p1);
+        if(p1.getPriS() == 0) return;
+        priorityList[p1.getPriD() - 1].add(p1);
         updateBoolean();
     }
 
@@ -48,7 +49,7 @@ public class PriorityList {
         }
     }
 
-    public void updateDynamicPriority(){//TODO: PC don't work dat way
+    public void updateDynamicPriority(){
         int tmp;
         for (int i = 0; i < NOP; i++){
             for(PCB e: priorityList[i]){
@@ -83,7 +84,7 @@ public class PriorityList {
         for(int i = 0; i < NOP; i++){
             for(int j = (priorityList[i].size() - 1); j > -1; j--){ //bo jak usune element to sie przesuną do poczatku listy
                 if(priorityList[i].get(j).getPriD() != i+1){
-                    priorityList[priorityList[i].get(j).getPriD()].add(priorityList[i].remove(j));
+                    priorityList[priorityList[i].get(j).getPriD()-1].add(priorityList[i].remove(j));
                 }
             }
         }
