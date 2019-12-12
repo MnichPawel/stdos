@@ -18,6 +18,7 @@ public class CPU {
 
     //Konstruktor
     public CPU() {
+        //TODO: getZeroPrioirity do ZEROPRIORITy
         if(KM_getReadyProcessList() != null) {
             List<PCB> tmp = KM_getReadyProcessList();
             for (int i = 0; i < tmp.size(); i++) {
@@ -27,6 +28,7 @@ public class CPU {
                 }
             }
         }
+        MM_scheduler();
     }
 
     public static void MM_go() throws Exception {
@@ -49,6 +51,7 @@ public class CPU {
     public static void MM_addReadyProcess(PCB ready_process){
         if(ready_process.getPs() == ProcessState.READY)
             priorityList.addProcess(ready_process);
+        MM_scheduler();
     }
 
     public static  void MM_unreadyProcess(PCB pcb){
