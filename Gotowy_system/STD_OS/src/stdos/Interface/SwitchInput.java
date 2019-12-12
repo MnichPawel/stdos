@@ -7,7 +7,7 @@ import stdos.Semaphore.semafor;
 import stdos.VM.VirtualMemory;
 
 class SwitchInput {
-
+    /*flaga kończąca działanie*/
         static boolean exitFlag = false;
 
         static void inputSwitch(String komunikat) throws Exception {
