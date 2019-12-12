@@ -27,18 +27,30 @@ public class ProcessManager {
 
     static CPU cpu = new CPU();
 
+    /*
+    Constructor of ProcessManager()
+    Create lists of all and ready processes
+    Create Idle Process (Static priority = 0)
+     */
     public ProcessManager() {
         activeProcesses = new ArrayList<PCB>();
         readyProcesses = new ArrayList<PCB>();
         try {
-            KM_CreateProcess(idleProcessFilename, "dummy", 0);
+            KM_CreateProcess(idleProcessFilename, "DUMMY", 0);
         } catch(Exception e) {
             System.out.println(e);
         }
         return;
     }
 
-    public static void KM_CreateProcess (String _filename, String _processname, int _p) throws Exception {
+    /*
+    KM_CreateProcess
+    _filename = filename of file which have code of process
+    _processname = processname of new process
+    _p = static priority of process
+    return PCB of new process
+     */
+    public static PCB KM_CreateProcess (String _filename, String _processname, int _p) throws Exception {
         if(_filename.trim().equals("")) { //Check if filename is not ""
             throw new Exception("KM_CreateProcess:fileNameMustNotBeNull");
         }
@@ -64,11 +76,13 @@ public class ProcessManager {
             activeProcesses.add(pcb1); //TODO: readyProcesses remove, just use CPU priorityList
             readyProcesses.add(pcb1);
             CPU.MM_addReadyProcess(pcb1);
+            //TODO: line under is useless?
             if(_filename.equals(idleProcessFilename)) { pcb1.setPs(ProcessState.READY); readyProcesses.add(pcb1); }
         } else {
             throw new Exception("KM_CreateProcess:FileNotExist");
         }
-        return;
+        //TODO: check this
+        return null;
     }
 
     public static void KM_CreateProcess (String _filename, int _p) throws Exception {
@@ -83,16 +97,20 @@ public class ProcessManager {
         ProcessManager.KM_CreateProcess(_filename, _filename, 1);
     }
 
-    public static void KM_TerminateProcess (PCB pcb) { //TODO: function
+    public static boolean KM_TerminateProcess (PCB pcb) { //TODO: function
         if(pcb.getPid()==0) {
-            return;
+            return false;
         }
         activeProcesses.remove(pcb);
         readyProcesses.remove(pcb);
         CPU.MM_unreadyProcess(pcb);
         VirtualMemory.remove_from_virtualmemory(pcb.getPid());
         //TODO: remove from VM
-        return;
+        return true;
+    }
+
+    public static boolean KM_TerminateProcess (String _processname) {
+        return KM_TerminateProcess(KM_getPCBbyPN(_processname));
     }
 
     /*
@@ -110,31 +128,35 @@ public class ProcessManager {
 
      */
 
-    public static void KM_setProcessState (PCB _pcb, ProcessState _ps) {
+    public static boolean KM_setProcessState (PCB _pcb, ProcessState _ps) {
         if(_ps==_pcb.getPs()) { //Before = after
-            //NULL
+            return false;
         } else if(_ps==ProcessState.NEW) { //Error
-            //NULL
+            return false;
         } else if(_ps==ProcessState.READY) {
             if(_pcb.getPs()==ProcessState.WAITING||_pcb.getPs()==ProcessState.NEW) {
                 _pcb.setPs(_ps);
                 readyProcesses.add(_pcb);
                 CPU.MM_addReadyProcess(_pcb);
+                return true;
             } else if(_pcb.getPs()==ProcessState.RUNNING) {
                 _pcb.setPs(_ps);
+                return true;
             }
         } else if(_ps==ProcessState.RUNNING) {
             if(_pcb.getPs()==ProcessState.READY) {
                 _pcb.setPs(_ps);
+                return true;
             }
         } else if(_ps==ProcessState.WAITING) {
             if(_pcb.getPs()==ProcessState.RUNNING) {
                 readyProcesses.remove(_pcb);
                 CPU.MM_unreadyProcess(_pcb);
                 _pcb.setPs(_ps);
+                return true;
             }
         }
-        return;
+        return false;
     }
 
     /*
@@ -202,6 +224,15 @@ public class ProcessManager {
     public static PCB KM_getPCBbyPID (int pid) {
         for(PCB _p : activeProcesses) {
             if(_p.getPid()==pid) {
+                return _p;
+            }
+        }
+        return null;
+    }
+
+    public static PCB KM_getPCBbyPN (String _processname) {
+        for(PCB _p : activeProcesses) {
+            if(_p.getPn().equalsIgnoreCase(_processname)) {
                 return _p;
             }
         }
