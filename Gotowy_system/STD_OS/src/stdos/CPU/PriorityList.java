@@ -33,6 +33,14 @@ public class PriorityList {
 
     public void addProcess(PCB p1){
         if(p1.getPriS() == 0) return;
+        for(int i = 0; i < NOP; i++){
+            if(boolPriorityList[i]){
+                for(int j = 0; j < priorityList[i].size(); j++){
+                    if(priorityList[i].get(j).getPid() == p1.getPid())
+                        return;
+                }
+            }
+        }
         priorityList[p1.getPriD() - 1].add(p1);
         updateBoolean();
     }

@@ -98,7 +98,7 @@ public class CPU {
     //wyswietla liste gotowych procesow wraz z priorytetami
     public static void MM_show_actual_priority(){
         priorityList.displayQueues();
-        System.out.print("RUNNING: [ "+ RUNNING.getPid() + " " + RUNNING.getPn() + " " + RUNNING.getPriS() + " " + RUNNING.getPriD());
+        System.out.print("RUNNING: [ "+ RUNNING.getPid() + " " + RUNNING.getPn() + " " + RUNNING.getPriS() + " " + RUNNING.getPriD() + " ]");
     }
 
 /*--------------------GET---------------------------------------------------------------------------*/
