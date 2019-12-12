@@ -1,9 +1,15 @@
 package stdos.Interface;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.Scanner;
 
 class Input{
     public static void startInterface() throws UnsupportedOperationException {
+
+        Help.printLogo();
+
         Scanner inputScanner = new Scanner(System.in);
             while (!SwitchInput.exitFlag) {
                 System.out.print(">>");
@@ -15,7 +21,8 @@ class Input{
                    System.out.println("[Shell]: Blad modulu" + e.getMessage());
                 }
             }
-        }
+
+    }
     }
 
 
