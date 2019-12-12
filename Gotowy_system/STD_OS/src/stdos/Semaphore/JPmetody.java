@@ -3,6 +3,8 @@ package stdos.Semaphore;
 import stdos.Processes.PCB;
 import stdos.Processes.ProcessState;
 
+import stdos.Filesystem.Plik;
+
 import static stdos.CPU.CPU.*;
 import static stdos.CPU.CPU.MM_getRUNNING;
 import static stdos.Processes.ProcessManager.KM_setProcessState;
@@ -37,10 +39,10 @@ public class JPmetody {
    public void JPwypiszOgolne(semafor S){ //wypisanie wartosci semafora zakladajaca ze semafory sa nie tylko w plikach
        System.out.println(S.wartosc);
     }
-  public  void JPwypisz(plik P){ //wypisanie wartosci semafora
+  public  void JPwypisz(Plik P){ //wypisanie wartosci semafora
         System.out.println(P.sem.wartosc);
     }
-   public void JPwypiszKolejke(plik P){ //wypisanie wartosci semafora
+   public void JPwypiszKolejke(Plik P){ //wypisanie wartosci semafora
         Deque<PCB> pom = P.sem.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
         PCB pompcb;
         for(int i=0; i<pom.size();i++){
