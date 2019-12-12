@@ -18,14 +18,12 @@ class SwitchInput {
 //                /*pamięć RAM*/
 //
 //                /*pamięć wirtualna*/
-//                case "ret":
-//                    PAMIEC_WIRTUALNA.vm_find(Integer.parseInt(arguments[1]));
-//                    break;
+
 //                case "erasevm":
-//                    PAMIEC_WIRTUALNA.vm_erase();
+//                    PAMIEC_WIRTUALNA.erase();
 //                    break;
 //                case "dvm":
-//                    PAMIEC_WIRTUALNA.vm_display();
+//                    PAMIEC_WIRTUALNA.display();
 //                    break;
 //                /*pamięć wirtualna*/
 //

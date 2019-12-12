@@ -20,7 +20,7 @@ class Help {
         /* pamięc wirtualna*/
         //korzysta z pamięci fizycznej i operacyjnej
         System.out.println("  -------------------------------------PAMIĘĆ WIRTUALNA--------------------------------------");
-        System.out.println("  ret [nazwa_procesu]                   - zwraca instrukcje dla procesu z pamięci operacyjnej");
+      //  System.out.println("  ret [nazwa_procesu]                   - zwraca instrukcje dla procesu z pamięci operacyjnej");
         System.out.println("  erasevm                               - czysci segmenty pamieci wirtualnej");
         System.out.println("  dvm                                   - wyswietla aktualna zawartosc pamieci wirtualnej");
         /* pamięc wirtualna*/
