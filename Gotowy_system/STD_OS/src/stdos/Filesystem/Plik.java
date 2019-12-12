@@ -1,9 +1,12 @@
 package stdos.Filesystem;
+
+import stdos.Semaphore.*;
+
 public class Plik {
     private String nazwa;
     private int rozmiar;
     private int indeks;
-
+    public semafor sem = new semafor(1);
     public Plik(String nazwa){
         this.nazwa = nazwa;
     }
@@ -13,6 +16,7 @@ public class Plik {
     }
 
     public String Nazwa() {
+
         return nazwa;
     }
 
