@@ -78,7 +78,8 @@ public class PriorityList {
         for(int i = 0; i < NOP; i++){
             System.out.print((i+1) + ": ");
             for(int j = 0; j < priorityList[i].size(); j++){
-                System.out.print("[ " + priorityList[i].get(j).getPid() + " " + priorityList[i].get(j).getPn() + " ] ");
+                System.out.print("[ " + priorityList[i].get(j).getPid() + " " + priorityList[i].get(j).getPn() + " " +
+                        priorityList[i].get(j).getPriS() + " ] ");
             }
             System.out.print("\n");
         }
@@ -91,14 +92,17 @@ public class PriorityList {
     private void cleanUpPriority(){
         for(int i = 0; i < NOP; i++){
             for(int j = (priorityList[i].size() - 1); j > -1; j--){ //bo jak usune element to sie przesuną do poczatku listy
-                if(priorityList[i].get(j).getPriD() != i+1){
-                    priorityList[priorityList[i].get(j).getPriD()-1].add(priorityList[i].remove(j));
+                int tmpPriD = priorityList[i].get(j).getPriD();
+                if(tmpPriD != i+1){
+                    //priorityList[priorityList[i].get(j).getPriD()-1].add(priorityList[i].remove(j));
+                    priorityList[tmpPriD - 1].add(priorityList[tmpPriD - 1].size(), priorityList[i].remove(j));
+
                 }
             }
         }
     }
 
-    public void printObjectID(){
+    public void printObjectID(){ //TODO: useless
         System.out.println("Priority Queues:");
         for(int i = 0; i < NOP; i++){
             System.out.print((i+1) + ": ");
