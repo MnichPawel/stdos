@@ -1,6 +1,6 @@
-package KP;
-import KP.Pliki;
-import KP.Plik;
+package stdos.Filesystem;
+import stdos.Filesystem.Pliki;
+import stdos.Filesystem.Plik;
 public class Test {
     static void CreateF(final byte[] name, final byte[] content) {
         final StringBuilder nameBuilder = new StringBuilder();

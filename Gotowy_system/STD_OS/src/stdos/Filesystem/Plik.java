@@ -1,4 +1,4 @@
-package KP;
+package stdos.Filesystem;
 public class Plik {
     private String nazwa;
     private int rozmiar;
