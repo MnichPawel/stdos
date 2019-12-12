@@ -1,74 +1,84 @@
 package stdos.Interface;
 
+import stdos.CPU.CPU;
+import stdos.Processes.ProcessManager;
+import stdos.Semaphore.JPmetody;
+import stdos.Semaphore.semafor;
+import stdos.VM.VirtualMemory;
+
 class SwitchInput {
 
         static boolean exitFlag = false;
 
-        static void inputSwitch(String komunikat){
+        static void inputSwitch(String komunikat) throws Exception {
             String[] arguments =  komunikat.split("\\s+"); //one or more space space after (splits)
 
             switch (arguments[0]) {
-//                /*pamięć RAM*/
-//                case "ram_hex":
-//                    PAMIEC_RAM.wypisz_pamiec();
-//                    break;
-//                case "ram_part":
-//                    PAMIEC_RAM.wypisz_podzial();
-//                    break;
-//                /*pamięć RAM*/
-//
-//                /*pamięć wirtualna*/
+                /*pamięć RAM*/
+                case "ram_hex":
+                    VirtualMemory.displayRAM();
+                    break;
+                case "ram_part":
+                    VirtualMemory.displayBinaryTree();
+                    break;
+                /*pamięć RAM*/
 
-//                case "erasevm":
-//                    PAMIEC_WIRTUALNA.erase();
-//                    break;
-//                case "dvm":
-//                    PAMIEC_WIRTUALNA.display();
-//                    break;
-//                /*pamięć wirtualna*/
-//
-//                /*semafor*/
+                /*pamięć wirtualna*/
+
+                case "erasevm":
+                    VirtualMemory.erase();
+                    break;
+                case "dvm":
+                    VirtualMemory.display();
+                    break;
+                /*pamięć wirtualna*/
+
+                /*semafor*/
 //                case "semstate":
-//                    SEMAFOR.jp_display(String.valueOf(arguments[1]));
+//                    JPmetody.JPwypisz(PLIK Plik); //String.valueOf(arguments[1])
 //                    break;
 //                case "queue":
-//                    SEMAFOR.jp_display_queue();
+//                    JPmetody.JPwypiszKolejke(PLIK Plik);
 //                    break;
-//                /*semafor*/
-//
-//                /*zarządzanie procesami*/
-//                case "taskcreate":
-//                    ZARZADZANIE_PROCESAMI.KM_CreateProcess(String.valueOf(arguments[1]), Integer.parseInt(arguments[2]);
-//                    break;
-//                case "kill":
-//                    ZARZADZANIE_PROCESAMI.KM_TerminateProcess(String.valueOf(arguments[1]);
-//                    break;
-//                case "rdy_tasklist":
-//                    ZARZADZANIE_PROCESAMI.KM_getReadyProcessListPrint();
-//                    break;
-//                case "tasklist":
-//                    ZARZADZANIE_PROCESAMI.KM_getAllProcessListPrint();
-//                    break;
-//                /*zarządzanie procesami*/
-//
-//                /*procesor*/
-//                case "task_exec":
-//                    PROCESOR.mm_show_running();
-//                    break;
-//
-//                case "rtasklist" :
-//                   //? nie zarządzanie procesami? PROCESOR.mm_show_actual_priority();
-//                    break;
-//                /*procesor*/
-//
-//                /*interpreter*/
-//                case "step":
-//                    PROCESOR.MM_go();
-//                    break;
-//                case "register":
-//                    INTERPRETER.KK_dispReg();
-//                    break;
-//                /*interpreter*/
+                /*semafor*/
+
+                    /*zarządzanie procesami*/
+                case "taskcreate":
+                    ProcessManager.KM_CreateProcess(String.valueOf(arguments[1]), String.valueOf(arguments[2]), Integer.parseInt(arguments[3]));
+                    break;
+                case "kill":
+                    ProcessManager.KM_TerminateProcess(String.valueOf(arguments[1]));
+                    break;
+                case "rtasklist":
+                    ProcessManager.KM_getReadyProcessListPrint();
+                    break;
+                case "tasklist":
+                    ProcessManager.KM_getAllProcessListPrint();
+                    break;
+                /*zarządzanie procesami*/
+
+                /*procesor*/
+                case "task_exec":
+                    CPU.MM_show_running();
+                    break;
+
+                case "prior_tasklist" :
+                    CPU.MM_show_actual_priority();
+                    break;
+
+                    /*procesor*/
+
+                /*interpreter*/
+                case "step":
+                    CPU.MM_go();
+                    break;
+                    /* wyświetlaj krokowo*/
+
+                    /*wyświetlenie aktualnych procesów */
+                case "register":
+                    ProcessManager.KM_printRunningRegisters();
+                    break;
+
 //
 //                /*zarządzanie plikami i katalogami*/
 //                case "mkfile": //file create

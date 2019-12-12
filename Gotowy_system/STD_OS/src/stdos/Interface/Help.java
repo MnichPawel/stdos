@@ -13,7 +13,7 @@ class Help {
         /* pamięc ram*/
         //nie korzysta z żadnego innego modułu*/
         System.out.println("  -------------------------------------PAMIĘĆ RAM-------------------------------------------");
-        System.out.println("  ram_hex                              - wypisuje zawartość ramu w zapisie heksadecymalnym");
+        System.out.println("  ram                                  - wypisuje zawartość ramu w zapisie heksadecymalnym");
         System.out.println("  ram_part                             - wypisuje podzial pamieci ram");
         /* pamięc ram*/
 
@@ -33,9 +33,11 @@ class Help {
 
         System.out.println("  -------------------------------------PROCESOR---------------------------------------------");
         /* zarządzanie procesami: semafor, pamiec ram, pamiec wirtualna*/
-        System.out.println("  taskcreate [nazwa_pliku] {priorytet}  - tworzenie procesu");
+        System.out.println("  taskcreate [nazwa_pliku] [nazwa_procesu} {priorytet}  - tworzenie procesu");
         System.out.println("  kill [nazwa_procesu]                  - zakonczenie dzialania danego procesu");
         System.out.println("  tasklist                              - wyswietla liste wszystkich procesow");
+        System.out.println("  rtasklist                             - wyswietla listę gotowych procesow");
+
 
 
         /* zarządzanie procesami*/
@@ -43,8 +45,9 @@ class Help {
 
         /* procesor : korzysta z zarzadzania procesami*/
         System.out.println("  task_exec                             - wyswietla wykonywany proces");
-        System.out.println("  rdy_tasklist                          - wyswietla listę gotowych procesow i ich chwilowy priorytet");
+        System.out.println("  prior_tasklist                        - wyswietla listę gotowych procesow i ich chwilowy priorytet");
         /* procesor*/
+
         System.out.println("  -------------------------------------PLIKI I KATALOGI--------------------------------------");
         /*zarządzanie plikami i katalogami*/
         System.out.println("  mkfile [nazwa_pliku]                  - utworzenie pliku");
