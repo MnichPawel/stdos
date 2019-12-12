@@ -97,6 +97,10 @@ public class ProcessManager {
         return KM_TerminateProcess(KM_getPCBbyPN(_processname));
     }
 
+    public static boolean KM_TerminateProcess (int pid) {
+        return KM_TerminateProcess(KM_getPCBbyPID(pid));
+    }
+
     /*
     Allowed ProcessState changes
     NEW -> READY
