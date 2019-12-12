@@ -18,7 +18,7 @@ public class CPU {
     //Konstruktor
     public CPU() {
         ZEROPRIORITY = KM_getZeroPriorityPCB();
-        if(KM_getReadyProcessList() != null) {
+        if (KM_getReadyProcessList() != null) {
             List<PCB> tmp = KM_getReadyProcessList();
             for (int i = 0; i < tmp.size(); i++) {
                 if (tmp.get(i).getPriS() == 0) ZEROPRIORITY = tmp.get(i);
@@ -34,7 +34,7 @@ public class CPU {
 
         MM_scheduler();
 
-        if(!KK_Interpret()){//funkcja zwraca  0, gdy wykona ostatni rozkaz lub nie ma dalszych rozkazów
+        if (!KK_Interpret()) {//funkcja zwraca  0, gdy wykona ostatni rozkaz lub nie ma dalszych rozkazów
             ProcessManager.KM_TerminateProcess(RUNNING);
         }
         MM_refreshPriority();
@@ -42,34 +42,64 @@ public class CPU {
     }
 
     //dodaje proces do listy gotowych procesow
-    public static void MM_addReadyProcess(PCB ready_process){
-        if(ready_process.getPs() == ProcessState.READY)
+    public static void MM_addReadyProcess(PCB ready_process) {
+        if (ready_process.getPs() == ProcessState.READY)
             priorityList.addProcess(ready_process);
         MM_scheduler();
     }
 
-    public static  void MM_unreadyProcess(PCB pcb){
+    public static void MM_unreadyProcess(PCB pcb) {
         priorityList.deleteProcess(pcb.getPid());
     }
 
+    public static void MM_terminateRunning() {
+        RUNNING = null;
+        MM_scheduler();
+    }
+
+    /* -----------------STEP MODE---------------------------------------------------------------------*/
+
+    //wyswietla dane wykonywanego procesu
+    public static void MM_show_running() {
+        System.out.println("RUNNING: id: " + RUNNING.getPid() + " name: " + RUNNING.getPn());
+    }
+
+    //wyswietla liste gotowych procesow wraz z priorytetami
+    public static void MM_show_actual_priority() {
+        priorityList.displayQueues();
+        System.out.print("RUNNING: [ " + RUNNING.getPid() + " " + RUNNING.getPn() + " " + RUNNING.getPriS() + " " + RUNNING.getPriD() + " ]");
+    }
+
+    /*--------------------GET---------------------------------------------------------------------------*/
+
+    public static PCB MM_getRUNNING() {
+        return RUNNING;
+    }
+
+    public static PCB MM_getZEROPRIORITY() {            //may be useless
+        return ZEROPRIORITY;
+    } //TODO: useless
+
+
+    /* -----------------Private---------------------------------------------------------------------*/
+
     //aktualizuje priorytet chwilowy
-    private static void MM_refreshPriority(){
+    private static void MM_refreshPriority() {
         priorityList.updateDynamicPriority();
-        if(RUNNING != ZEROPRIORITY){
-            if(RUNNING.getPriD() > RUNNING.getPriS()) RUNNING.setPriD(RUNNING.getPriD()-1);
+        if (RUNNING != ZEROPRIORITY) {
+            if (RUNNING.getPriD() > RUNNING.getPriS()) RUNNING.setPriD(RUNNING.getPriD() - 1);
         }
     }
 
-    private static void MM_scheduler(){
+    private static void MM_scheduler() {
         PCB tmp;
 
         tmp = MM_findReady();
 
-        if(RUNNING == null){
+        if (RUNNING == null) {
             RUNNING = tmp;
             ProcessManager.KM_setProcessState(RUNNING, ProcessState.RUNNING); //Zwraca T / F
-        }
-        else {
+        } else {
             if (tmp.getPriS() > RUNNING.getPriS()) {
                 KM_setProcessState(RUNNING, ProcessState.READY); //Zwraca T / F
                 KM_setProcessState(tmp, ProcessState.RUNNING); // Zwraca T / F
@@ -79,34 +109,11 @@ public class CPU {
     }
 
     //szuka procesu o najwyzszym priorytecie
-    private static PCB MM_findReady(){
+    private static PCB MM_findReady() {
         PCB tmp;
         tmp = priorityList.getHighestPriority();
-        if(tmp != null) {
+        if (tmp != null) {
             return tmp;
-        }
-        else return ZEROPRIORITY;
+        } else return ZEROPRIORITY;
     }
-
-/* -----------------STEP MODE---------------------------------------------------------------------*/
-
-    //wyswietla dane wykonywanego procesu
-    public static void MM_show_running(){
-        System.out.println("RUNNING: id: "+RUNNING.getPid()+" name: "+RUNNING.getPn());
-    }
-
-    //wyswietla liste gotowych procesow wraz z priorytetami
-    public static void MM_show_actual_priority(){
-        priorityList.displayQueues();
-        System.out.print("RUNNING: [ "+ RUNNING.getPid() + " " + RUNNING.getPn() + " " + RUNNING.getPriS() + " " + RUNNING.getPriD() + " ]");
-    }
-
-/*--------------------GET---------------------------------------------------------------------------*/
-
-    public static PCB MM_getRUNNING(){
-        return RUNNING;
-    }
-    public static PCB MM_getZEROPRIORITY(){            //may be useless
-        return ZEROPRIORITY;
-    } //TODO: useless
 }
