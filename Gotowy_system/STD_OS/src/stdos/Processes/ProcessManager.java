@@ -53,6 +53,7 @@ public class ProcessManager {
                 throw new Exception("KM_CreateProcess:priorityOutsideRange");
             }
         }
+
         if(true) {//TODO: File exist?
             //TODO: czyPjest -> is file exist
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
@@ -94,11 +95,21 @@ public class ProcessManager {
     }
 
     public static boolean KM_TerminateProcess (String _processname) {
-        return KM_TerminateProcess(KM_getPCBbyPN(_processname));
+        PCB pcb = KM_getPCBbyPN(_processname);
+        if(pcb==null) {
+            return false;
+        } else {
+            return KM_TerminateProcess(pcb);
+        }
     }
 
     public static boolean KM_TerminateProcess (int pid) {
-        return KM_TerminateProcess(KM_getPCBbyPID(pid));
+        PCB pcb = KM_getPCBbyPID(pid);
+        if(pcb==null) {
+            return false;
+        } else {
+            return KM_TerminateProcess(pcb);
+        }
     }
 
     /*
