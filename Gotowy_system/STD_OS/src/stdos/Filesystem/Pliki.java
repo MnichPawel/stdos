@@ -1,4 +1,4 @@
-package stdos.Filesystem;
+package KP;
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -8,6 +8,10 @@ public class Pliki extends Plik{
 
     public Pliki(String nazwa) {
         super(nazwa);
+    }
+
+    public Pliki() {
+
     }
 
     public boolean czyPjest(String nazwa) {
@@ -23,11 +27,11 @@ public class Pliki extends Plik{
 
     public void KP_utwP(String nazwa, byte[] content) {
         if (czyPjest(nazwa)) {
-            //Interfejs.println("Plik " + nazwa + " już istnieje");
+            System.out.println("Plik " + nazwa + " już istnieje");
             return;
         }
         if (nazwa.equals("")) {
-            //Interfejs.println("Podaj nazwe pliku");
+            System.out.println("Podaj nazwe pliku");
             return;
         }
         Plik newP = new Plik(nazwa);
@@ -42,13 +46,14 @@ public class Pliki extends Plik{
                 return Dysk.getBlockByIndex(e.getIndexBlock());
             }
         }
-        //Interfejs.println("Nie ma takiego pliku");
+        System.out.println("Nie ma takiego pliku");
         return Dysk.invalid();
     }
 
+
     public void KP_pokP(){
         for(Plik e: Files){
-            //Interfejs.println("\t" + e.getSize() + "\t" + e.getName() );
+            System.out.println("\t" + e.Rozm()+ "\t" + e.Nazwa() );
         }
     }
 
@@ -61,7 +66,7 @@ public class Pliki extends Plik{
                 return;
             }
         }
-        //Interfejs.println("Brak pliku o nazwie: " + nazwa);
+        System.out.println("Brak pliku o nazwie: " + nazwa);
     }
 
 }
