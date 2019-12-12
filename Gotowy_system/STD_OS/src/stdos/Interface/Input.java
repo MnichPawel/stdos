@@ -5,6 +5,7 @@ import java.util.Scanner;
 class Input{
     public static void startInterface() throws UnsupportedOperationException {
         Scanner inputScanner = new Scanner(System.in);
+            System.out.println(">>");
             while (!SwitchInput.exitFlag) {
                 String input = inputScanner.nextLine();
                 try {
