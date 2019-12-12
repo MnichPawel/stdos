@@ -10,7 +10,7 @@ public class PriorityList {
     private static final int NOP = 15; //Number of Priorities
 
     private ArrayList<PCB>[] priorityList = new ArrayList[NOP];
-    private Boolean[] boolPriorityList = new Boolean[NOP];
+    private boolean[] boolPriorityList = new boolean[NOP];
 
   /*------------------------------------------------------------------------*/
  /*---------Public functions-----------------------------------------------*/
