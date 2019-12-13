@@ -6,7 +6,7 @@ import stdos.CPU.*;
 import stdos.VM.VirtualMemory;
 
 public class ProcessManager {
-    private static int actPid;
+    private static int actPid = 0;
     private static List<PCB> activeProcesses;
     private static List<PCB> readyProcesses;
     private static String idleProcessFilename = "DUMMYFILE";
@@ -20,14 +20,13 @@ public class ProcessManager {
     Create Idle Process (Static priority = 0)
      */
     public ProcessManager() {
-        activeProcesses = new ArrayList<PCB>();
-        readyProcesses = new ArrayList<PCB>();
+        activeProcesses = new ArrayList<>();
+        readyProcesses = new ArrayList<>();
         try {
             zeroPriority = KM_CreateProcess(idleProcessFilename, "DUMMY", 0);
         } catch(Exception e) {
             System.out.println(e.getMessage());
         }
-        return;
     }
 
     /*
@@ -58,20 +57,17 @@ public class ProcessManager {
             //TODO: czyPjest -> is file exist
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
             actPid++;
-            VirtualMemory.load_to_virtualmemory(actPid, ""); //TODO: program data
+            VirtualMemory.load_to_virtualmemory(pcb1.getPid(), ""); //TODO: program data
             KM_setProcessState(pcb1, ProcessState.READY);
             activeProcesses.add(pcb1);
             readyProcesses.add(pcb1);
             if(!pcb1.getFilename().equalsIgnoreCase(idleProcessFilename)) {
                 CPU.MM_addReadyProcess(pcb1);
             }
-            System.out.println("Utworzono proces dla pliku " + "[" + _filename + "]" + " procesu " + "[" +_processname + "]" + " o priorytecie " +"{" + _p +" }" );
             return pcb1;
-
         } else {
             throw new Exception("KM_CreateProcess:FileNotExist");
         }
-
     }
 
     public static void KM_CreateProcess (String _filename, int _p) throws Exception {
@@ -102,14 +98,11 @@ public class ProcessManager {
 
     public static boolean KM_TerminateProcess (String _processname) {
         PCB pcb = KM_getPCBbyPN(_processname);
-        System.out.println("Usunieto proces o nazwie " + _processname);
         if(pcb==null) {
             return false;
         } else {
             return KM_TerminateProcess(pcb);
-
         }
-
     }
 
     public static boolean KM_TerminateProcess (int pid) {
@@ -198,7 +191,6 @@ public class ProcessManager {
             System.out.format("%-3d %-16s %-16s %-2d %-2d %-7s\n", _p.getPid(), _p.getPn(), _p.getFilename(), _p.getPriS(), _p.getPriD(), _p.getPs());
             //System.out.print("- "+_p.getPid()+"\t"+_p.getPn()+"\t"+_p.getFilename()+"\t\t"+_p.getPriS()+"\t\t"+_p.getPriD()+"\t\t"+_p.getPs()+"\n");
         }
-        return;
     }
 
     public static void KM_getReadyProcessListPrint() {
@@ -209,7 +201,6 @@ public class ProcessManager {
                 System.out.format("%-3d %-16s %-16s %-2d %-2d\n", _p.getPid(), _p.getPn(), _p.getFilename(), _p.getPriS(), _p.getPriD());
             }
         }
-        return;
     }
 
     public static PCB KM_getZeroPriorityPCB() {
@@ -225,7 +216,7 @@ public class ProcessManager {
         if(activeProcesses.isEmpty()) {
             return null;
         }
-        List<PCB> readyProc = new ArrayList<PCB>();
+        List<PCB> readyProc = new ArrayList<>();
         for (PCB _p : activeProcesses) {
             if(_p.getPs()==ProcessState.READY) {
                 readyProc.add(_p);
@@ -240,7 +231,7 @@ public class ProcessManager {
         System.out.printf("AX: %d, BX: %d, CX: %d, DX: %d\n", pcb.getAx(), pcb.getBx(), pcb.getCx(), pcb.getDx());
     }
 
-    public static PCB KM_getPCBbyPID (int pid) {
+    private static PCB KM_getPCBbyPID (int pid) {
         for(PCB _p : activeProcesses) {
             if(_p.getPid()==pid) {
                 return _p;
@@ -249,7 +240,7 @@ public class ProcessManager {
         return null;
     }
 
-    public static PCB KM_getPCBbyPN (String _processname) {
+    private static PCB KM_getPCBbyPN (String _processname) {
         for(PCB _p : activeProcesses) {
             if(_p.getPn().equalsIgnoreCase(_processname)) {
                 return _p;
