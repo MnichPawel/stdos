@@ -13,32 +13,28 @@ import java.util.Deque;
 public class JPmetody {
     private static void wakeup(PCB p){
         KM_setProcessState (p, ProcessState.READY);//zmiana stanu procesu na ready
-        MM_addReadyProcess(p);//dodanie procesu do listy kolejek priorytetowych
+        //^ oraz dodanie procesu do listy kolejek priorytetowych
     }
     private static void block(PCB p){
         KM_setProcessState (p, ProcessState.WAITING);//zmiana stanu procesu na waiting
-        MM_unreadyProcess(p);//usuniecie procesu z listy kolejek priorytetowych
+        //^ oraz usuniecie procesu z listy kolejek priorytetowych
     }
     public static void signal(semafor S){
         S.wartosc+=1;
-        if(S.wartosc>0) {
+        if(S.wartosc<=0) {
             PCB pom = S.kolejka.poll();
             wakeup(pom);
         }
     }
     public static void wait(semafor S){
         S.wartosc-=1;
-        if(S.wartosc<=0) {
+        if(S.wartosc<0) {
             block(MM_getRUNNING());
             S.kolejka.offer(MM_getRUNNING());
         }
     }
-    /*int JPwypisz(semafor S){ //wypisanie wartosci semafora
-        return S.wartosc;
-    }*/
-    public static void JPwypiszOgolne(semafor S){ //wypisanie wartosci semafora zakladajaca ze semafory sa nie tylko w plikach
-        System.out.println(S.wartosc);
-    }
+    //================================================wypisywanie semafora na ekran=====================================
+
     public static void JPwypisz(Plik P){ //wypisanie wartosci semafora
         System.out.println(P.sem.wartosc);
     }
@@ -49,6 +45,11 @@ public class JPmetody {
             pompcb=pom.pollFirst();
             System.out.println(pompcb.getPid()+" "+pompcb.getPn());
         }
+    }
+
+    //================================================== wyswietlanie; funkcje ogolne, raczej nie beda uzywane=======================
+    public static void JPwypiszOgolne(semafor S){ //wypisanie wartosci semafora zakladajaca ze semafory sa nie tylko w plikach
+        System.out.println(S.wartosc);
     }
     public static void JPwypiszKolejkeOgolne(semafor S){ //wypisanie wartosci semafora, wersja zakladajaca ze semafory sa nie tylko w plikach
         Deque<PCB> pom = S.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
