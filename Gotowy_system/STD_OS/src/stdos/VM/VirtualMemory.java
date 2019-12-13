@@ -104,6 +104,8 @@ public class VirtualMemory {
         SegmentFile.clear();
         segmentTable.clear();
         VM.clear();
+
+        System.out.println("Wyczyszczono segmenty pamieci wirtualnej");
     }
 
     public static void display() {

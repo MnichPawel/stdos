@@ -27,6 +27,8 @@ class SwitchInput {
 
                 case "erasevm":
                     VirtualMemory.erase();
+
+
                     break;
                 case "dvm":
                     VirtualMemory.display();
@@ -52,7 +54,12 @@ class SwitchInput {
                     }
                     break;
                 case "kill":
-                    ProcessManager.KM_TerminateProcess(String.valueOf(arguments[1]));
+                    try {
+                        ProcessManager.KM_TerminateProcess(String.valueOf(arguments[1]));
+                    }
+                    catch(Exception e){
+                        System.out.println(e.getMessage());
+                    }
                     break;
                 case "rtasklist":
                     ProcessManager.KM_getReadyProcessListPrint();

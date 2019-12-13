@@ -25,7 +25,7 @@ public class ProcessManager {
         try {
             zeroPriority = KM_CreateProcess(idleProcessFilename, "DUMMY", 0);
         } catch(Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
         }
         return;
     }
@@ -65,10 +65,13 @@ public class ProcessManager {
             if(!pcb1.getFilename().equalsIgnoreCase(idleProcessFilename)) {
                 CPU.MM_addReadyProcess(pcb1);
             }
+            System.out.println("Utworzono proces dla pliku " + "[" + _filename + "]" + " procesu " + "[" +_processname + "]" + " o priorytecie " +"{" + _p +" }" );
             return pcb1;
+
         } else {
             throw new Exception("KM_CreateProcess:FileNotExist");
         }
+
     }
 
     public static void KM_CreateProcess (String _filename, int _p) throws Exception {
@@ -99,11 +102,14 @@ public class ProcessManager {
 
     public static boolean KM_TerminateProcess (String _processname) {
         PCB pcb = KM_getPCBbyPN(_processname);
+        System.out.println("Usunieto proces o nazwie " + _processname);
         if(pcb==null) {
             return false;
         } else {
             return KM_TerminateProcess(pcb);
+
         }
+
     }
 
     public static boolean KM_TerminateProcess (int pid) {
