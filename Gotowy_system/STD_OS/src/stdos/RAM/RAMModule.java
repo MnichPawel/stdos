@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Stack;
 
 class Node{
-    private static int minimal_size = 4;
+    private static int minimal_size = 2;
 
     private boolean reserved = false;
     private boolean divided = false;

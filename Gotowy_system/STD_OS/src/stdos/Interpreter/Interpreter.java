@@ -13,7 +13,6 @@ import static stdos.VM.VirtualMemory.*;
 import static stdos.Processes.ProcessManager.*;
 //TODO Byte Receiver from Virtual Memory Method //DONE
 //TODO Assembler Instruction Map //DONE
-//TODO getRegisters Method
 public class Interpreter {
     /*==============================================STRUCTURES========================================================*/
     private static Map<String, Integer> arguments = new HashMap<>();
@@ -21,7 +20,7 @@ public class Interpreter {
 
     private static PCB pcb;
     private static int address;
-    private static Pliki plik;
+    private static Pliki file;
 
     public Interpreter() { // Constructor
         /*=============================================ADD KEYS AND VALUES=========================================== */
@@ -42,7 +41,7 @@ public class Interpreter {
         arguments.put("CF", 2);  //CREATE FILE WITH CONTENT
         arguments.put("DF", 1);  //DOWNLOAD FILE
         arguments.put("AF", 2);  //ADD TO FILE
-        arguments.put("SF", 0);  //SHOW FILES TODO::I think this is Interface function
+        //arguments.put("SF", 0);  //SHOW FILES TODO::I think this is Interface function
         arguments.put("TF", 1);  //TERMINATE FILE
         arguments.put("CC", 1);  //CREATE CATALOG
         arguments.put("MF", 2);  //MOVING FILE TO CATALOG
@@ -67,7 +66,7 @@ public class Interpreter {
         }
         //Instruction.add(temp);
         Instruction.add(temp.toString());
-    }
+    } //download order from VM
 
     private static void getARGUMENTS(int n){
         int download;
@@ -102,17 +101,16 @@ public class Interpreter {
             }
             Instruction.add(temp);
         }
-    }
-    /*JEŚLI TO CZYTASZ, POMÓŻ MI WYMYŚLiĆ JAK ZAPROGRAMOWAĆ TO INNACZEJ, PONIEWAŻ WZIĘCIE POD UWAGĘ WSZYSTKICH OPCJI TO
-    * BĘDZIE MASAKRYCZNA ILOŚĆ KODU DO NAPISANIA*/
-    private static void makeINSTRUCTION() throws Exception {
+    } //download arguments from VM
+
+    private static void makeINSTRUCTION() throws Exception { //doing instruction
         /*==============ARITHMETIC=======================*/
         if (Instruction.get(0).equals("AD")) {
             switch (Instruction.get(1)) {
                 case "AX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int ax = pcb.getAx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int ax = pcb.getAx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setAx(ax + value);
                             break;
                         }
@@ -122,7 +120,7 @@ public class Interpreter {
                             break;
                         }
                         case "BX": {
-                            int ax = pcb.getAx(), bx = pcb.getBx();                 //ELSEIF VERSION
+                            int ax = pcb.getAx(), bx = pcb.getBx();
 
                             pcb.setAx(ax + bx);
                             break;
@@ -147,7 +145,7 @@ public class Interpreter {
                 case "BX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int bx = pcb.getBx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int bx = pcb.getBx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setBx(bx + value);
                             break;
                         }
@@ -160,7 +158,7 @@ public class Interpreter {
                             int bx = pcb.getBx();
                             pcb.setBx(bx + bx);
                             break;
-                        }                                      //SWITCH CASE VERSION
+                        }
                         case "CX": {
                             int bx = pcb.getBx(), cx = pcb.getCx();
                             pcb.setBx(bx + cx);
@@ -181,7 +179,7 @@ public class Interpreter {
                 case "CX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int cx = pcb.getCx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int cx = pcb.getCx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setCx(cx + value);
                             break;
                         }
@@ -215,7 +213,7 @@ public class Interpreter {
                 case "DX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int dx = pcb.getDx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int dx = pcb.getDx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setDx(dx + value);
                             break;
                         }
@@ -253,7 +251,7 @@ public class Interpreter {
                 case "AX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int ax = pcb.getAx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int ax = pcb.getAx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setAx(ax - value);
                             break;
                         }
@@ -263,7 +261,7 @@ public class Interpreter {
                             break;
                         }
                         case "BX": {
-                            int ax = pcb.getAx(), bx = pcb.getBx();                 //ELSEIF VERSION
+                            int ax = pcb.getAx(), bx = pcb.getBx();
 
                             pcb.setAx(ax - bx);
                             break;
@@ -288,7 +286,7 @@ public class Interpreter {
                 case "BX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int bx = pcb.getBx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int bx = pcb.getBx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setBx(bx - value);
                             break;
                         }
@@ -301,7 +299,7 @@ public class Interpreter {
                             int bx = pcb.getBx();
                             pcb.setBx(bx - bx);
                             break;
-                        }                                      //SWITCH CASE VERSION
+                        }
                         case "CX": {
                             int bx = pcb.getBx(), cx = pcb.getCx();
                             pcb.setBx(bx - cx);
@@ -322,7 +320,7 @@ public class Interpreter {
                 case "CX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int cx = pcb.getCx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int cx = pcb.getCx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setCx(cx - value);
                             break;
                         }
@@ -356,7 +354,7 @@ public class Interpreter {
                 case "DX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int dx = pcb.getDx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int dx = pcb.getDx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setDx(dx - value);
                             break;
                         }
@@ -394,7 +392,7 @@ public class Interpreter {
                 case "AX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int ax = pcb.getAx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int ax = pcb.getAx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setAx(ax * value);
                             break;
                         }
@@ -428,7 +426,7 @@ public class Interpreter {
                 case "BX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int bx = pcb.getBx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int bx = pcb.getBx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setBx(bx * value);
                             break;
                         }
@@ -441,7 +439,7 @@ public class Interpreter {
                             int bx = pcb.getBx();
                             pcb.setBx(bx * bx);
                             break;
-                        }                                      //SWITCH CASE VERSION
+                        }
                         case "CX": {
                             int bx = pcb.getBx(), cx = pcb.getCx();
                             pcb.setBx(bx * cx);
@@ -462,7 +460,7 @@ public class Interpreter {
                 case "CX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int cx = pcb.getCx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int cx = pcb.getCx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setCx(cx * value);
                             break;
                         }
@@ -496,7 +494,7 @@ public class Interpreter {
                 case "DX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            int dx = pcb.getDx(), value = get_value(Integer.parseInt(Instruction.get(3)));
+                            int dx = pcb.getDx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
                             pcb.setDx(dx * value);
                             break;
                         }
@@ -548,7 +546,7 @@ public class Interpreter {
             }
             else if (Instruction.get(1).equals("["))
             {
-                //TODO::I need function to set value in VM
+                set_value(Integer.parseInt(Instruction.get(2)),get_value_from_addr_table(Integer.getInteger(Instruction.get(2))+1));
             }
 
         }
@@ -571,7 +569,7 @@ public class Interpreter {
             }
             else if (Instruction.get(1).equals("["))
             {
-                //TODO::I need function to set value in VM
+                set_value(Integer.parseInt(Instruction.get(2)),get_value_from_addr_table(Integer.getInteger(Instruction.get(2))-1));
             }
 
         }
@@ -602,7 +600,7 @@ public class Interpreter {
                 case "AX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            pcb.setAx(get_value(Integer.parseInt(Instruction.get(3))));
+                            pcb.setAx(get_value_from_addr_table(Integer.parseInt(Instruction.get(3))));
                             break;
                         }
                         case "BX": {
@@ -626,7 +624,7 @@ public class Interpreter {
                 case "BX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            pcb.setBx(get_value(Integer.parseInt(Instruction.get(3))));
+                            pcb.setBx(get_value_from_addr_table(Integer.parseInt(Instruction.get(3))));
                             break;
                         }
                         case "AX": {
@@ -650,7 +648,7 @@ public class Interpreter {
                 case "CX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            pcb.setCx(get_value(Integer.parseInt(Instruction.get(3))));
+                            pcb.setCx(get_value_from_addr_table(Integer.parseInt(Instruction.get(3))));
                             break;
                         }
                         case "AX": {
@@ -674,7 +672,7 @@ public class Interpreter {
                 case "DX":
                     switch (Instruction.get(2)) {
                         case "[": {
-                            pcb.setDx(get_value(Integer.parseInt(Instruction.get(3))));
+                            pcb.setDx(get_value_from_addr_table(Integer.parseInt(Instruction.get(3))));
                             break;
                         }
                         case "AX": {
@@ -695,24 +693,50 @@ public class Interpreter {
                         }
                     }
                     break;
-                case "[": //TODO::MOVING TO ADRESS
-                    switch (Instruction.get(2)){
-
+                case "[": //TODO::MOVING TO ADRESS /DONE
+                    switch (Instruction.get(4)){
+                        case "[":{
+                            set_value(Integer.parseInt(Instruction.get(2)),Short.parseShort(Instruction.get(5)));
+                        }
+                        case "AX":{
+                            set_value(Integer.parseInt(Instruction.get(2)),(short)pcb.getAx());
+                        }
+                        case "BX":{
+                            set_value(Integer.parseInt(Instruction.get(2)),(short)pcb.getBx());
+                        }
+                        case "CX":{
+                            set_value(Integer.parseInt(Instruction.get(2)),(short)pcb.getCx());
+                        }
+                        case "DX":{
+                            set_value(Integer.parseInt(Instruction.get(2)),(short)pcb.getDx());
+                        }
                     }
             }
         } //TODO:MOVING TO ADRESS
         /*================WORK_ON_FILES==================*/
         else if (Instruction.get(0).equals("CF")){
-            plik = new Pliki(Instruction.get(1));
+            file.KP_utwP(Instruction.get(1),Instruction.get(2).getBytes());
 
         }
-        else if (Instruction.get(0).equals("DF")){}
-        else if (Instruction.get(0).equals("AF")){}
-        else if (Instruction.get(0).equals("SF")){}
-        else if (Instruction.get(0).equals("TF")){}
-        else if (Instruction.get(0).equals("CC")){}
-        else if (Instruction.get(0).equals("MF")){}
-        else if (Instruction.get(0).equals("TC")){}
+        else if (Instruction.get(0).equals("DF")){
+            file.KP_pobP(Instruction.get(1));
+        }
+        else if (Instruction.get(0).equals("AF")){
+            //TODO file.KP_dodDoP this function didn't exist
+        }
+        //else if (Instruction.get(0).equals("SF")){} Interface
+        else if (Instruction.get(0).equals("TF")){
+            file.KP_usunP(Instruction.get(1));
+        }
+        else if (Instruction.get(0).equals("CC")){
+            //TODO HOW CREATE ??
+        }
+        else if (Instruction.get(0).equals("MF")){
+            //TODO IDK
+        }
+        else if (Instruction.get(0).equals("TC")){
+            //TODO WTF IDK METHODS
+        }
         /*==============PROCESS OPERATION================*/
         else if (Instruction.get(0).equals("CP")){
             KM_CreateProcess(Instruction.get(1),Instruction.get(2),Integer.parseInt(Instruction.get(3)));
@@ -727,6 +751,7 @@ public class Interpreter {
     public static boolean KK_Interpret() throws Exception {
         PCB pcb = MM_getRUNNING();
         int address = pcb.getPC();
+        file = new Pliki();
 
 
         getORDER();

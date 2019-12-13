@@ -1,7 +1,11 @@
+//#TODO: DISPLAY ADDRESS_TABLE IN DISPLAY() METHOD
+
 package stdos.VM;
 
 import stdos.RAM.RAMModule;
+import javafx.util.Pair;
 
+import java.nio.ByteBuffer;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Vector;
@@ -16,23 +20,33 @@ public class VirtualMemory {
     //zawartosc pamieci wirtualnej
     static Map<Integer, Boolean> VM = new HashMap<>();
 
-    //do utworzenia set_value albo mapa logiczna np że adres 2000 to adres 7
-    //albo konsultacja z Pawlem dot. funkcji rezerwujaca podany adres
+    //mapa logiczna adresow
+    static Map<Integer, Pair<Boolean, Pair<Integer, Integer>>> addressTable = new HashMap<>(); //pid flaga 1-ram 0-file adr_log adr_fiz
 
     /*===============================PROCESY=================================*/
     public static void load_to_virtualmemory(int PID, String code) {
         //przerobienie kodu na bajty
         byte[] bytes_code = new byte[code.length()];
 
-        Boolean flag = false; //true - in RAM, false - in SegmentFile
+        boolean flag_space = true;
+        boolean flag = false; //true - in RAM, false - in SegmentFile
 
         int reservation = -1;
-        reservation = RAMModule.zarezerwuj_pamiec(code.length());
+        reservation = RAMModule.zarezerwuj_pamiec(code.length() - 1);
 
         for(int i=0; i<code.length(); i++) {
-            bytes_code[i] = (byte) code.charAt(i);
+            if(code.charAt(i) == ' ') {
+                if(flag_space) {
+                    flag_space = false;
+                    i++;
+                }
+            }
+            if(flag_space)
+                bytes_code[i] = (byte) code.charAt(i);
+            else
+                bytes_code[i-1] = (byte) code.charAt(i);
         }
-        //KONSULTACJA Z PAWŁEM
+
         if(reservation == -1) {
             SegmentFile.put(PID, bytes_code);
         }
@@ -65,13 +79,41 @@ public class VirtualMemory {
                 //usuwanie z pliku
                 SegmentFile.remove(PID);
             }
+            Pair pair = addressTable.get(PID);
+            boolean place = (boolean) pair.getKey();
+            if(place) {
+                Pair temp = (Pair) pair.getValue();
+                RAMModule.zwolnij_pamiec((Integer) temp.getValue());
+            }
             VM.remove(PID);
+            addressTable.remove(PID);
         }
     }
 
     /*===============================/PROCESY=================================*/
 
     /*===============================ASEMBLER=================================*/
+    public static short get_value_from_addr_table(int address) {
+        //int runningID = CPU.RUNNING.getPid();
+        int runningID = 0;
+
+        Pair pair = addressTable.get(runningID);
+        if((boolean)pair.getKey()) {
+            pair = (Pair) pair.getValue();
+            if((int)pair.getKey() == address) {
+                short val = RAMModule.odczytaj_bajt(0,(Integer) pair.getValue());
+                if(val < 0) val += 256;
+                return val;
+            }
+        }
+        else {
+            pair = (Pair) pair.getValue();
+            short val = (short) pair.getValue();
+            return val;
+        }
+        return Short.parseShort(null);
+    }
+
     public static byte get_value(int address) {
         //int runningID = CPU.RUNNING.getPid();
         int runningID = 0;
@@ -89,8 +131,24 @@ public class VirtualMemory {
         return -1;
     }
 
-    public static void set_value(int address, int value) {
-        //dodanie wektora wartosci do segmntu procesu itp
+    public static void set_value(int address, short value) {
+        //int runningID = CPU.RUNNING.getPid();
+        int running = 0;
+
+        byte[] val = new byte[2];
+        val[0] = (byte)(value & 0xff);
+        val[1] = (byte)((value >> 8) & 0xff);
+
+        int reservation = RAMModule.zarezerwuj_pamiec(1);
+        if(reservation != -1) {
+            RAMModule.zapisz_bajty(val, reservation);
+            addressTable.put(running, new Pair<>(true, new Pair<>(address, reservation)));
+        }
+        else {
+            SegmentFile.put(running, val);
+            int val_int = Short.toUnsignedInt(value);
+            addressTable.put(running, new Pair<>(false, new Pair<>(null, val_int)));
+        }
     }
     /*===============================/ASEMBLER=================================*/
 
@@ -100,12 +158,19 @@ public class VirtualMemory {
                 RAMModule.zwolnij_pamiec(segment.beginAddress);
             }
         }
-
+        for(Map.Entry<Integer, Pair<Boolean, Pair<Integer, Integer>>> entry : addressTable.entrySet()) {
+            Pair pair = entry.getValue();
+            boolean place = (boolean) pair.getKey();
+            if(place) {
+                Pair temp = (Pair) pair.getValue();
+                RAMModule.zwolnij_pamiec((Integer) temp.getValue());
+            }
+        }
+        addressTable.clear();
         SegmentFile.clear();
         segmentTable.clear();
         VM.clear();
-
-        System.out.println("Wyczyszczono segmenty pamieci wirtualnej");
+        System.out.println("Wyczyszczono pamięć wirtualną");
     }
 
     public static void display() {
@@ -130,6 +195,7 @@ public class VirtualMemory {
             }
             System.out.println();
         }
+        System.out.println("\nPID\tADDR\tVALUE");
     }
 
     public static void displayRAM() {
