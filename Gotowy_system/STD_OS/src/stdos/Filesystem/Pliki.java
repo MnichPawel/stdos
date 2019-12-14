@@ -4,7 +4,7 @@ import java.util.Vector;
 
 public class Pliki extends Plik{
 
-    private Vector<Plik> Files = new Vector<>();
+    public static Vector<Plik> Files = new Vector<>();
 
     public Pliki(String nazwa) {
         super(nazwa);
@@ -14,7 +14,7 @@ public class Pliki extends Plik{
 
     }
 
-    public boolean czyPjest(String nazwa) {
+    public static boolean czyPjest(String nazwa) {
         for (Plik e : Files) {
             if (e.Nazwa().equals(nazwa)) {
                 return true;
@@ -25,7 +25,7 @@ public class Pliki extends Plik{
 
 
 
-    public void KP_utwP(String nazwa, byte[] content) {
+    public void KP_utwP(String nazwa) {
         if (czyPjest(nazwa)) {
             System.out.println("Plik " + nazwa + " już istnieje");
             return;
@@ -35,9 +35,26 @@ public class Pliki extends Plik{
             return;
         }
         Plik newP = new Plik(nazwa);
-        newP.setIndexBlock(Dysk.addContent(content, 10));
+        byte[]content={};
+        newP.setIndexBlock(Dysk.addContent(content, indeks));
         newP.UstRozm(content.length);
         Files.add(newP);
+    }
+
+    public void KP_dopP(String nazwa, byte[] content) {
+        if (czyPjest(nazwa)) {
+            for (Plik e : Files) {
+                if (e.Nazwa().equals(nazwa)) {
+                    e.setIndexBlock(Dysk.addContent(content, indeks));
+                    e.UstRozm(content.length);
+                    return;
+                }
+            }
+        }
+        if (nazwa.equals("")) {
+            System.out.println("Podaj nazwe pliku");
+            return;
+        }
     }
 
     public byte[] KP_pobP(String nazwa) {
