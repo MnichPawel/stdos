@@ -6,7 +6,7 @@
 <ul>System contains 8 modules: 
 <li>
 <li>Process Manager - Windows
-<li>
+<li>CPU Scheduler - Windows-based priority algorithm
 <li>
 <li>
 <li>
