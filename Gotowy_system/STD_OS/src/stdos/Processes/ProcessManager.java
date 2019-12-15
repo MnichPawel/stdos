@@ -3,6 +3,7 @@ package stdos.Processes;
 import java.util.ArrayList;
 import java.util.List;
 import stdos.CPU.*;
+import stdos.Filesystem.Katalogi;
 import stdos.VM.VirtualMemory;
 
 public class ProcessManager {
@@ -53,11 +54,11 @@ public class ProcessManager {
                 throw new Exception("KM_CreateProcess:priorityOutsideRange");
             }
         }
-        if(true) {//TODO: File exist?
-            //TODO: czyPjest -> is file exist
+        byte[] code = Katalogi.getTargetDir().getFiles().KP_pobP(_filename);
+        if(code[0] != -1) {
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
             actPid++;
-            VirtualMemory.load_to_virtualmemory(pcb1.getPid(), ""); //TODO: program data
+            VirtualMemory.load_to_virtualmemory(pcb1.getPid(), code.toString()); //TODO: program data?
             KM_setProcessState(pcb1, ProcessState.READY);
             activeProcesses.add(pcb1);
             readyProcesses.add(pcb1);
@@ -82,9 +83,9 @@ public class ProcessManager {
         ProcessManager.KM_CreateProcess(_filename, _filename, 1);
     }
 
-    public static boolean KM_TerminateProcess (PCB pcb) { //TODO: function
+    public static boolean KM_TerminateProcess (PCB pcb) throws Exception { //TODO: function
         if(pcb.getPid()==0) {
-            return false;
+            throw new Exception("KM_TerminateProcess:IdleProcessCannotBeTerminated");
         }
         activeProcesses.remove(pcb);
         readyProcesses.remove(pcb);
@@ -96,19 +97,19 @@ public class ProcessManager {
         return true;
     }
 
-    public static boolean KM_TerminateProcess (String _processname) {
+    public static boolean KM_TerminateProcess (String _processname) throws Exception {
         PCB pcb = KM_getPCBbyPN(_processname);
         if(pcb==null) {
-            return false;
+            throw new Exception("KM_TerminateProcess:ProcessNotExist");
         } else {
             return KM_TerminateProcess(pcb);
         }
     }
 
-    public static boolean KM_TerminateProcess (int pid) {
+    public static boolean KM_TerminateProcess (int pid) throws Exception {
         PCB pcb = KM_getPCBbyPID(pid);
         if(pcb==null) {
-            return false;
+            throw new Exception("KM_TerminateProcess:ProcessNotExist");
         } else {
             return KM_TerminateProcess(pcb);
         }
