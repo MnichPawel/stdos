@@ -38,7 +38,7 @@ public class Interpreter {
         //MOVING
         arguments.put("MO", 2);  //MOVING TO FROM
         //WORK ON FILES
-        arguments.put("CF", 2);  //CREATE FILE WITH CONTENT
+        arguments.put("CF", 1);  //CREATE FILE WITH CONTENT
         arguments.put("DF", 1);  //DOWNLOAD FILE
         arguments.put("AF", 2);  //ADD TO FILE
         //arguments.put("SF", 0);  //SHOW FILES TODO::I think this is Interface function
@@ -712,17 +712,16 @@ public class Interpreter {
                         }
                     }
             }
-        } //TODO:MOVING TO ADRESS
+        }
         /*================WORK_ON_FILES==================*/
         else if (Instruction.get(0).equals("CF")){
-            file.KP_utwP(Instruction.get(1),Instruction.get(2).getBytes());
-
+            file.KP_utwP(Instruction.get(1));
         }
         else if (Instruction.get(0).equals("DF")){
             file.KP_pobP(Instruction.get(1));
         }
         else if (Instruction.get(0).equals("AF")){
-            //TODO file.KP_dodDoP this function didn't exist
+            file.KP_dopP(Instruction.get(1),Instruction.get(2).getBytes()); //TODO::ADDING REGISTERS
         }
         //else if (Instruction.get(0).equals("SF")){} Interface
         else if (Instruction.get(0).equals("TF")){
