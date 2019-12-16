@@ -4,10 +4,10 @@ MO CX 10
 CF plik1 
 AD AX BX 
 DE CX 
-JZ [83] 
+JZ [95] 
 AD BX AX 
 DE CX 
-JN [22] 
+JN [34] 
 AF plik1 BX 
 SP 
 AF plik1 AX 
