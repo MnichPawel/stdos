@@ -11,7 +11,9 @@ public class Katalog {
        files = new Pliki();
         this.nazwa = nazwa;
     }
+    Katalog(){
 
+    }
     Katalog(Katalog newDir){
         this.nazwa = newDir.nazwa;
         this.dirs = newDir.dirs;
