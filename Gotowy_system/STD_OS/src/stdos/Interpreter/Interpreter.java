@@ -20,7 +20,6 @@ public class Interpreter {
 
     private static PCB pcb;
     private static int address;
-    private static int PCIncrement = 0;
     private static Pliki file;
 
     public Interpreter() { // Constructor
@@ -142,7 +141,7 @@ public class Interpreter {
                     if(download==91||download==93)
                     {
                         temparse = (char)download;
-                        Instruction.add(Character.toString(temparse)); //Commented by KM
+                        Instruction.add(Character.toString(temparse).trim()); //Commented by KM
                         temp += temparse; //Added by KM
                         address++;
                     }
@@ -152,7 +151,7 @@ public class Interpreter {
                         temparse = (char) download;
                         temp += temparse; //Commented by KM
                         if(firstChar.equalsIgnoreCase("[")) {
-                            Instruction.add(Character.toString(temparse)); //Added by KM
+                            Instruction.add(Character.toString(temparse).trim()); //Added by KM
                         }
                         address++;
                     }
@@ -168,7 +167,7 @@ public class Interpreter {
             if(!firstChar.equalsIgnoreCase("[")) {
                 if(!temp.equalsIgnoreCase("")) {
                     if(!temp.equalsIgnoreCase(" ")) {
-                        Instruction.add(temp);
+                        Instruction.add(temp.trim());
                     }
                 }
             }
