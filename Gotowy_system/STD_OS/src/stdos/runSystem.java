@@ -17,8 +17,8 @@ public class runSystem {
         //private static final String PathToDiskWin = "Gotowy_system/STD_OS/src/stdos/Disk/"; //For project cloned from Github directly to IntelliJ
         private static final String PathToDiskWin = "src/stdos/Disk/"; //For project copied from Github
         //private static final String[] INITIAL_PROGRAMS = new String[] {"dummy.txt", "prog1.txt"};
-        private static final String PathForFilesFS = "C:";
-        private static final String[] allowedExtension = new String[] {".txt", ".exe", "txt", "exe"};
+        private static final String PathForFilesFS = "C";
+        private static final String[] allowedExtension = new String[] {"txt", "exe"}; //Extensions without dot
 
         private static String getFileExtension(String filename) {
             String extension = "";
@@ -56,14 +56,12 @@ public class runSystem {
                         String currentLine = br.readLine();
                         if (currentLine != null)  {
                             fileContent = fileContent + currentLine + "\n";
-                            //System.out.println(currentLine); //TODO: debugging
                         }
                         else {
                             break;
                         }
                     }
                     br.close();
-                    //System.out.println("EOF"); //TODO: debugging
                 } catch (FileNotFoundException e) {
                     e.getMessage();
                 } catch (IOException e) {
