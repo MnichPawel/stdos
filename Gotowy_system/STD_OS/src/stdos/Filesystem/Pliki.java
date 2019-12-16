@@ -1,4 +1,6 @@
 package stdos.Filesystem;
+import stdos.Semaphore.JPmetody;
+
 import java.util.Arrays;
 import java.util.Vector;
 
@@ -45,8 +47,10 @@ public class Pliki extends Plik{
         if (czyPjest(nazwa)) {
             for (Plik e : Files) {
                 if (e.Nazwa().equals(nazwa)) {
+                    JPmetody.wait(e.sem);
                     e.setIndexBlock(Dysk.addContent(content, indeks));
                     e.UstRozm(content.length);
+                    JPmetody.signal(e.sem);
                     return;
                 }
             }
@@ -60,6 +64,8 @@ public class Pliki extends Plik{
     public byte[] KP_pobP(String nazwa) {
         for (Plik e : Files) {
             if (e.Nazwa().equals(nazwa)) {
+                JPmetody.wait(e.sem);
+                JPmetody.signal(e.sem);
                 return Dysk.getBlockByIndex(e.getIndexBlock());
             }
         }
@@ -70,7 +76,9 @@ public class Pliki extends Plik{
 
     public void KP_pokP(){
         for(Plik e: Files){
+            JPmetody.wait(e.sem);
             System.out.println("\t" + e.Rozm()+ "\t" + e.Nazwa() );
+            JPmetody.signal(e.sem);
         }
     }
 
@@ -78,8 +86,10 @@ public class Pliki extends Plik{
     public void KP_usunP(String nazwa){
         for (Plik e : Files){
             if (e.Nazwa().equals(nazwa)){
+                JPmetody.wait(e.sem);
                 Dysk.remove(e.getIndexBlock());
                 Files.remove(e);
+                JPmetody.signal(e.sem);
                 return;
             }
         }
