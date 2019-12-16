@@ -4,8 +4,8 @@ import java.util.Vector;
 
 public class Katalog {
     private String nazwa;
-    private Vector<Katalog> dirs = new Vector<>();
-    private Pliki files;
+    public Vector<Katalog> dirs = new Vector<>();
+    public Pliki files;
 
     Katalog(String nazwa) {
        files = new Pliki();
@@ -30,7 +30,7 @@ public class Katalog {
         return dirs;
     }
 
-    public boolean directoryExists(String nazwa) {
+    public boolean czyKjest(String nazwa) {
         for (Katalog e : dirs) {
             if (e.getName().equals(nazwa)) {
                 return true;
@@ -39,9 +39,9 @@ public class Katalog {
         return false;
     }
 
-    public void addDirectory(String nazwa){
-        if(directoryExists(nazwa)){
-           // Shell.println("Directory " + nazwa + " already exists");
+    public void KP_utwK(String nazwa){
+        if(czyKjest(nazwa)){
+            System.out.println("Katalog " + nazwa + " juz istnieje");
             return;
         }
         dirs.add(new Katalog(nazwa));
@@ -52,14 +52,14 @@ public class Katalog {
         return files;
     }
 
-    public void removeDir(String nazwa) {
+    public void KP_usunK(String nazwa) {
         for(Katalog e:dirs){
             if(e.getName().equals(nazwa)){
                 dirs.remove(e);
                 return;
             }
         }
-        //Interfejs.println("No directory named: " + nazwa);
+        System.out.println("Brak katalogu o nazwie: " + nazwa);
     }
 
     public void tree(int level){
@@ -68,7 +68,7 @@ public class Katalog {
         for (int i = 0; i < level; i++) {
             temp += "\t";
         }
-        //Interfejs.println(temp + name + " ");
+        System.out.println(temp + nazwa + " ");
         for(Katalog e:dirs){
             e.tree(level+1);
         }
@@ -79,7 +79,7 @@ public class Katalog {
         String prefixed = prefix + (isRoot ? "" : (isTail ? "    " : "│   "));
 
 
-        //Interfejs.println(currentDir);
+        System.out.println(currentDir);
 
         for (int i = 0; i < dirs.size() - 1; i++) {
             dirs.get(i).new_tree(prefixed, false, false);

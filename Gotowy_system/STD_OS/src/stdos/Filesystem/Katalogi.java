@@ -1,5 +1,6 @@
 package stdos.Filesystem;
 import java.util.Stack;
+import stdos.Filesystem.Katalog;
 public class Katalogi{
 
     private static final String ROOT_NAME = "P:";
@@ -29,6 +30,8 @@ public class Katalogi{
     public static Katalog getSourceDir() {
         return sourceDir;
     }
+
+
 
     public static Katalog findDirectory(String name, String src) {
         switch(src){
