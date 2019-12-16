@@ -11,8 +11,7 @@ import java.util.Vector;
 import static stdos.CPU.CPU.MM_getRUNNING;
 import static stdos.VM.VirtualMemory.*;
 import static stdos.Processes.ProcessManager.*;
-//TODO Byte Receiver from Virtual Memory Method //DONE
-//TODO Assembler Instruction Map //DONE
+
 public class Interpreter {
     /*==============================================STRUCTURES========================================================*/
     private static Map<String, Integer> arguments = new HashMap<>();
@@ -21,8 +20,9 @@ public class Interpreter {
     private static PCB pcb;
     private static int address;
     private static Pliki file;
+    private static Katalog catalogue;
 
-    public Interpreter() { // Constructor
+    public Interpreter() {
         /*=============================================ADD KEYS AND VALUES=========================================== */
         //ARITHMETIC
         arguments.put("AD", 2);  //ADDITION
@@ -51,23 +51,20 @@ public class Interpreter {
         arguments.put("DP", 1);  //DELETE PROCESS //processname
     }
 
-     private static void getORDER(){  //
-        Instruction.clear(); //Added by KM
+     private static void getORDER(){ //download order from VM
+        Instruction.clear();
         int download;
         char temparse;
-        //String temp = "";
         StringBuilder temp = new StringBuilder();
         for(int i=0; i<2; i++)
         {
             download = get_value(address);
             temparse = (char)download;
-            //temp+=temparse;
             temp.append(temparse);
             address++;
         }
-        //Instruction.add(temp);
         Instruction.add(temp.toString());
-    } //download order from VM
+    }
 
     /*
     private static void getARGUMENTS(int n){
@@ -178,6 +175,31 @@ public class Interpreter {
             //Instruction.add(temp); //Commented by KM
         }
     }
+
+    private static void repairADDRESS() {
+        Vector<String> InsTemp = new Vector<>();
+        boolean inAddress = false;
+        String temp = "";
+        for(String s:Instruction) {
+            if(inAddress==false) {
+                InsTemp.add(s);
+            } else {
+                if(!s.equalsIgnoreCase("]")) {
+                    temp += s;
+                }
+            }
+            if(s.equalsIgnoreCase("[")) {
+                inAddress = true;
+            }
+            if(s.equalsIgnoreCase("]")) {
+                inAddress = false;
+                InsTemp.add(temp);
+                InsTemp.add("]");
+            }
+        }
+        Instruction = InsTemp;
+    }
+
 
     private static void makeINSTRUCTION() throws Exception { //doing instruction
         /*==============ARITHMETIC=======================*/
@@ -769,7 +791,7 @@ public class Interpreter {
                         }
                     }
                     break;
-                case "[": //TODO::MOVING TO ADRESS /DONE
+                case "[": 
                     switch (Instruction.get(4)){
                         case "[":{
                             set_value(Integer.parseInt(Instruction.get(2)),Short.parseShort(Instruction.get(5)));
@@ -797,20 +819,46 @@ public class Interpreter {
             file.KP_pobP(Instruction.get(1));
         }
         else if (Instruction.get(0).equals("AF")){
-            file.KP_dopP(Instruction.get(1),Instruction.get(2).getBytes()); //TODO::ADDING REGISTERS
+            switch (Instruction.get(2)) {
+                case "[": {
+                    file.KP_dopP(Instruction.get(1),Short.valueOf(get_value_from_addr_table(Integer.parseInt(Instruction.get(3)))).toString().getBytes());
+                    break;                          // wyglada zacnie
+                }
+                case "AX": {
+
+                    file.KP_dopP(Instruction.get(1),Integer.valueOf(pcb.getAx()).toString().getBytes());
+                    break;
+                }
+                case "BX": {
+                    file.KP_dopP(Instruction.get(1),Integer.valueOf(pcb.getBx()).toString().getBytes());
+                    break;
+                }
+                case "CX": {
+                    file.KP_dopP(Instruction.get(1),Integer.valueOf(pcb.getCx()).toString().getBytes());
+                    break;
+                }
+                case "DX": {
+                    file.KP_dopP(Instruction.get(1),Integer.valueOf(pcb.getDx()).toString().getBytes());
+                    break;
+                }
+                default: {
+                    file.KP_dopP(Instruction.get(1),Instruction.get(2).getBytes());
+                    break;
+                }
+            }
         }
         //else if (Instruction.get(0).equals("SF")){} Interface
         else if (Instruction.get(0).equals("TF")){
             file.KP_usunP(Instruction.get(1));
         }
         else if (Instruction.get(0).equals("CC")){
-            //TODO HOW CREATE ??
+        //    catalogue.KP_utwK(Instruction.get(1));
         }
         else if (Instruction.get(0).equals("MF")){
-            //TODO IDK
+            //TODO MOVE FILE TO CATALOGUE METHOD
         }
         else if (Instruction.get(0).equals("TC")){
-            //TODO WTF IDK METHODS
+         //   catalogue.KP_usunK(Instruction.get(1));
         }
         /*==============PROCESS OPERATION================*/
         else if (Instruction.get(0).equals("CP")){
@@ -824,9 +872,10 @@ public class Interpreter {
 
 
     public static boolean KK_Interpret() throws Exception {
-        pcb = MM_getRUNNING(); //Removed "PCB" by KM
-        address = pcb.getPC(); //Removed "int" by KM
+        pcb = MM_getRUNNING(); 
+        address = pcb.getPC(); 
         file = new Pliki();
+        //catalogue = new Katalog();
 
 
         getORDER();
@@ -838,6 +887,7 @@ public class Interpreter {
         {
             getARGUMENTS(arguments.get(Instruction.firstElement()));
             System.out.println(Instruction);
+            repairADDRESS();
             makeINSTRUCTION();
             pcb.setPC(address); // Instruction if order is other than SP
             return true;
