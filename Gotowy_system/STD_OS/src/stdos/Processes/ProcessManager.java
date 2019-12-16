@@ -10,7 +10,7 @@ public class ProcessManager {
     private static int actPid = 0;
     private static List<PCB> activeProcesses;
     private static List<PCB> readyProcesses;
-    private static String idleProcessFilename = "DUMMYFILE";
+    private static String idleProcessFilename = "dummy.txt";
 
     private static PCB zeroPriority;
     //static CPU cpu = new CPU();
