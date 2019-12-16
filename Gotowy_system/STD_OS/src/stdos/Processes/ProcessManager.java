@@ -58,7 +58,9 @@ public class ProcessManager {
         if(code[0] != -1) {
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
             actPid++;
-            VirtualMemory.load_to_virtualmemory(pcb1.getPid(), getStringFromByteArray(code)); //TODO: program data?
+            String codeStr = getStringFromByteArray(code);
+            codeStr = removeNewLineCharacters(codeStr);
+            VirtualMemory.load_to_virtualmemory(pcb1.getPid(), codeStr); //TODO: program data?
             KM_setProcessState(pcb1, ProcessState.READY);
             activeProcesses.add(pcb1);
             readyProcesses.add(pcb1);
@@ -252,10 +254,23 @@ public class ProcessManager {
     }
 
     private static String getStringFromByteArray(byte[] arr) {
-        System.out.println(arr.length);
-        String aString = new String(arr);
-        aString = aString.substring(0, arr.length);
-        System.out.println(aString);
-        return "";
+        String temp = new String(arr);
+        int end = 0;
+
+        for (int i = 0; i < temp.length(); i++){
+            char c = temp.charAt(i);
+            if(c==65533) {
+                end = i;
+                break;
+            }
+        }
+        temp = temp.substring(0, end);
+        return temp;
+    }
+
+    private static String removeNewLineCharacters(String code) {
+        String lineSep = System.getProperty("line.separator");
+        code = code.replace("\n", "").replace("\r", "").replace(lineSep, "");
+        return code;
     }
 }
