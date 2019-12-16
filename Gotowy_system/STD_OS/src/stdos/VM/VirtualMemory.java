@@ -34,7 +34,7 @@ public class VirtualMemory {
         int reservation = -1;
         reservation = RAMModule.zarezerwuj_pamiec(code.length() - 1);
 
-        for(int i=0; i<code.length(); i++) {
+        /*for(int i=0; i<code.length(); i++) {
             if(code.charAt(i) == ' ') {
                 if(flag_space) {
                     flag_space = false;
@@ -45,7 +45,12 @@ public class VirtualMemory {
                 bytes_code[i] = (byte) code.charAt(i);
             else
                 bytes_code[i-1] = (byte) code.charAt(i);
+        }*/
+        //Comment by KM
+        for(int i=0; i<code.length(); i++) {
+            bytes_code[i] = (byte) code.charAt(i);
         }
+        //For loop by KM
 
         if(reservation == -1) {
             SegmentFile.put(PID, bytes_code);

@@ -20,6 +20,7 @@ public class Interpreter {
 
     private static PCB pcb;
     private static int address;
+    private static int PCIncrement = 0;
     private static Pliki file;
 
     public Interpreter() { // Constructor
@@ -52,6 +53,7 @@ public class Interpreter {
     }
 
      private static void getORDER(){  //
+        Instruction.clear(); //Added by KM
         int download;
         char temparse;
         //String temp = "";
@@ -68,10 +70,12 @@ public class Interpreter {
         Instruction.add(temp.toString());
     } //download order from VM
 
+    /*
     private static void getARGUMENTS(int n){
         int download;
-        char temparse;
-        String temp;
+        char temparse = 32;
+        String temp = "";
+        String firstChar = "";
         for(int i=0; i<n; i++)
         {
             temp = "";
@@ -80,16 +84,24 @@ public class Interpreter {
                 download = get_value(address);
                     if(download!=32)
                     {
+                        if(firstChar.equalsIgnoreCase("")) {
+                            firstChar = Character.toString(((char)download));
+                        }
                         if(download==91||download==93)
                         {
                             temparse = (char)download;
-                            Instruction.add(Character.toString(temparse));
+                            Instruction.add(Character.toString(temparse)); //Commented by KM
+                            temp += temparse; //Added by KM
                             address++;
                         }
                         else
                         {
+
                             temparse = (char) download;
-                            temp += temparse;
+                            temp += temparse; //Commented by KM
+                            if(firstChar.equalsIgnoreCase("[")) {
+                                Instruction.add(Character.toString(temparse)); //Added by KM
+                            }
                             address++;
                         }
                     }
@@ -99,9 +111,74 @@ public class Interpreter {
                         break;
                     }
             }
-            Instruction.add(temp);
+            if(!firstChar.equalsIgnoreCase("[")) {
+                if(!temp.equalsIgnoreCase("")) {
+                    Instruction.add(temp);
+                }
+            }
+            firstChar = "";
+            //Instruction.add(temp); //Commented by KM
         }
     } //download arguments from VM
+    */
+    //Comment by KM
+
+    private static void getARGUMENTS(int n){
+        int download;
+        char temparse = 32;
+        String temp = "";
+        String firstChar = "";
+        for(int i=0; i<n; i++)
+        {
+            temp = "";
+            while(true)
+            {
+                download = get_value(address);
+                if(download!=32)
+                {
+                    if(firstChar.equalsIgnoreCase("")) {
+                        firstChar = Character.toString(((char)download));
+                    }
+                    if(download==91||download==93)
+                    {
+                        temparse = (char)download;
+                        Instruction.add(Character.toString(temparse)); //Commented by KM
+                        temp += temparse; //Added by KM
+                        address++;
+                    }
+                    else
+                    {
+
+                        temparse = (char) download;
+                        temp += temparse; //Commented by KM
+                        if(firstChar.equalsIgnoreCase("[")) {
+                            Instruction.add(Character.toString(temparse)); //Added by KM
+                        }
+                        address++;
+                    }
+                }
+                else
+                {
+                    temparse = (char) download;
+                    temp += temparse;
+                    address++;
+                    break;
+                }
+            }
+            if(!firstChar.equalsIgnoreCase("[")) {
+                if(!temp.equalsIgnoreCase("")) {
+                    if(!temp.equalsIgnoreCase(" ")) {
+                        Instruction.add(temp);
+                    }
+                }
+            }
+            if(temp.equalsIgnoreCase(" ")) {
+                i--;
+            }
+            firstChar = "";
+            //Instruction.add(temp); //Commented by KM
+        }
+    }
 
     private static void makeINSTRUCTION() throws Exception { //doing instruction
         /*==============ARITHMETIC=======================*/
@@ -748,8 +825,8 @@ public class Interpreter {
 
 
     public static boolean KK_Interpret() throws Exception {
-        PCB pcb = MM_getRUNNING();
-        int address = pcb.getPC();
+        pcb = MM_getRUNNING(); //Removed "PCB" by KM
+        address = pcb.getPC(); //Removed "int" by KM
         file = new Pliki();
 
 
@@ -761,6 +838,7 @@ public class Interpreter {
         else
         {
             getARGUMENTS(arguments.get(Instruction.firstElement()));
+            System.out.println(Instruction);
             makeINSTRUCTION();
             pcb.setPC(address); // Instruction if order is other than SP
             return true;
