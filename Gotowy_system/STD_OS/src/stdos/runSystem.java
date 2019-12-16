@@ -55,12 +55,14 @@ public class runSystem {
                         String currentLine = br.readLine();
                         if (currentLine != null)  {
                             fileContent = fileContent + currentLine + "\n";
+                            //System.out.println(currentLine); //TODO: debugging
                         }
                         else {
                             break;
                         }
                     }
                     br.close();
+                    //System.out.println("EOF"); //TODO: debugging
                 } catch (FileNotFoundException e) {
                     e.getMessage();
                 } catch (IOException e) {

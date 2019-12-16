@@ -58,7 +58,7 @@ public class ProcessManager {
         if(code[0] != -1) {
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
             actPid++;
-            VirtualMemory.load_to_virtualmemory(pcb1.getPid(), code.toString()); //TODO: program data?
+            VirtualMemory.load_to_virtualmemory(pcb1.getPid(), getStringFromByteArray(code)); //TODO: program data?
             KM_setProcessState(pcb1, ProcessState.READY);
             activeProcesses.add(pcb1);
             readyProcesses.add(pcb1);
@@ -87,10 +87,11 @@ public class ProcessManager {
         if(pcb.getPid()==0) {
             throw new Exception("KM_TerminateProcess:IdleProcessCannotBeTerminated");
         }
+        VirtualMemory.remove_from_virtualmemory(pcb.getPid());
         activeProcesses.remove(pcb);
         readyProcesses.remove(pcb);
         CPU.MM_unreadyProcess(pcb);
-        VirtualMemory.remove_from_virtualmemory(pcb.getPid());
+
         if(pcb==CPU.MM_getRUNNING()) {
             CPU.MM_terminateRunning();
         }
@@ -248,5 +249,13 @@ public class ProcessManager {
             }
         }
         return null;
+    }
+
+    private static String getStringFromByteArray(byte[] arr) {
+        System.out.println(arr.length);
+        String aString = new String(arr);
+        aString = aString.substring(0, arr.length);
+        System.out.println(aString);
+        return "";
     }
 }
