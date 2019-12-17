@@ -50,15 +50,16 @@ public class CPU {
 
     /*Dodaje PCB procesu do tablicy kolejek priorytetowych. Jesli wywlaszcza RUNNING to uruchamiany jest planista*/
     public static void MM_addReadyProcess(PCB ready_process) {
-        if (ready_process.getPs() == ProcessState.READY)
+        if (ready_process.getPs() == ProcessState.READY) {
             priorityList.addProcess(ready_process);
+        }
         if(ready_process.getPriD() > RUNNING.getPriD())  MM_scheduler();
     }
 
 
     /*Usuniecie PCB procesu z tablicy kolejek priorytetowych*/
     public static void MM_unreadyProcess(PCB pcb) {
-        if(RUNNING == pcb){
+        if(RUNNING == pcb && pcb.getPs()==ProcessState.WAITING){
             RUNNING = null;
         }
         else {
@@ -115,8 +116,15 @@ public class CPU {
 
         tmp = MM_findReady();
 
+        if(RUNNING != null) {
+            if (RUNNING.getPs() == ProcessState.WAITING) {
+                RUNNING = null;
+            }
+        }
+
         if (RUNNING == null) {
             RUNNING = tmp;
+
             ProcessManager.KM_setProcessState(RUNNING, ProcessState.RUNNING); //Zwraca T / F
         } else {
             if (tmp.getPriD() > RUNNING.getPriD()) {
