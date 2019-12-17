@@ -53,7 +53,7 @@ public class CPU {
     public static void MM_addReadyProcess(PCB ready_process) {
         if (ready_process.getPs() == ProcessState.READY)
             priorityList.addProcess(ready_process);
-        if(ready_process.getPriD() > RUNNING.getPriD())  MM_scheduler();//TODO: tu
+        if(ready_process.getPriD() > RUNNING.getPriD())  MM_scheduler();
     }
 
 
@@ -121,7 +121,7 @@ public class CPU {
             RUNNING = tmp;
             ProcessManager.KM_setProcessState(RUNNING, ProcessState.RUNNING); //Zwraca T / F
         } else {
-            if (tmp.getPriD() > RUNNING.getPriD()) {//TODO: tu
+            if (tmp.getPriD() > RUNNING.getPriD()) {
                 KM_setProcessState(RUNNING, ProcessState.READY); //Zwraca T / F
                 KM_setProcessState(tmp, ProcessState.RUNNING); // Zwraca T / F
                 RUNNING = tmp;
