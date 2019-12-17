@@ -818,10 +818,10 @@ public class Interpreter {
             file.KP_utwP(Instruction.get(1));
         }
         else if (Instruction.get(0).equals("OF")){
-           file.KP_otwP(Instruction.get(1);
+           file.KP_otwP(Instruction.get(1));
         }
         else if (Instruction.get(0).equals("FC")){
-            file.KP_zamkP(Instruction.get(1);
+            file.KP_zamkP(Instruction.get(1));
         }
         else if (Instruction.get(0).equals("DF")){
             file.KP_pobP(Instruction.get(1));
