@@ -58,7 +58,12 @@ public class CPU {
 
     /*Usuniecie PCB procesu z tablicy kolejek priorytetowych*/
     public static void MM_unreadyProcess(PCB pcb) {
-        priorityList.deleteProcess(pcb.getPid());
+        if(RUNNING == pcb){
+            RUNNING = null;
+        }
+        else {
+            priorityList.deleteProcess(pcb.getPid());
+        }
     }
 
 
