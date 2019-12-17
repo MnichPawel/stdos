@@ -94,9 +94,9 @@ public class ProcessManager {
         readyProcesses.remove(pcb);
         CPU.MM_unreadyProcess(pcb);
 
-        if(pcb==CPU.MM_getRUNNING()) {
+        /*if(pcb==CPU.MM_getRUNNING()) {
             CPU.MM_terminateRunning();
-        }
+        }*/
         return true;
     }
 
