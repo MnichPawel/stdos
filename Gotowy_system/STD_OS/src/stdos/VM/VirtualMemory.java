@@ -1,5 +1,3 @@
-//#TODO: DISPLAY ADDRESS_TABLE IN DISPLAY() METHOD
-
 package stdos.VM;
 
 import stdos.RAM.RAMModule;
@@ -32,20 +30,8 @@ public class VirtualMemory {
         boolean flag = false; //true - in RAM, false - in SegmentFile
 
         int reservation = -1;
-        reservation = RAMModule.zarezerwuj_pamiec(code.length() - 1);
+        reservation = RAMModule.zarezerwuj_pamiec(code.length());
 
-        /*for(int i=0; i<code.length(); i++) {
-            if(code.charAt(i) == ' ') {
-                if(flag_space) {
-                    flag_space = false;
-                    i++;
-                }
-            }
-            if(flag_space)
-                bytes_code[i] = (byte) code.charAt(i);
-            else
-                bytes_code[i-1] = (byte) code.charAt(i);
-        }*/
         //Comment by KM
         for(int i=0; i<code.length(); i++) {
             bytes_code[i] = (byte) code.charAt(i);
@@ -101,15 +87,17 @@ public class VirtualMemory {
 
     /*===============================ASEMBLER=================================*/
     public static short get_value_from_addr_table(int address) {
-        int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        //int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        int runningID = 0;
 
         Pair pair = addressTable.get(runningID);
         if((boolean)pair.getKey()) {
             pair = (Pair) pair.getValue();
             if((int)pair.getKey() == address) {
-                short val = RAMModule.odczytaj_bajt(0,(Integer) pair.getValue());
-                if(val < 0) val += 256;
-                return val;
+                byte[] val = RAMModule.odczytaj_bajty((Integer) pair.getValue(), 2);
+                short true_val = val[1];
+                if(true_val < 0) true_val += 256;
+                return true_val;
             }
         }
         else {
@@ -117,11 +105,12 @@ public class VirtualMemory {
             short val = (short) pair.getValue();
             return val;
         }
-        return Short.parseShort(null);
+        return -1;
     }
 
     public static byte get_value(int address) {
-        int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        //int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        int runningID = 0;
 
         if(VM.get(runningID)) {
             Vector<Segment> tempGVVector = new Vector<>();
@@ -137,19 +126,20 @@ public class VirtualMemory {
     }
 
     public static void set_value(int address, short value) {
-        int running = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        //int running = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        int running = 0;
 
         byte[] val = new byte[2];
-        val[0] = (byte)(value & 0xff);
-        val[1] = (byte)((value >> 8) & 0xff);
+        val[0] = (byte)(address);
+        val[1] = (byte)(value & 0xff);
 
-        int reservation = RAMModule.zarezerwuj_pamiec(1);
+        int reservation = RAMModule.zarezerwuj_pamiec(2);
         if(reservation != -1) {
             RAMModule.zapisz_bajty(val, reservation);
             addressTable.put(running, new Pair<>(true, new Pair<>(address, reservation)));
         }
         else {
-            SegmentFile.put(running, val);
+            SegmentFile.put(running*-1, val);
             int val_int = Short.toUnsignedInt(value);
             addressTable.put(running, new Pair<>(false, new Pair<>(null, val_int)));
         }
@@ -199,7 +189,32 @@ public class VirtualMemory {
             }
             System.out.println();
         }
-        System.out.println("\nPID\tADDR\tVALUE");
+        if(!addressTable.isEmpty()) {
+            System.out.println("\nPID\tADDR\tVALUE");
+            Pair pair = null;
+            int PID = -1;
+            for(Map.Entry<Integer, Pair<Boolean, Pair<Integer, Integer>>> entry : addressTable.entrySet()) {
+                System.out.print(entry.getKey()*-1 + "\t");
+                pair = entry.getValue();
+                if((boolean)pair.getKey()) {
+                    pair = (Pair) pair.getValue();
+                    System.out.print(((int)pair.getKey())+"\t");
+                    System.out.println(get_value_from_addr_table((int)pair.getKey()));
+                }
+                else {
+                    pair = (Pair) pair.getValue();
+                    byte[] arr = SegmentFile.get(entry.getKey());
+                    int addr = (arr[0] & 0xFF);
+                    System.out.print(addr + "\t");
+                    byte[] temp = new byte[2];
+                    temp[0] = arr[1];
+                    temp[1] = arr[2];
+                    ByteBuffer byteBuffer = ByteBuffer.wrap(temp);
+                    int val = byteBuffer.getInt();
+                    System.out.println(val);
+                }
+            }
+        }
     }
 
     public static void displayRAM() {
