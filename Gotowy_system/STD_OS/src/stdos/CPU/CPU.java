@@ -12,10 +12,15 @@ import static stdos.Processes.ProcessManager.*;
 public class CPU {
 
     public static PCB RUNNING;
-    public static PCB ZEROPRIORITY;
+    private static PCB ZEROPRIORITY;
     private static PriorityList priorityList = new PriorityList();
 
-    //Konstruktor
+
+
+    /* -----------------Public---------------------------------------------------------------------*/
+
+
+    /*Konstruktor, przypisanie procesow z modulu zarzadzania procesami, uruchomienie planisty*/
     public CPU() {
         ZEROPRIORITY = KM_getZeroPriorityPCB();
         if (KM_getReadyProcessList() != null) {
@@ -30,60 +35,74 @@ public class CPU {
         MM_scheduler();
     }
 
-    public static void MM_go() throws Exception {
 
-        MM_scheduler();
+    /*Wykonanie kroku procesora. Skutkuje wykonaniem jednego rozkazu. Po wykonanym rozkazie uruchamiany jest planista*/
+    public static void MM_go() throws Exception {
 
         if (!KK_Interpret()) {//funkcja zwraca  0, gdy wykona ostatni rozkaz lub nie ma dalszych rozkazów
             ProcessManager.KM_TerminateProcess(RUNNING);
+            //TODO: jesli to jedyne wywolanie KM_TerminateProcess(jedyna opcja usuniecie RUNNING to usunac scheduler z usuwania running lub cklwiek
         }
         MM_refreshPriority();
 
-    }
-
-    //dodaje proces do listy gotowych procesow
-    public static void MM_addReadyProcess(PCB ready_process) {
-        if (ready_process.getPs() == ProcessState.READY)
-            priorityList.addProcess(ready_process);
         MM_scheduler();
     }
 
+
+    /*Dodaje PCB procesu do tablicy kolejek priorytetowych. Jesli wywlaszcza RUNNING to uruchamiany jest planista*/
+    public static void MM_addReadyProcess(PCB ready_process) {
+        if (ready_process.getPs() == ProcessState.READY)
+            priorityList.addProcess(ready_process);
+        if(ready_process.getPriD() > RUNNING.getPriD())  MM_scheduler();//TODO: tu
+    }
+
+
+    /*Usuniecie PCB procesu z tablicy kolejek priorytetowych*/
     public static void MM_unreadyProcess(PCB pcb) {
         priorityList.deleteProcess(pcb.getPid());
     }
 
+
+    /*Usuniecie PCB procesu przypisanego do RUNNING*/
     public static void MM_terminateRunning() {
         RUNNING = null;
         MM_scheduler();
     }
 
+
+
     /* -----------------STEP MODE---------------------------------------------------------------------*/
 
-    //wyswietla dane wykonywanego procesu
+
+    /*Wyswietla dane procesu w stanie RUNNING*/
     public static void MM_show_running() {
         System.out.println("RUNNING: id: " + RUNNING.getPid() + " name: " + RUNNING.getPn());
     }
 
-    //wyswietla liste gotowych procesow wraz z priorytetami
+
+    /*Wyswietla priorytety statyczne oraz dynamiczne procesow w stanie Ready oraz Running*/
     public static void MM_show_actual_priority() {
         priorityList.displayQueues();
         System.out.print("RUNNING: [ " + RUNNING.getPid() + " " + RUNNING.getPn() + " " + RUNNING.getPriS() + " " + RUNNING.getPriD() + " ]");
     }
 
+
+
     /*--------------------GET---------------------------------------------------------------------------*/
 
+
+    /*Zwraca zmienna RUNNING*/
     public static PCB MM_getRUNNING() {
         return RUNNING;
     }
 
-    public static PCB MM_getZEROPRIORITY() {            //may be useless
-        return ZEROPRIORITY;
-    } //TODO: useless
 
 
     /* -----------------Private---------------------------------------------------------------------*/
 
-    //aktualizuje priorytet chwilowy
+
+
+    /*Regulacja priorytetow dynamicznych, postarzanie procesow gotowych, zmniejszenie priortetu RUNNING*/
     private static void MM_refreshPriority() {
         priorityList.updateDynamicPriority();
         if (RUNNING != ZEROPRIORITY) {
@@ -91,6 +110,8 @@ public class CPU {
         }
     }
 
+
+    /*Planista, dokonuje przydzialu procesora procesowi*/
     private static void MM_scheduler() {
         PCB tmp;
 
@@ -100,7 +121,7 @@ public class CPU {
             RUNNING = tmp;
             ProcessManager.KM_setProcessState(RUNNING, ProcessState.RUNNING); //Zwraca T / F
         } else {
-            if (tmp.getPriD() > RUNNING.getPriD()) {
+            if (tmp.getPriD() > RUNNING.getPriD()) {//TODO: tu
                 KM_setProcessState(RUNNING, ProcessState.READY); //Zwraca T / F
                 KM_setProcessState(tmp, ProcessState.RUNNING); // Zwraca T / F
                 RUNNING = tmp;
@@ -108,7 +129,8 @@ public class CPU {
         }
     }
 
-    //szuka procesu o najwyzszym priorytecie
+
+    /*Zwraca PCB procesu o najwyzszym priorytecie*/
     private static PCB MM_findReady() {
         PCB tmp;
         tmp = priorityList.getHighestPriority();

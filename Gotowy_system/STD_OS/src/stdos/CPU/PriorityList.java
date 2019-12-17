@@ -1,29 +1,34 @@
 package stdos.CPU;
 
 import stdos.Processes.*;
-import static stdos.Processes.ProcessManager.*;
 
 import java.util.*;
 
-public class PriorityList {
+class PriorityList {
 
     private static final int NOP = 15; //Number of Priorities
 
     private ArrayList<PCB>[] priorityList = new ArrayList[NOP];
     private boolean[] boolPriorityList = new boolean[NOP];
 
-  /*------------------------------------------------------------------------*/
- /*---------Public functions-----------------------------------------------*/
-/*------------------------------------------------------------------------*/
-    public PriorityList() {
+
+
+    /*------------------------------------------------------------------------*/
+    /*---------Public functions-----------------------------------------------*/
+    /*------------------------------------------------------------------------*/
+
+
+    /*Konstruktor, inicjalizacja listy*/
+    PriorityList() {
         for(int i=0; i<NOP; i++){
             priorityList[i] = new ArrayList<PCB>();
         }
     }
 
 
-    /*Iterates from top to bottom. If it finds not empty queue, returns first element*/
-    public PCB getHighestPriority(){
+    /*Iteruje od najwyzszego priorytetu przez tablice bool, w momencie gdy znajdzie niepusta kolejke,
+     zwraca pierwszy element*/
+    PCB getHighestPriority(){
         for(int i = NOP - 1; i > -1; i--)
             if(this.boolPriorityList[i])
                 return this.priorityList[i].get(0);
@@ -31,7 +36,9 @@ public class PriorityList {
     }
 
 
-    public void addProcess(PCB p1){
+    /*Dodaje proces p1 do odpowiedniego miejsca w tablicy kolejek. Sprawdza czy nie dany element nie znajduje sie
+     w kolejce oraz czy nie jest to proces o zerowym priorytecie*/
+    void addProcess(PCB p1){
         if(p1.getPriS() == 0) return;
         for(int i = 0; i < NOP; i++){
             if(boolPriorityList[i]){
@@ -45,7 +52,9 @@ public class PriorityList {
         updateBoolean();
     }
 
-    public void deleteProcess(int pid){
+
+    /*Usuwa proces z tablicy kolejek*/
+    void deleteProcess(int pid){
         for(int i = 0; i < NOP; i++){
             for(int j = 0; j < priorityList[i].size(); j++){
                 if(priorityList[i].get(j).getPid() == pid){
@@ -57,15 +66,17 @@ public class PriorityList {
         }
     }
 
-    public void updateDynamicPriority(){
+
+    /*Implementacja postarzania procesow. Zwieksza priorytet dynamiczny o 1. Priorytet nie może być większy od 15.*/
+    void updateDynamicPriority(){
         int tmp;
         for (int i = 0; i < NOP; i++){
             for(PCB e: priorityList[i]){
-                e.setWt(e.getWt() + 1);
+                e.setWt(e.getWt() + 1); //TODO: mozna usunac Wt chyba
                 tmp = e.getPriD() + 1;
                 if(tmp > 15) tmp = 15;
-                else if(tmp < 1) tmp = 1;
-                else if(tmp < e.getPriS()) tmp = e.getPriS();
+                else if(tmp < 1) tmp = 1; //TODO: useless
+                else if(tmp < e.getPriS()) tmp = e.getPriS(); //TODO: useless
                 e.setPriD(tmp);
             }
         }
@@ -73,7 +84,9 @@ public class PriorityList {
         updateBoolean();
     }
 
-    public void displayQueues(){
+
+    /*Wyswietla zawartosc wszystkich kolejek*///TODO: jakis wzor jak to jest wypisywane?
+    void displayQueues(){
         System.out.println("Priority Queues:");
         for(int i = 0; i < NOP; i++){
             System.out.print((i+1) + ": ");
@@ -85,16 +98,19 @@ public class PriorityList {
         }
     }
 
-  /*--------------------------------------------------------------------------*/
- /*---------Private functions-----------------------------------------------*/
-/*------------------------------------------------------------------------*/
 
+
+    /*--------------------------------------------------------------------------*/
+    /*---------Private functions-----------------------------------------------*/
+    /*------------------------------------------------------------------------*/
+
+
+    /*Przenosi PCB procesow do kolejek odpowiadajacych ich priorytetowi dynamicznemu*/
     private void cleanUpPriority(){
         for(int i = 0; i < NOP; i++){
-            for(int j = (priorityList[i].size() - 1); j > -1; j--){ //bo jak usune element to sie przesuną do poczatku listy
+            for(int j = (priorityList[i].size() - 1); j > -1; j--){
                 int tmpPriD = priorityList[i].get(j).getPriD();
                 if(tmpPriD != i+1){
-                    //priorityList[priorityList[i].get(j).getPriD()-1].add(priorityList[i].remove(j));
                     priorityList[tmpPriD - 1].add(priorityList[tmpPriD - 1].size(), priorityList[i].remove(j));
 
                 }
@@ -102,21 +118,11 @@ public class PriorityList {
         }
     }
 
-    public void printObjectID(){ //TODO: useless
-        System.out.println("Priority Queues:");
-        for(int i = 0; i < NOP; i++){
-            System.out.print((i+1) + ": ");
-            for(int j = 0; j < priorityList[i].size(); j++){
-                System.out.print(priorityList[i].get(j).toString());
-            }
-            System.out.print("\n");
-        }
-    }
 
+    /*Aktualizuje tablice boolowska*/
     private void updateBoolean(){
         for(int i=0; i<NOP; i++){
-            if(priorityList[i].isEmpty()) boolPriorityList[i] = false;
-            else boolPriorityList[i] = true;
+            boolPriorityList[i] = !priorityList[i].isEmpty();
         }
     }
 }
