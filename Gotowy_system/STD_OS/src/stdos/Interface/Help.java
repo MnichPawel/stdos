@@ -63,7 +63,7 @@ class Help {
         /*interpreter*/
         System.out.println(" _____________________________________ASSEMBLER____________________________________________________________________________________");
 
-        System.out.println("  step [liczba_krokow]                                        - assembler praca krokowa");
+        System.out.println("  step [liczba_krokow]                                        - wykonaj n rozkazow assemblera");
         System.out.println("  register                                                    - wyswietla stan rejestrow");
 
         /*interpreter*/
