@@ -40,7 +40,8 @@ public class CPU {
     public static void MM_go() throws Exception {
 
         if (!KK_Interpret()) {//funkcja zwraca  0, gdy wykona ostatni rozkaz lub nie ma dalszych rozkazów
-            if(ProcessManager.KM_TerminateProcess(RUNNING)) RUNNING = null;
+            ProcessManager.KM_TerminateProcess(RUNNING);
+            //TODO: jesli to jedyne wywolanie KM_TerminateProcess(jedyna opcja usuniecie RUNNING to usunac scheduler z usuwania running lub cklwiek
         }
         MM_refreshPriority();
 
@@ -61,6 +62,12 @@ public class CPU {
         priorityList.deleteProcess(pcb.getPid());
     }
 
+
+    /*Usuniecie PCB procesu przypisanego do RUNNING*/
+    public static void MM_terminateRunning() {
+        RUNNING = null;
+        MM_scheduler();
+    }
 
 
 
