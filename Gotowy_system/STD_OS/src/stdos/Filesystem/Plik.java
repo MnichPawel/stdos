@@ -36,10 +36,10 @@ public class Plik {
     public void setIndexBlock(int indeks) {
         this.indeks = indeks;
     }
-    public void KP_otwP(Plik p) {
+    public void otwP(Plik p) {
         JPmetody.wait(p.sem);
     }
-    public void KP_zamkP(Plik p) {
+    public void zamkP(Plik p) {
         JPmetody.signal(p.sem);
     }
 }
