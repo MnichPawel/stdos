@@ -1,5 +1,5 @@
 package stdos.Filesystem;
-
+import stdos.Semaphore.JPmetody;
 import stdos.Semaphore.*;
 
 public class Plik {
@@ -9,6 +9,7 @@ public class Plik {
     public semafor sem = new semafor(1);
     public Plik(String nazwa){
         this.nazwa = nazwa;
+
     }
 
     public Plik() {
@@ -35,4 +36,11 @@ public class Plik {
     public void setIndexBlock(int indeks) {
         this.indeks = indeks;
     }
+    public void otwP(Plik p) {
+        JPmetody.wait(p.sem);
+    }
+    public void zamkP(Plik p) {
+        JPmetody.signal(p.sem);
+    }
 }
+

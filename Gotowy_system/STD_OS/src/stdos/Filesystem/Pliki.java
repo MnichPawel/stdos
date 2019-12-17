@@ -47,10 +47,10 @@ public class Pliki extends Plik{
         if (czyPjest(nazwa)) {
             for (Plik e : Files) {
                 if (e.Nazwa().equals(nazwa)) {
-                    JPmetody.wait(e.sem);
+                    otwP(e);
                     e.setIndexBlock(Dysk.addContent(content, indeks));
                     e.UstRozm(content.length);
-                    JPmetody.signal(e.sem);
+                    zamkP(e);
                     return;
                 }
             }
@@ -64,9 +64,10 @@ public class Pliki extends Plik{
     public byte[] KP_pobP(String nazwa) {
         for (Plik e : Files) {
             if (e.Nazwa().equals(nazwa)) {
-                JPmetody.wait(e.sem);
-                JPmetody.signal(e.sem);
-                return Dysk.getBlockByIndex(e.getIndexBlock());
+                otwP(e);
+                byte[] a =Dysk.getBlockByIndex(e.getIndexBlock());
+                zamkP(e);
+                return a;
             }
         }
         System.out.println("Nie ma takiego pliku");
@@ -76,9 +77,9 @@ public class Pliki extends Plik{
 
     public void KP_pokP(){
         for(Plik e: Files){
-            JPmetody.wait(e.sem);
+            otwP(e);
             System.out.println("\t" + e.Rozm()+ "\t" + e.Nazwa() );
-            JPmetody.signal(e.sem);
+            zamkP(e);
         }
     }
 
@@ -86,14 +87,13 @@ public class Pliki extends Plik{
     public void KP_usunP(String nazwa){
         for (Plik e : Files){
             if (e.Nazwa().equals(nazwa)){
-                JPmetody.wait(e.sem);
+                otwP(e);
                 Dysk.remove(e.getIndexBlock());
                 Files.remove(e);
-                JPmetody.signal(e.sem);
+                zamkP(e);
                 return;
             }
         }
         System.out.println("Brak pliku o nazwie: " + nazwa);
     }
-
 }
