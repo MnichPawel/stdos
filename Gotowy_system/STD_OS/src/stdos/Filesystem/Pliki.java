@@ -47,10 +47,10 @@ public class Pliki extends Plik{
         if (czyPjest(nazwa)) {
             for (Plik e : Files) {
                 if (e.Nazwa().equals(nazwa)) {
-                    otwP(e);
+                    KP_otwP(e);
                     e.setIndexBlock(Dysk.addContent(content, indeks));
                     e.UstRozm(content.length);
-                    zamkP(e);
+                    KP_zamkP(e);
                     return;
                 }
             }
@@ -64,9 +64,9 @@ public class Pliki extends Plik{
     public byte[] KP_pobP(String nazwa) {
         for (Plik e : Files) {
             if (e.Nazwa().equals(nazwa)) {
-                otwP(e);
+                KP_otwP(e);
                 byte[] a =Dysk.getBlockByIndex(e.getIndexBlock());
-                zamkP(e);
+                KP_zamkP(e);
                 return a;
             }
         }
@@ -77,9 +77,7 @@ public class Pliki extends Plik{
 
     public void KP_pokP(){
         for(Plik e: Files){
-            otwP(e);
             System.out.println("\t" + e.Rozm()+ "\t" + e.Nazwa() );
-            zamkP(e);
         }
     }
 
@@ -87,10 +85,8 @@ public class Pliki extends Plik{
     public void KP_usunP(String nazwa){
         for (Plik e : Files){
             if (e.Nazwa().equals(nazwa)){
-                otwP(e);
                 Dysk.remove(e.getIndexBlock());
                 Files.remove(e);
-                zamkP(e);
                 return;
             }
         }
