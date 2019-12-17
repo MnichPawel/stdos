@@ -878,6 +878,25 @@ public class Interpreter {
 
     }
 
+    private static void printCODE() { //Written by KM
+        StringBuilder temp = new StringBuilder();
+        boolean inAddress = false;
+        for(String s : Instruction) {
+            if(s.equalsIgnoreCase("]")) {
+                inAddress = false;
+                temp.append(s);
+            } else if(s.equalsIgnoreCase("[")) {
+                inAddress = true;
+                temp.append(s);
+            } else if(inAddress){
+                temp.append(s);
+            } else {
+                temp.append(s).append(" ");
+            }
+        }
+        System.out.println(temp);
+    }
+
 
     public static boolean KK_Interpret() throws Exception {
         pcb = MM_getRUNNING(); 
@@ -885,17 +904,19 @@ public class Interpreter {
         file = new Pliki();
         catalogue = new Katalog();
 
-
         getORDER();
         if(Instruction.firstElement().equals("SP"))
         {
+            //System.out.println(Instruction); //Commented by KM
+            printCODE(); //Added by KM
             return false;                      // Instruction if order is SP - End of Program
         }
         else
         {
             getARGUMENTS(arguments.get(Instruction.firstElement()));
             repairADDRESS();
-            System.out.println(Instruction);
+            //System.out.println(Instruction); //Commented by KM
+            printCODE(); //Added by KM
             makeINSTRUCTION();
             pcb.setPC(address); // Instruction if order is other than SP
             return true;
