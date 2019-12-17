@@ -256,15 +256,19 @@ public class ProcessManager {
     private static String getStringFromByteArray(byte[] arr) {
         String temp = new String(arr);
         int end = 0;
+        boolean findWrongChar = false;
 
         for (int i = 0; i < temp.length(); i++){
             char c = temp.charAt(i);
             if(c==65533) {
                 end = i;
+                findWrongChar = true;
                 break;
             }
         }
-        temp = temp.substring(0, end);
+        if(findWrongChar==true) {
+            temp = temp.substring(0, end);
+        }
         return temp;
     }
 

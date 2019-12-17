@@ -1,3 +1,6 @@
-MO AX 2 
-MO BX 2 
+CF plik1 
+AF plik1 test 
+AF plik1 tt 
+AF plik1 t 
+FC plik1 
 SP 
