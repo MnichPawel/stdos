@@ -81,14 +81,18 @@ class SwitchInput {
                     /*procesor*/
 
                 /*interpreter*/
-                case "step":
+                case "step ":
+                    for (int i=0;i < Integer.parseInt(arguments[1]); i++){
                     try {
                         CPU.MM_go();
                     }
-                    catch(Exception e){
-                        System.out.println(e.getMessage() + "Step blad mm_go");
-
+                    catch(Exception e ){
+                        System.out.println(e.getMessage() + " Blad assemblera: blad odczytu ";
                     }
+
+                }
+
+
                     break;
                     /* wyświetlaj krokowo*/
 

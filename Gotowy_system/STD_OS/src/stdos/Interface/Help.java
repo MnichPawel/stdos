@@ -38,7 +38,6 @@ class Help {
         /* zarządzanie procesami: semafor, pamiec ram, pamiec wirtualna*/
         System.out.println("  taskcreate [nazwa_pliku] [nazwa_procesu} {priorytet}        - tworzenie procesu");
 
-        //#TODO: kill  ProcessManager.KM_TerminateProcess - usuwa poprawnie, ale w pamięci wirtualnej zostaje, do poprawy
         System.out.println("  kill [nazwa_procesu]                                        - zakonczenie dzialania danego procesu");
         System.out.println("  tasklist                                                    - wyswietla liste wszystkich procesow");
         System.out.println("  rtasklist                                                   - wyswietla liste gotowych procesow");
@@ -64,7 +63,7 @@ class Help {
         /*interpreter*/
         System.out.println(" _____________________________________ASSEMBLER____________________________________________________________________________________");
 
-        System.out.println("  step                                                        - assembler praca krokowa");
+        System.out.println("  step [liczba_krokow]                                        - assembler praca krokowa");
         System.out.println("  register                                                    - wyswietla stan rejestrow");
 
         /*interpreter*/

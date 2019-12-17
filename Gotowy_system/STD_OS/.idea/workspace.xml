@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="888a1b38-f6c4-484f-a942-c9b5b7674bde" name="Default Changelist" comment="" />
+    <list default="true" id="888a1b38-f6c4-484f-a942-c9b5b7674bde" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stdos/Interface/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/stdos/Interface/Help.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stdos/Interface/SwitchInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/stdos/Interface/SwitchInput.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -14,10 +18,21 @@
       </list>
     </option>
   </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
   <component name="ProjectId" id="1UnBP0X1oin8VSdjql4alAz4VrB" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/stdos" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
@@ -71,10 +86,19 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1575982450567</updated>
+      <workItem from="1576585641438" duration="25000" />
+      <workItem from="1576585695275" duration="498000" />
     </task>
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
   <component name="WindowStateProjectService">
+    <state x="463" y="123" key="FileChooserDialogImpl" timestamp="1576585669523">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="463" y="123" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1576585669523" />
     <state width="1323" height="580" key="GridCell.Tab.0.bottom" timestamp="1576255252283">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -91,5 +115,9 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1323" height="580" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1576255252283" />
+    <state x="379" y="192" key="com.intellij.ide.util.TipDialog" timestamp="1576585644113">
+      <screen x="0" y="0" width="1366" height="738" />
+    </state>
+    <state x="379" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1576585644113" />
   </component>
 </project>
