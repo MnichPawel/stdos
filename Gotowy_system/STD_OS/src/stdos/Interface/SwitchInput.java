@@ -1,6 +1,9 @@
 package stdos.Interface;
 
 import stdos.CPU.CPU;
+import stdos.Filesystem.Katalog;
+import stdos.Filesystem.Katalogi;
+import stdos.Filesystem.Pliki;
 import stdos.Processes.ProcessManager;
 import stdos.Semaphore.JPmetody;
 import stdos.Semaphore.semafor;
@@ -35,12 +38,12 @@ class SwitchInput {
                 /*pamięć wirtualna*/
 
                 /*semafor*/
-//                case "semstate":
-//                    JPmetody.JPwypisz(PLIK Plik); //String.valueOf(arguments[1])
-//                    break;
-//                case "queue":
-//                    JPmetody.JPwypiszKolejke(PLIK Plik);
-//                    break;
+                case "semstate":
+                    JPmetody.JPwypisz(String.valueOf(arguments[1]));
+                    break;
+                case "queue":
+                    JPmetody.JPwypiszKolejke(String.valueOf(arguments[1]));
+                    break;
                 /*semafor*/
 
                     /*zarządzanie procesami*/
@@ -109,33 +112,33 @@ class SwitchInput {
                 case "register":
                     ProcessManager.KM_printRunningRegisters();
                     break;
+//#TODO: PLIKI I KATALOGI OD TESTU !
 
-//
 //                /*zarządzanie plikami i katalogami*/
-//                case "mkfile": //file create
-//                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_utwP(String.valueOf(arguments[1], Integer.parseInt(arguments[2]);
-//                    break;
-//                case "opnfile ":
-//                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_pobP(String.valueOf(arguments[1]);
-//                    break;
-//                case "dir":
-//                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_pokP();
-//                    break;
-//                case "erase":
-//                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_usunP(arguments[1]);
-//                    break;
-//                case "mkdir":
-//                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_utwK(String.valueOf(arguments[1]);
-//                    break;
-//                case "rmdir":
-//                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_usunK(String.valueOf(arguments[1]);
-//                    break;
+                case "mkfile": //file create
+                    Katalogi.getCurrentDir().getFiles().KP_utwP(String.valueOf(arguments[1]));
+                    break;
+                case "opnfile ":
+                    Katalogi.getCurrentDir().getFiles().KP_pobP(String.valueOf(arguments[1]));
+                    break;
+                case "dir":
+                    Katalogi.getCurrentDir().getFiles().KP_pokP();
+                    break;
+                case "erase":
+                    Katalogi.getCurrentDir().getFiles().KP_usunP(arguments[1]);
+                    break;
+                case "mkdir":
+                    Katalogi.getCurrentDir().KP_utwK(String.valueOf(arguments[1]));
+                    break;
+                case "rmdir":
+                    Katalogi.getCurrentDir().KP_usunK(String.valueOf(arguments[1]));
+                    break;
 //                case "move":
-//                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_pP(String.valueOf(arguments[1], Integer.parseInt(arguments[2]);
+//                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_pP(String.valueOf(arguments[1], Integer.parseInt(arguments[2]));
 //                    break;
 //                /*zarządzanie plikami i katalogami*/
 //
-//                /*funkcje interfejsu*/
+                /*funkcje interfejsu*/
                 case "exit":
                     exitFlag = true;
                     break;

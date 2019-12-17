@@ -30,7 +30,7 @@ class Help {
         System.out.println("  _____________________________________SEMAFOR_____________________________________________________________________________________");
         /* semafor: tablica procesów i procesor*/
         System.out.println("  semstate [nazwa_pliku]                                      - wyswietla obecny stan semafora");
-        System.out.println("  queue                                                       - wyswietla kolejke semafora");
+        System.out.println("  queue    [nazwa_pliku]                                      - wyswietla kolejke semafora");
 
         /* semafor*/
 
