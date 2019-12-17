@@ -217,48 +217,4 @@ public abstract class Dysk {
         return true;
     }
 
-    public static void test(ArrayList<String> args) {
-
-        String help = "DISK - tests if disk is working";
-        if (args.size() != 1 && args.size() != 2 && args.size() != 3) {
-           // Utils.log("Wrong numbers of arguments");
-          //  Shell.println(help);
-        } else {
-            if (args.size() == 1) {
-                try {
-                    run();
-                } catch (IndexOutOfBoundsException e) {
-                    //Utils.step("Disk out of bounds");
-                }
-            } else {
-                String param = args.get(1);
-                switch (param.toUpperCase()) {
-                    case "CLEAR":
-                        physicalDisk = new byte[1024];
-                        blockTaken = new boolean[physicalDisk.length / BLOCK_SIZE];
-                        break;
-                    case "SHOW":
-                        show();
-                        break;
-                    case "INSERT":
-                        currentBlock = parseInt(args.get(2));
-                        break;
-                    case "NEWLINE":
-                        addContent("Testowy string\n w nowej lini :)\n z\ttabem".getBytes(), 10);
-                        break;
-                    case "GET":
-                        byte[] temp;
-                        temp = getBlockByIndex(Integer.parseInt(args.get(2)));
-                        for (byte e : temp) {
-                            System.out.print((char) e);
-                        }
-                        break;
-                    default:
-                      //  Utils.log("Wrong argument");
-                       // Shell.println(help);
-                        break;
-                }
-            }
-        }
-    }
 }
