@@ -117,21 +117,26 @@ class SwitchInput {
 //                /*zarządzanie plikami i katalogami*/
                 case "mkfile": //file create
                     Katalogi.getCurrentDir().getFiles().KP_utwP(String.valueOf(arguments[1]));
+                    System.out.println("Uworzono plik o nazwie: "  + arguments[1]);
                     break;
                 case "opnfile ":
                     Katalogi.getCurrentDir().getFiles().KP_pobP(String.valueOf(arguments[1]));
+                    System.out.println("Otworzono plik o nazwie: "  + arguments[1]);
                     break;
                 case "dir":
                     Katalogi.getCurrentDir().getFiles().KP_pokP();
                     break;
                 case "erase":
                     Katalogi.getCurrentDir().getFiles().KP_usunP(arguments[1]);
+                    System.out.println("Usunieto plik o nazwie: "  + arguments[1]);
                     break;
                 case "mkdir":
                     Katalogi.getCurrentDir().KP_utwK(String.valueOf(arguments[1]));
+                    System.out.println("Utworzono katalog o nazwie: "  + arguments[1]);
                     break;
                 case "rmdir":
                     Katalogi.getCurrentDir().KP_usunK(String.valueOf(arguments[1]));
+                    System.out.println("Usunieto katalog o nazwie: "  + arguments[1]);
                     break;
 //                case "move":
 //                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_pP(String.valueOf(arguments[1], Integer.parseInt(arguments[2]));
