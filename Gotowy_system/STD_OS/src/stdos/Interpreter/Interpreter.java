@@ -41,6 +41,8 @@ public class Interpreter {
         arguments.put("CF", 1);  //CREATE FILE WITH CONTENT
         arguments.put("DF", 1);  //DOWNLOAD FILE
         arguments.put("AF", 2);  //ADD TO FILE
+        arguments.put("OF", 1);  //OPEN FILE
+        arguments.put("FC", 1);  //FILE CLOSE
         //arguments.put("SF", 0);  //SHOW FILES TODO::I think this is Interface function
         arguments.put("TF", 1);  //TERMINATE FILE
         arguments.put("CC", 1);  //CREATE CATALOG
@@ -814,6 +816,12 @@ public class Interpreter {
         /*================WORK_ON_FILES==================*/
         else if (Instruction.get(0).equals("CF")){
             file.KP_utwP(Instruction.get(1));
+        }
+        else if (Instruction.get(0).equals("OF")){
+           file.KP_otwP(Instruction.get(1);
+        }
+        else if (Instruction.get(0).equals("FC")){
+            file.KP_zamkP(Instruction.get(1);
         }
         else if (Instruction.get(0).equals("DF")){
             file.KP_pobP(Instruction.get(1));
