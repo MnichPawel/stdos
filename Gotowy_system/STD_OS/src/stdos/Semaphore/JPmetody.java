@@ -2,7 +2,7 @@ package stdos.Semaphore;
 
 import stdos.Processes.PCB;
 import stdos.Processes.ProcessState;
-
+import stdos.Filesystem.Pliki;
 import stdos.Filesystem.Plik;
 
 import static stdos.CPU.CPU.*;
