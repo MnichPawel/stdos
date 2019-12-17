@@ -1,7 +1,6 @@
 package stdos.Filesystem;
 import stdos.Semaphore.JPmetody;
 
-import java.util.Arrays;
 import java.util.Vector;
 
 public class Pliki extends Plik{
@@ -25,7 +24,14 @@ public class Pliki extends Plik{
         return false;
     }
 
-
+    public static Plik KP_dlaJP(String nazwa) {
+        for (Plik e : Files) {
+            if (e.Nazwa().equals(nazwa)) {
+                return e;
+            }
+        }
+        return null;
+    }
 
     public void KP_utwP(String nazwa) {
         if (czyPjest(nazwa)) {
