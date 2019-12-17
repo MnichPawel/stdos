@@ -83,16 +83,15 @@ class SwitchInput {
                     /*procesor*/
 
                 /*interpreter*/
-                case "step ":
+                case "step":
                     for (int i=0;i < Integer.parseInt(arguments[1]); i++){
                     try {
                         CPU.MM_go();
                     }
                     catch(Exception e ){
-                        System.out.println("Blad assemblera:  polecenie {step} ");
+                        System.out.println("Blad assemblera: polecenie {step}: za duzo wymaganych krokow ");
                         System.out.println("Tresc bledu: "  + e.getMessage());
-                    }
-
+                        }
                 }
 
 

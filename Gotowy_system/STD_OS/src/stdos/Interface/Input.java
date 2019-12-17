@@ -14,7 +14,7 @@ class Input{
             while (!SwitchInput.exitFlag) {
                 System.out.print(">>");
                 String input = inputScanner.nextLine();
-                ///#TODO: linia 107 running CPU jest nullem exception
+
                 try {
                     SwitchInput.inputSwitch(input);
                } catch (Exception e) {
