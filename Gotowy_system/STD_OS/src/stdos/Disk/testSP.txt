@@ -1,0 +1,3 @@
+MOV AX 2 
+MOV BX 2 
+SP 
