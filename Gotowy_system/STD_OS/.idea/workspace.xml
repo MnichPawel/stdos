@@ -87,6 +87,8 @@
       <updated>1575982450567</updated>
       <workItem from="1576585641438" duration="25000" />
       <workItem from="1576585695275" duration="873000" />
+      <workItem from="1576590476411" duration="268000" />
+      <workItem from="1576590856831" duration="15000" />
     </task>
     <servers />
   </component>
@@ -94,6 +96,10 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="655" y="321" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog" timestamp="1576590489060">
+      <screen x="74" y="0" width="1462" height="864" />
+    </state>
+    <state x="655" y="321" key="#com.intellij.ide.util.projectWizard.JdkChooserPanel.MyDialog/74.0.1462.864@74.0.1462.864" timestamp="1576590489060" />
     <state x="463" y="123" key="FileChooserDialogImpl" timestamp="1576585669523">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
@@ -118,5 +124,9 @@
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="379" y="192" key="com.intellij.ide.util.TipDialog/0.0.1366.738@0.0.1366.738" timestamp="1576585644113" />
+    <state x="468" y="185" width="672" height="678" key="search.everywhere.popup" timestamp="1576590869042">
+      <screen x="74" y="0" width="1462" height="864" />
+    </state>
+    <state x="468" y="185" width="672" height="678" key="search.everywhere.popup/74.0.1462.864@74.0.1462.864" timestamp="1576590869042" />
   </component>
 </project>

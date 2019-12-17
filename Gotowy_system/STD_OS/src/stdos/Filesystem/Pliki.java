@@ -88,4 +88,20 @@ public class Pliki extends Plik{
         }
         System.out.println("Brak pliku o nazwie: " + nazwa);
     }
+    public void KP_otwP(String nazwa) {
+        for (Plik p : Files) {
+            if (p.Nazwa().equals(nazwa)) {
+                JPmetody.wait(p.sem);
+            }
+
+        }
+    }
+    public void KP_zamkP(String nazwa) {
+        for (Plik p : Files) {
+            if (p.Nazwa().equals(nazwa)) {
+                JPmetody.signal(p.sem);
+            }
+        }
+
+    }
 }
