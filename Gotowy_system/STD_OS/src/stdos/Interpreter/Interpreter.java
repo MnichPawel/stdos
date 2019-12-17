@@ -822,7 +822,7 @@ public class Interpreter {
             switch (Instruction.get(2)) {
                 case "[": {
                     file.KP_dopP(Instruction.get(1),Short.valueOf(get_value_from_addr_table(Integer.parseInt(Instruction.get(3)))).toString().getBytes());
-                    break;                          // wyglada zacnie
+                    break;
                 }
                 case "AX": {
 
@@ -852,13 +852,13 @@ public class Interpreter {
             file.KP_usunP(Instruction.get(1));
         }
         else if (Instruction.get(0).equals("CC")){
-        //    catalogue.KP_utwK(Instruction.get(1));
+            catalogue.KP_utwK(Instruction.get(1));
         }
         else if (Instruction.get(0).equals("MF")){
             //TODO MOVE FILE TO CATALOGUE METHOD
         }
         else if (Instruction.get(0).equals("TC")){
-         //   catalogue.KP_usunK(Instruction.get(1));
+            catalogue.KP_usunK(Instruction.get(1));
         }
         /*==============PROCESS OPERATION================*/
         else if (Instruction.get(0).equals("CP")){
@@ -875,7 +875,7 @@ public class Interpreter {
         pcb = MM_getRUNNING(); 
         address = pcb.getPC(); 
         file = new Pliki();
-        //catalogue = new Katalog();
+        catalogue = new Katalog();
 
 
         getORDER();
@@ -886,8 +886,8 @@ public class Interpreter {
         else
         {
             getARGUMENTS(arguments.get(Instruction.firstElement()));
-            System.out.println(Instruction);
             repairADDRESS();
+            System.out.println(Instruction);
             makeINSTRUCTION();
             pcb.setPC(address); // Instruction if order is other than SP
             return true;
