@@ -47,10 +47,8 @@ public class Pliki extends Plik{
         if (czyPjest(nazwa)) {
             for (Plik e : Files) {
                 if (e.Nazwa().equals(nazwa)) {
-                    KP_otwP(e);
                     e.setIndexBlock(Dysk.addContent(content, indeks));
                     e.UstRozm(content.length);
-                    KP_zamkP(e);
                     return;
                 }
             }
@@ -64,9 +62,7 @@ public class Pliki extends Plik{
     public byte[] KP_pobP(String nazwa) {
         for (Plik e : Files) {
             if (e.Nazwa().equals(nazwa)) {
-                KP_otwP(e);
                 byte[] a =Dysk.getBlockByIndex(e.getIndexBlock());
-                KP_zamkP(e);
                 return a;
             }
         }
