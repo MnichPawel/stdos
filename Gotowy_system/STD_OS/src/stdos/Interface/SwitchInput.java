@@ -139,7 +139,8 @@ class SwitchInput {
                     System.out.println("Usunieto katalog o nazwie: "  + arguments[1]);
                     break;
 //                case "move":
-//                    ZARZADZANIE_PLIKAMI_I_KATALOGAMI.KP_pP(String.valueOf(arguments[1], Integer.parseInt(arguments[2]));
+//                    Katalogi.getCurrentDir().KP_pP(String.valueOf(arguments[1], arguments[2]));
+//                    System.out.println("Przeniesiono plik " + arguments[1] + "do katalogu: "  + arguments[2]);
 //                    break;
 //                /*zarządzanie plikami i katalogami*/
 //

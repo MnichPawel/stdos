@@ -57,7 +57,7 @@ class Help {
         System.out.println("  erase [nazwa_pliku]                                         - usuniecie pliku");
         System.out.println("  mkdir [nazwa_katalogu]                                      - utworzenie katalogu");
         System.out.println("  rmdir [nazwa_katalogu]                                      - usuniecie katalogu ze wszystkimi plikami, ktore sie w nim znajduja");
-        System.out.println("  move [nazwa_pliku] [nazwa_katalogu]                         - przeniesienie pliku do katalogu");
+       // System.out.println("  move [nazwa_pliku] [nazwa_katalogu]                         - przeniesienie pliku do katalogu");
 
         /*zarządzanie plikami i katalogami*/
         /*interpreter*/
