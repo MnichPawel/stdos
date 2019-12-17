@@ -50,7 +50,7 @@ class SwitchInput {
                         System.out.println("Utworzono plik: "+ arguments[1] +" proces: "+ arguments[2] + "priorytet: " +arguments[3]);
                     }
                     catch(Exception e){
-                        System.out.println( "Blad Process Manager: polecenie {taskcreate}");
+                        System.out.println("Blad Process Manager: polecenie {taskcreate}");
 
                     }
                     break;
@@ -60,7 +60,7 @@ class SwitchInput {
                     }
                     catch(Exception e){
                         System.out.println("Blad Process Manager: polecenie {kill} ");
-                        System.out.println(" Tresc bledu: "  + e.getMessage());
+                        System.out.println("Tresc bledu: "  + e.getMessage());
                     }
                     break;
                 case "rtasklist":
@@ -90,7 +90,7 @@ class SwitchInput {
                     }
                     catch(Exception e ){
                         System.out.println("Blad assemblera:  polecenie {step} ");
-                        System.out.println(" Tresc bledu: "  + e.getMessage());
+                        System.out.println("Tresc bledu: "  + e.getMessage());
                     }
 
                 }
