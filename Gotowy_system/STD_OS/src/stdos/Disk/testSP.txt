@@ -1,4 +1,5 @@
 CF plik1 
+OF plik1 
 AF plik1 test 
 AF plik1 tt 
 AF plik1 t 
