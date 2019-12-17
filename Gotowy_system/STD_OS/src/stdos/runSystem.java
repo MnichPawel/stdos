@@ -15,8 +15,6 @@ public class runSystem {
             //Priority 1 - RAM and Filesystem
             RAMModule ram = new stdos.RAM.RAMModule();
 
-            /*load files to system*/
-            LoadFiles.loadProgramsToFilesystem();
             //TODO: Here will be constructor of the filesystem
             //Priority 2 - VM
             VirtualMemory vm = new stdos.VM.VirtualMemory();
@@ -31,8 +29,9 @@ public class runSystem {
             //Priority 7 - Interface
             Interface _interface = new Interface();
 
-            //Load programs to memory
 
+            /*load files to system*/
+            LoadFiles.loadProgramsToFilesystem();
 
 
         }
