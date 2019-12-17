@@ -1,4 +1,4 @@
-package stdos;
+package stdos.Filesystem;
 
 import stdos.Filesystem.Katalogi;
 
@@ -54,10 +54,8 @@ public class LoadFiles {
                     }
                 }
                 br.close();
-            } catch (FileNotFoundException e) {
-                e.getMessage();
             } catch (IOException e) {
-                e.getMessage();
+                System.out.println("Blad: " + e.getMessage());
             }
             Katalogi.getCurrentDir().getFiles().KP_utwP(f.getName());
             Katalogi.getCurrentDir().getFiles().KP_dopP(f.getName(), fileContent.getBytes());

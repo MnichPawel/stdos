@@ -1,5 +1,6 @@
 package stdos;
 
+import stdos.Filesystem.LoadFiles;
 import stdos.Interface.Interface;
 import stdos.RAM.RAMModule;
 import stdos.VM.VirtualMemory;
@@ -10,10 +11,11 @@ import stdos.Interpreter.Interpreter;
 
 public class runSystem {
 
-
         public static void main(String[] args){
             //Priority 1 - RAM and Filesystem
             RAMModule ram = new stdos.RAM.RAMModule();
+
+            /*load files to system*/
             LoadFiles.loadProgramsToFilesystem();
             //TODO: Here will be constructor of the filesystem
             //Priority 2 - VM
