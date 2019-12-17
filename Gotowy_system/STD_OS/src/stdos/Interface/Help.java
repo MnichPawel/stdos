@@ -1,5 +1,8 @@
 package stdos.Interface;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.IOException;
 import java.util.Random;
 
 class Help {
@@ -55,9 +58,9 @@ class Help {
        // System.out.println("  opnfile [nazwa_pliku]                                       - pobranie zawartosci pliku");
         System.out.println("  dir                                                         - wyswietla wszystkie pliki");
         System.out.println("  erase [nazwa_pliku]                                         - usuniecie pliku");
-        System.out.println("  mkdir [nazwa_katalogu]                                      - utworzenie katalogu");
-        System.out.println("  rmdir [nazwa_katalogu]                                      - usuniecie katalogu ze wszystkimi plikami, ktore sie w nim znajduja");
-       // System.out.println("  move [nazwa_pliku] [nazwa_katalogu]                         - przeniesienie pliku do katalogu");
+//        System.out.println("  mkdir [nazwa_katalogu]                                      - utworzenie katalogu");
+//        System.out.println("  rmdir [nazwa_katalogu]                                      - usuniecie katalogu ze wszystkimi plikami, ktore sie w nim znajduja");
+//        System.out.println("  move [nazwa_pliku] [nazwa_katalogu]                         - przeniesienie pliku do katalogu");
 
         /*zarządzanie plikami i katalogami*/
         /*interpreter*/
@@ -70,7 +73,9 @@ class Help {
         /*interpreter*/
 
     }
-    static void printLogo(){
+    static void printLogo() {
+
+        Sound.startSystem();
         System.out.println("  _      _           _     _        ____   _____ \n" +
                 "     | |    | |  _   _  | |   (_)      / __ \\ / ____|\n" +
                 "  ___| |_ __| | (_) (_) | |__  _  __ _| |  | | (___  \n" +

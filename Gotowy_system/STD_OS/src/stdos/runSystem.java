@@ -30,8 +30,5 @@ public class runSystem {
             //Priority 7 - Interface
             Interface _interface = new Interface();
 
-
-
-
         }
     }

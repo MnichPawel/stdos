@@ -130,14 +130,14 @@ class SwitchInput {
                     Katalogi.getCurrentDir().getFiles().KP_usunP(arguments[1]);
                     System.out.println("Usunieto plik o nazwie: "  + arguments[1]);
                     break;
-                case "mkdir":
-                    Katalogi.getCurrentDir().KP_utwK(String.valueOf(arguments[1]));
-                    System.out.println("Utworzono katalog o nazwie: "  + arguments[1]);
-                    break;
-                case "rmdir":
-                    Katalogi.getCurrentDir().KP_usunK(String.valueOf(arguments[1]));
-                    System.out.println("Usunieto katalog o nazwie: "  + arguments[1]);
-                    break;
+//                case "mkdir":
+//                    Katalogi.getCurrentDir().KP_utwK(String.valueOf(arguments[1]));
+//                    System.out.println("Utworzono katalog o nazwie: "  + arguments[1]);
+//                    break;
+//                case "rmdir":
+//                    Katalogi.getCurrentDir().KP_usunK(String.valueOf(arguments[1]));
+//                    System.out.println("Usunieto katalog o nazwie: "  + arguments[1]);
+//                    break;
 //                case "move":
 //                    Katalogi.getCurrentDir().KP_pP(String.valueOf(arguments[1], arguments[2]));
 //                    System.out.println("Przeniesiono plik " + arguments[1] + "do katalogu: "  + arguments[2]);
@@ -146,6 +146,8 @@ class SwitchInput {
 //
                 /*funkcje interfejsu*/
                 case "exit":
+                    Sound.exitSystem();
+
                     exitFlag = true;
                     break;
                 case "help":
