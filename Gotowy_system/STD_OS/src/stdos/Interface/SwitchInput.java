@@ -27,9 +27,8 @@ class SwitchInput {
 
                 case "erasevm":
                     VirtualMemory.erase();
-
-
                     break;
+                    
                 case "dvm":
                     VirtualMemory.display();
                     break;
@@ -50,7 +49,7 @@ class SwitchInput {
                         ProcessManager.KM_CreateProcess(String.valueOf(arguments[1]), String.valueOf(arguments[2]), Integer.parseInt(arguments[3]));
                     }
                     catch(Exception e){
-                        System.out.println(e.getMessage() + "Process create blad");
+                        System.out.println( "Blad Process Manager: polecenie {taskcreate}"  + e.getMessage());
                     }
                     break;
                 case "kill":
@@ -58,7 +57,7 @@ class SwitchInput {
                         ProcessManager.KM_TerminateProcess(String.valueOf(arguments[1]));
                     }
                     catch(Exception e){
-                        System.out.println(e.getMessage());
+                        System.out.println("Blad Process Manager: polecenie {kill} "+e.getMessage());
                     }
                     break;
                 case "rtasklist":
@@ -87,7 +86,7 @@ class SwitchInput {
                         CPU.MM_go();
                     }
                     catch(Exception e ){
-                        System.out.println(e.getMessage() + " Blad assemblera: blad odczytu ";
+                        System.out.println("Blad assemblera:  polecenie {step} "+e.getMessage());
                     }
 
                 }

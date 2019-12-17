@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="888a1b38-f6c4-484f-a942-c9b5b7674bde" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stdos/Interface/Help.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/stdos/Interface/Help.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stdos/Interface/SwitchInput.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/stdos/Interface/SwitchInput.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -87,7 +86,7 @@
       <option name="presentableId" value="Default" />
       <updated>1575982450567</updated>
       <workItem from="1576585641438" duration="25000" />
-      <workItem from="1576585695275" duration="498000" />
+      <workItem from="1576585695275" duration="873000" />
     </task>
     <servers />
   </component>
