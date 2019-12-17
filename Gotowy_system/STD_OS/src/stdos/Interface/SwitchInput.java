@@ -50,7 +50,8 @@ class SwitchInput {
                         System.out.println("Utworzono plik: "+ arguments[1] +" proces: "+ arguments[2] + "priorytet: " +arguments[3]);
                     }
                     catch(Exception e){
-                        System.out.println( "Blad Process Manager: polecenie {taskcreate}"  + e.getMessage());
+                        System.out.println( "Blad Process Manager: polecenie {taskcreate}");
+
                     }
                     break;
                 case "kill":
@@ -58,7 +59,8 @@ class SwitchInput {
                         ProcessManager.KM_TerminateProcess(String.valueOf(arguments[1]));
                     }
                     catch(Exception e){
-                        System.out.println("Blad Process Manager: polecenie {kill} "+e.getMessage());
+                        System.out.println("Blad Process Manager: polecenie {kill} ");
+                        System.out.println(" Tresc bledu: "  + e.getMessage());
                     }
                     break;
                 case "rtasklist":
@@ -87,7 +89,8 @@ class SwitchInput {
                         CPU.MM_go();
                     }
                     catch(Exception e ){
-                        System.out.println("Blad assemblera:  polecenie {step} "+e.getMessage());
+                        System.out.println("Blad assemblera:  polecenie {step} ");
+                        System.out.println(" Tresc bledu: "  + e.getMessage());
                     }
 
                 }
