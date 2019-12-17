@@ -98,7 +98,7 @@ public class CPU {
     /*Regulacja priorytetow dynamicznych, postarzanie procesow gotowych, zmniejszenie priortetu RUNNING*/
     private static void MM_refreshPriority() {
         priorityList.updateDynamicPriority();
-        if (RUNNING != ZEROPRIORITY) {
+        if (RUNNING != ZEROPRIORITY && RUNNING != null) {
             if (RUNNING.getPriD() > RUNNING.getPriS()) RUNNING.setPriD(RUNNING.getPriD() - 1);
         }
     }
