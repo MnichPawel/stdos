@@ -119,10 +119,10 @@ class SwitchInput {
                     Katalogi.getCurrentDir().getFiles().KP_utwP(String.valueOf(arguments[1]));
                     System.out.println("Uworzono plik o nazwie: "  + arguments[1]);
                     break;
-                case "opnfile ":
-                    Katalogi.getCurrentDir().getFiles().KP_pobP(String.valueOf(arguments[1]));
-                    System.out.println("Otworzono plik o nazwie: "  + arguments[1]);
-                    break;
+//                case "opnfile ":
+//                    Katalogi.getCurrentDir().getFiles().KP_pobP(String.valueOf(arguments[1]));
+//                    System.out.println("Otworzono plik o nazwie: "  + arguments[1]);
+//                    break;
                 case "dir":
                     Katalogi.getCurrentDir().getFiles().KP_pokP();
                     break;

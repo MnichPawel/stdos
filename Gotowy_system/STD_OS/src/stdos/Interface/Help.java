@@ -52,7 +52,7 @@ class Help {
         System.out.println("  _____________________________________PLIKI I KATALOGI____________________________________________________________________________");
         /*zarządzanie plikami i katalogami*/
         System.out.println("  mkfile [nazwa_pliku]                                        - utworzenie pliku");
-        System.out.println("  opnfile [nazwa_pliku]                                       - pobranie zawartosci pliku");
+       // System.out.println("  opnfile [nazwa_pliku]                                       - pobranie zawartosci pliku");
         System.out.println("  dir                                                         - wyswietla wszystkie pliki");
         System.out.println("  erase [nazwa_pliku]                                         - usuniecie pliku");
         System.out.println("  mkdir [nazwa_katalogu]                                      - utworzenie katalogu");
