@@ -9,14 +9,14 @@ class Help {
         /*interfejs*/
 
         /*pamięc ram*/
-        System.out.println("  _____________________________________PAMIĘĆ RAM_________________________________________________________________________________");
+        System.out.println("  _____________________________________PAMIEC RAM_________________________________________________________________________________");
         System.out.println("  ram                                                         - wypisuje zawartosc ramu w zapisie heksadecymalnym");
         System.out.println("  ram_mem                                                     - wypisuje zawartosc ramu w zapisie mnemonicznym");
         System.out.println("  ram_part                                                    - wypisuje podzial pamieci ram");
         /*pamięc ram*/
 
         /* pamięc wirtualna*/
-        System.out.println("  _____________________________________PAMIĘĆ WIRTUALNA___________________________________________________________________________");
+        System.out.println("  _____________________________________PAMIEC WIRTUALNA___________________________________________________________________________");
         System.out.println("  erasevm                                                     - czysci segmenty pamieci wirtualnej");
         System.out.println("  dvm                                                         - wyswietla aktualna zawartosc pamieci wirtualnej");
         System.out.println("  dvm_file                                                    - wyswietla aktualna zawartosc pliku podrecznego");
