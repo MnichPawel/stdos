@@ -211,6 +211,7 @@ public class Interpreter {
                     switch (Instruction.get(2)) {
                         case "[": {
                             int ax = pcb.getAx(), value = get_value_from_addr_table(Integer.parseInt(Instruction.get(3)));
+                            System.out.println(value);
                             pcb.setAx(ax + value);
                             break;
                         }
@@ -339,7 +340,7 @@ public class Interpreter {
                         }
                         default: {
                             int dx = pcb.getDx();
-                            pcb.setCx(dx + Integer.parseInt(Instruction.get(2)));
+                            pcb.setDx(dx + Integer.parseInt(Instruction.get(2)));
                             break;
                         }
                     }
