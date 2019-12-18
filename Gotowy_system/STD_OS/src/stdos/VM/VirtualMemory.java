@@ -19,7 +19,7 @@ public class VirtualMemory {
     static Map<Integer, Boolean> VM = new HashMap<>();
 
     //mapa logiczna adresow
-    static Map<Integer, Pair<Boolean, Pair<Integer, Integer>>> addressTable = new HashMap<>(); //pid flaga 1-ram 0-file adr_log adr_fiz
+    static Map<Pair<Integer, Integer>, Pair<Boolean, Integer>> addressTableFinal = new HashMap<>(); //Pair<PID, ADDR_LOG>, Pair<RAM TAK/NIE, ADDR_PHY>
 
     /*===============================PROCESY=================================*/
     public static void load_to_virtualmemory(int PID, String code) {
@@ -70,14 +70,23 @@ public class VirtualMemory {
                 //usuwanie z pliku
                 SegmentFile.remove(PID);
             }
-            if(addressTable.containsKey(PID)) {
-                Pair pair = addressTable.get(PID);
-                boolean place = (boolean) pair.getKey();
-                if (place) {
-                    Pair temp = (Pair) pair.getValue();
-                    RAMModule.zwolnij_pamiec((Integer) temp.getValue());
+            if(!addressTableFinal.isEmpty()) {
+                Vector<Pair<Integer, Integer>> to_delete = new Vector<>();
+                for (Map.Entry<Pair<Integer, Integer>, Pair<Boolean, Integer>> entry : addressTableFinal.entrySet()) {
+                    Pair pair = entry.getKey();
+
+                    if ((Integer) pair.getKey() == PID) {
+                        Pair pair_data = entry.getValue();
+                        if ((boolean) pair_data.getKey()) {
+                            RAMModule.zwolnij_pamiec((Integer) pair_data.getValue());
+                        }
+
+                        to_delete.add(entry.getKey());
+                    }
                 }
-                addressTable.remove(PID);
+                for(Pair<Integer, Integer> pair : to_delete) {
+                    addressTableFinal.remove(pair);
+                }
             }
             VM.remove(PID);
         }
@@ -87,28 +96,33 @@ public class VirtualMemory {
 
     /*===============================ASEMBLER=================================*/
     public static short get_value_from_addr_table(int address) {
-        int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        //int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        int runningID = 0;
 
-        Pair pair = addressTable.get(runningID);
-        if((boolean)pair.getKey()) {
-            pair = (Pair) pair.getValue();
-            if((int)pair.getKey() == address) {
-                byte[] val = RAMModule.odczytaj_bajty((Integer) pair.getValue(), 2);
-                short true_val = val[1];
-                if(true_val < 0) true_val += 256;
-                return true_val;
+        Pair pair;
+        for(Map.Entry<Pair<Integer, Integer>, Pair<Boolean, Integer>> entry : addressTableFinal.entrySet()) {
+            pair = entry.getKey();
+            if((int)pair.getKey() == runningID && (int)pair.getValue() == address) {
+                pair = addressTableFinal.get(pair);
+                if((boolean)pair.getKey()) {
+                    byte[] val = RAMModule.odczytaj_bajty((Integer) pair.getValue(), 2);
+
+                    short true_val = val[1];
+                    if(true_val < 0) true_val += 256;
+                    return true_val;
+                }
+                else {
+                    short val = (short) pair.getValue();
+                    return val;
+                }
             }
-        }
-        else {
-            pair = (Pair) pair.getValue();
-            short val = (short) pair.getValue();
-            return val;
         }
         return -1;
     }
 
     public static byte get_value(int address) {
-        int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        //int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        int runningID = 0;
 
         if(VM.get(runningID)) {
             Vector<Segment> tempGVVector = new Vector<>();
@@ -124,7 +138,8 @@ public class VirtualMemory {
     }
 
     public static void set_value(int address, short value) {
-        int running = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        //int running = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        int running = 0;
 
         byte[] val = new byte[2];
         val[0] = (byte)(address);
@@ -133,12 +148,12 @@ public class VirtualMemory {
         int reservation = RAMModule.zarezerwuj_pamiec(2);
         if(reservation != -1) {
             RAMModule.zapisz_bajty(val, reservation);
-            addressTable.put(running, new Pair<>(true, new Pair<>(address, reservation)));
+            System.out.println(reservation);
+            addressTableFinal.put(new Pair<>(running, address), new Pair<>(true, reservation));
         }
         else {
             SegmentFile.put(running*-1, val);
-            int val_int = Short.toUnsignedInt(value);
-            addressTable.put(running, new Pair<>(false, new Pair<>(null, val_int)));
+            addressTableFinal.put(new Pair<>(running, address), new Pair<>(false, (int)value));
         }
     }
     /*===============================/ASEMBLER=================================*/
@@ -149,15 +164,14 @@ public class VirtualMemory {
                 RAMModule.zwolnij_pamiec(segment.beginAddress);
             }
         }
-        for(Map.Entry<Integer, Pair<Boolean, Pair<Integer, Integer>>> entry : addressTable.entrySet()) {
-            Pair pair = entry.getValue();
-            boolean place = (boolean) pair.getKey();
-            if(place) {
-                Pair temp = (Pair) pair.getValue();
-                RAMModule.zwolnij_pamiec((Integer) temp.getValue());
+        for(Map.Entry<Pair<Integer, Integer>, Pair<Boolean, Integer>> entry : addressTableFinal.entrySet()) {
+            Pair pair_data = entry.getValue();
+            if ((boolean) pair_data.getKey()) {
+                RAMModule.zwolnij_pamiec((Integer) pair_data.getValue());
             }
+            addressTableFinal.remove(entry.getKey());
         }
-        addressTable.clear();
+        addressTableFinal.clear();
         SegmentFile.clear();
         segmentTable.clear();
         VM.clear();
@@ -186,29 +200,20 @@ public class VirtualMemory {
             }
             System.out.println();
         }
-        if(!addressTable.isEmpty()) {
+        if(!addressTableFinal.isEmpty()) {
             System.out.println("\nPID\tADDR\tVALUE");
             Pair pair = null;
             int PID = -1;
-            for(Map.Entry<Integer, Pair<Boolean, Pair<Integer, Integer>>> entry : addressTable.entrySet()) {
-                System.out.print(entry.getKey()*-1 + "\t");
+            for(Map.Entry<Pair<Integer, Integer>, Pair<Boolean, Integer>> entry : addressTableFinal.entrySet()) {
+                pair = entry.getKey();
+                System.out.print(pair.getKey() + "\t" + pair.getValue() + "\t");
                 pair = entry.getValue();
                 if((boolean)pair.getKey()) {
-                    pair = (Pair) pair.getValue();
-                    System.out.print(((int)pair.getKey())+"\t");
-                    System.out.println(get_value_from_addr_table((int)pair.getKey()));
+                    Pair pair_addr = entry.getKey();
+                    System.out.println(get_value_from_addr_table((int)pair_addr.getValue()));
                 }
                 else {
-                    pair = (Pair) pair.getValue();
-                    byte[] arr = SegmentFile.get(entry.getKey());
-                    int addr = (arr[0] & 0xFF);
-                    System.out.print(addr + "\t");
-                    byte[] temp = new byte[2];
-                    temp[0] = arr[1];
-                    temp[1] = arr[2];
-                    ByteBuffer byteBuffer = ByteBuffer.wrap(temp);
-                    int val = byteBuffer.getInt();
-                    System.out.println(val);
+                    System.out.println(pair.getValue());
                 }
             }
         }
