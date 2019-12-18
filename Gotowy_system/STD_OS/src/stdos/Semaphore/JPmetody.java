@@ -35,7 +35,7 @@ public class JPmetody {
     }
     //================================================wypisywanie semafora na ekran=====================================
 
-    public static void JPwypisz(String nazwa){ //wypisanie wartosci semafora
+    public static void JPwypisz(String nazwa) throws Exception { //wypisanie wartosci semafora
             Plik P = Pliki.KP_dlaJP(nazwa);
             if(P!=null) {
                 System.out.println(P.sem.wartosc);
@@ -45,7 +45,7 @@ public class JPmetody {
             }
 
     }
-    public static void JPwypiszKolejke(String nazwa){ //wypisanie wartosci semafora
+    public static void JPwypiszKolejke(String nazwa) throws Exception { //wypisanie wartosci semafora
             Plik P = Pliki.KP_dlaJP(nazwa);
             if(P!=null) {
                 Deque<PCB> pom = P.sem.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
