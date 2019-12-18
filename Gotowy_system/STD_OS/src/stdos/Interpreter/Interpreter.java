@@ -21,7 +21,7 @@ public class Interpreter {
     private static PCB pcb;
     private static int address;
     private static Pliki file;
-    private static Katalog catalogue;
+
 
     public Interpreter() {
         /*=============================================ADD KEYS AND VALUES=========================================== */
@@ -44,11 +44,8 @@ public class Interpreter {
         arguments.put("AF", 2);  //ADD TO FILE
         arguments.put("OF", 1);  //OPEN FILE
         arguments.put("FC", 1);  //FILE CLOSE
-        //arguments.put("SF", 0);  //SHOW FILES TODO::I think this is Interface function
         arguments.put("TF", 1);  //TERMINATE FILE
-        arguments.put("CC", 1);  //CREATE CATALOG
-        arguments.put("MF", 2);  //MOVING FILE TO CATALOG
-        arguments.put("TC", 1);  //TERMINATE CATALOG WITH ALL FILES
+
         //PROCESS OPERATION
         arguments.put("CP", 3);  //CREATE PROCESS //filename, processname and priority
         arguments.put("DP", 1);  //DELETE PROCESS //processname
@@ -69,59 +66,6 @@ public class Interpreter {
         Instruction.add(temp.toString());
     }
 
-    /*
-    private static void getARGUMENTS(int n){
-        int download;
-        char temparse = 32;
-        String temp = "";
-        String firstChar = "";
-        for(int i=0; i<n; i++)
-        {
-            temp = "";
-            while(true)
-            {
-                download = get_value(address);
-                    if(download!=32)
-                    {
-                        if(firstChar.equalsIgnoreCase("")) {
-                            firstChar = Character.toString(((char)download));
-                        }
-                        if(download==91||download==93)
-                        {
-                            temparse = (char)download;
-                            Instruction.add(Character.toString(temparse)); //Commented by KM
-                            temp += temparse; //Added by KM
-                            address++;
-                        }
-                        else
-                        {
-
-                            temparse = (char) download;
-                            temp += temparse; //Commented by KM
-                            if(firstChar.equalsIgnoreCase("[")) {
-                                Instruction.add(Character.toString(temparse)); //Added by KM
-                            }
-                            address++;
-                        }
-                    }
-                    else
-                    {
-                        address++;
-                        break;
-                    }
-            }
-            if(!firstChar.equalsIgnoreCase("[")) {
-                if(!temp.equalsIgnoreCase("")) {
-                    Instruction.add(temp);
-                }
-            }
-            firstChar = "";
-            //Instruction.add(temp); //Commented by KM
-        }
-    } //download arguments from VM
-    */
-    //Comment by KM
-
     private static void getARGUMENTS(int n){
         int download;
         char temparse = 32;
@@ -141,17 +85,17 @@ public class Interpreter {
                     if(download==91||download==93)
                     {
                         temparse = (char)download;
-                        Instruction.add(Character.toString(temparse).trim()); //Commented by KM
-                        temp += temparse; //Added by KM
+                        Instruction.add(Character.toString(temparse).trim());
+                        temp += temparse;
                         address++;
                     }
                     else
                     {
 
                         temparse = (char) download;
-                        temp += temparse; //Commented by KM
+                        temp += temparse;
                         if(firstChar.equalsIgnoreCase("[")) {
-                            Instruction.add(Character.toString(temparse).trim()); //Added by KM
+                            Instruction.add(Character.toString(temparse).trim());
                         }
                         address++;
                     }
@@ -175,7 +119,6 @@ public class Interpreter {
                 i--;
             }
             firstChar = "";
-            //Instruction.add(temp); //Commented by KM
         }
     }
 
@@ -204,7 +147,7 @@ public class Interpreter {
     }
 
 
-    private static void makeINSTRUCTION() throws Exception { //doing instruction
+    private static void makeINSTRUCTION() throws Exception {
         /*==============ARITHMETIC=======================*/
         if (Instruction.get(0).equals("AD")) {
             switch (Instruction.get(1)) {
@@ -859,18 +802,8 @@ public class Interpreter {
                 }
             }
         }
-        //else if (Instruction.get(0).equals("SF")){} Interface
         else if (Instruction.get(0).equals("TF")){
             file.KP_usunP(Instruction.get(1));
-        }
-        else if (Instruction.get(0).equals("CC")){
-            catalogue.KP_utwK(Instruction.get(1));
-        }
-        else if (Instruction.get(0).equals("MF")){
-            //TODO MOVE FILE TO CATALOGUE METHOD
-        }
-        else if (Instruction.get(0).equals("TC")){
-            catalogue.KP_usunK(Instruction.get(1));
         }
         /*==============PROCESS OPERATION================*/
         else if (Instruction.get(0).equals("CP")){
@@ -906,23 +839,20 @@ public class Interpreter {
         pcb = MM_getRUNNING(); 
         address = pcb.getPC(); 
         file = new Pliki();
-        catalogue = new Katalog();
 
         getORDER();
         if(Instruction.firstElement().equals("SP"))
         {
-            //System.out.println(Instruction); //Commented by KM
-            printCODE(); //Added by KM
-            return false;                      // Instruction if order is SP - End of Program
+            printCODE();
+            return false;                      
         }
         else
         {
             getARGUMENTS(arguments.get(Instruction.firstElement()));
             repairADDRESS();
-            //System.out.println(Instruction); //Commented by KM
-            printCODE(); //Added by KM
+            printCODE();
             makeINSTRUCTION();
-            pcb.setPC(address); // Instruction if order is other than SP
+            pcb.setPC(address);
             return true;
         }
     }
