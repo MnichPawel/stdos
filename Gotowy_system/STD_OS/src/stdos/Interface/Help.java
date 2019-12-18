@@ -2,21 +2,21 @@ package stdos.Interface;
 
 class Help {
     static void help() {
-        System.out.println("  _____________________________________HELP_______________________________________________________________________________________");
+        System.out.println("  ______________________________________ HELP _______________________________________________________________________________________");
         /*interfejs*/
         System.out.println("  exit                                                        - konczy dzialanie systemu");
         System.out.println("  help                                                        - wyswietla pomoc");
         /*interfejs*/
 
         /*pamięc ram*/
-        System.out.println("  _____________________________________PAMIEC RAM_________________________________________________________________________________");
+        System.out.println("  _____________________________________ PAMIEC RAM _________________________________________________________________________________");
         System.out.println("  ram                                                         - wypisuje zawartosc ramu w zapisie heksadecymalnym");
         System.out.println("  ram_mem                                                     - wypisuje zawartosc ramu w zapisie mnemonicznym");
         System.out.println("  ram_part                                                    - wypisuje podzial pamieci ram");
         /*pamięc ram*/
 
         /* pamięc wirtualna*/
-        System.out.println("  _____________________________________PAMIEC WIRTUALNA___________________________________________________________________________");
+        System.out.println("  _____________________________________ PAMIEC WIRTUALNA ___________________________________________________________________________");
         System.out.println("  erasevm                                                     - czysci segmenty pamieci wirtualnej");
         System.out.println("  dvm                                                         - wyswietla aktualna zawartosc pamieci wirtualnej");
         System.out.println("  dvm_file                                                    - wyswietla aktualna zawartosc pliku podrecznego");
@@ -24,13 +24,13 @@ class Help {
         /* pamięc wirtualna*/
 
 
-        System.out.println("  _____________________________________SEMAFOR_____________________________________________________________________________________");
+        System.out.println("  _____________________________________ SEMAFOR _____________________________________________________________________________________");
         /* semafor*/
         System.out.println("  semstate [nazwa_pliku]                                      - wyswietla obecny stan semafora");
         System.out.println("  queue    [nazwa_pliku]                                      - wyswietla kolejke semafora");
         /* semafor*/
 
-        System.out.println("  _____________________________________PROCESOR____________________________________________________________________________________");
+        System.out.println("  _____________________________________ PROCESOR ____________________________________________________________________________________");
         /* zarządzanie procesami: semafor, pamiec ram, pamiec wirtualna*/
         System.out.println("  tc   [nazwa_pliku] [nazwa_procesu] [priorytet]              - tworzenie procesu");
         System.out.println("  kill [nazwa_procesu]                                        - zakonczenie dzialania danego procesu");
@@ -44,7 +44,7 @@ class Help {
         /* procesor*/
 
         /*zarządzanie plikami i katalogami*/
-        System.out.println("  _____________________________________PLIKI I KATALOGI____________________________________________________________________________");
+        System.out.println("  ____________________________________ PLIKI I KATALOGI ____________________________________________________________________________");
         /*zarządzanie plikami i katalogami*/
         System.out.println("  mkfile [nazwa_pliku]                                        - utworzenie pliku");
         System.out.println("  opnfile [nazwa_pliku]                                       - pobranie zawartosci pliku");
@@ -53,7 +53,7 @@ class Help {
         System.out.println("  erase [nazwa_pliku]                                         - usuniecie pliku");
         /*zarządzanie plikami i katalogami*/
 
-        System.out.println(" _____________________________________ASSEMBLER____________________________________________________________________________________");
+        System.out.println(" _____________________________________ ASSEMBLER ____________________________________________________________________________________");
         /*interpreter*/
         System.out.println("  step                                                        - wykonaj 1 rozkaz assemblera");
         System.out.println("  step [liczba_krokow]                                        - wykonaj n rozkazow assemblera");
