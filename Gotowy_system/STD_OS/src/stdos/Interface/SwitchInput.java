@@ -27,7 +27,6 @@ class SwitchInput {
                 /*pamięć RAM*/
 
                 /*pamięć wirtualna*/
-
                 case "erasevm":
                     VirtualMemory.erase();
                     break;
@@ -55,9 +54,9 @@ class SwitchInput {
                     catch(Exception e){
                         Sound.errorSound();
                         System.out.println("Blad Process Manager: polecenie {taskcreate}");
-
                     }
                     break;
+
                 case "kill":
                     try {
                         ProcessManager.KM_TerminateProcess(String.valueOf(arguments[1]));
@@ -68,6 +67,7 @@ class SwitchInput {
                         System.out.println("Tresc bledu: "  + e.getMessage());
                     }
                     break;
+
                 case "rtasklist":
                     ProcessManager.KM_getReadyProcessListPrint();
                     break;
@@ -118,37 +118,28 @@ class SwitchInput {
                     ProcessManager.KM_printRunningRegisters();
                     break;
 
-//                /*zarządzanie plikami i katalogami*/
+                   /*zarządzanie plikami i katalogami*/
                 case "mkfile": //file create
                     Katalogi.getCurrentDir().getFiles().KP_utwP(String.valueOf(arguments[1]));
                     System.out.println("Uworzono plik o nazwie: "  + arguments[1]);
                     break;
+
                 case "opnfile":
                     byte[] code = Katalogi.getCurrentDir().getFiles().KP_pobP(String.valueOf(arguments[1]));
                     System.out.println("Otworzono plik o nazwie: "  + arguments[1]);
                     System.out.print(stdos.Processes.ProcessManager.getStringFromByteArray(code));
                     break;
+
                 case "dir":
                     Katalogi.getCurrentDir().getFiles().KP_pokP();
                     break;
+
                 case "erase":
                     Katalogi.getCurrentDir().getFiles().KP_usunP(arguments[1]);
                     System.out.println("Usunieto plik o nazwie: "  + arguments[1]);
                     break;
-//                case "mkdir":
-//                    Katalogi.getCurrentDir().KP_utwK(String.valueOf(arguments[1]));
-//                    System.out.println("Utworzono katalog o nazwie: "  + arguments[1]);
-//                    break;
-//                case "rmdir":
-//                    Katalogi.getCurrentDir().KP_usunK(String.valueOf(arguments[1]));
-//                    System.out.println("Usunieto katalog o nazwie: "  + arguments[1]);
-//                    break;
-//                case "move":
-//                    Katalogi.getCurrentDir().KP_pP(String.valueOf(arguments[1], arguments[2]));
-//                    System.out.println("Przeniesiono plik " + arguments[1] + "do katalogu: "  + arguments[2]);
-//                    break;
-//                /*zarządzanie plikami i katalogami*/
-//
+                /*zarządzanie plikami i katalogami*/
+
                 /*funkcje interfejsu*/
                 case "exit":
                     Sound.exitSystem();
