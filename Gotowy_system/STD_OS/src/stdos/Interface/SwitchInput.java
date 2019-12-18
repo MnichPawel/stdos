@@ -102,6 +102,7 @@ class SwitchInput {
                             } catch (Exception e) {
                                 System.out.println("Blad assemblera: polecenie {step}: za duzo wymaganych krokow ");
                                 System.out.println("Tresc bledu: " + e.getMessage());
+                                e.printStackTrace();
                             }
                         }
                     }
@@ -119,10 +120,11 @@ class SwitchInput {
                     Katalogi.getCurrentDir().getFiles().KP_utwP(String.valueOf(arguments[1]));
                     System.out.println("Uworzono plik o nazwie: "  + arguments[1]);
                     break;
-//                case "opnfile ":
-//                    Katalogi.getCurrentDir().getFiles().KP_pobP(String.valueOf(arguments[1]));
-//                    System.out.println("Otworzono plik o nazwie: "  + arguments[1]);
-//                    break;
+                case "opnfile":
+                    byte[] code = Katalogi.getCurrentDir().getFiles().KP_pobP(String.valueOf(arguments[1]));
+                    System.out.println("Otworzono plik o nazwie: "  + arguments[1]);
+                    System.out.print(stdos.Processes.ProcessManager.getStringFromByteArray(code));
+                    break;
                 case "dir":
                     Katalogi.getCurrentDir().getFiles().KP_pokP();
                     break;

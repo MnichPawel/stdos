@@ -253,7 +253,7 @@ public class ProcessManager {
         return null;
     }
 
-    private static String getStringFromByteArray(byte[] arr) {
+    public static String getStringFromByteArray(byte[] arr) {
         String temp = new String(arr);
         int end = 0;
         boolean findWrongChar = false;
