@@ -258,6 +258,13 @@ public class ProcessManager {
         System.out.printf("AX: %d, BX: %d, CX: %d, DX: %d\n", pcb.getAx(), pcb.getBx(), pcb.getCx(), pcb.getDx());
     }
 
+    //BY MIKOLAJ MLYNARCZYK AND KAMIL OSAK
+    public static void KM_printRegisters(PCB process) { //For Interface command register
+        PCB pcb = process;
+        System.out.printf("Register state for process PID: %d, ProcessName: %s, Filename: %s\n", pcb.getPid(), pcb.getPn(), pcb.getFilename());
+        System.out.printf("AX: %d, BX: %d, CX: %d, DX: %d\n", pcb.getAx(), pcb.getBx(), pcb.getCx(), pcb.getDx());
+    }
+
     private static PCB KM_getPCBbyPID (int pid) {
         for(PCB _p : activeProcesses) {
             if(_p.getPid()==pid) {
