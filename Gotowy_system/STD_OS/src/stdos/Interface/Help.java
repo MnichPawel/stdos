@@ -11,6 +11,7 @@ class Help {
         /*pamięc ram*/
         System.out.println("  _____________________________________PAMIĘĆ RAM_________________________________________________________________________________");
         System.out.println("  ram                                                         - wypisuje zawartość ramu w zapisie heksadecymalnym");
+        System.out.println("  ram_mem                                                     - wypisuje zawartość ramu w zapisie mnemonicznym");
         System.out.println("  ram_part                                                    - wypisuje podzial pamieci ram");
         /*pamięc ram*/
 

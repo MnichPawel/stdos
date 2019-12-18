@@ -5,6 +5,7 @@ import stdos.Filesystem.Katalog;
 import stdos.Filesystem.Katalogi;
 import stdos.Filesystem.Pliki;
 import stdos.Processes.ProcessManager;
+import stdos.RAM.RAMModule;
 import stdos.Semaphore.JPmetody;
 import stdos.Semaphore.semafor;
 import stdos.VM.VirtualMemory;
@@ -21,6 +22,11 @@ class SwitchInput {
                 case "ram":
                     VirtualMemory.displayRAM();
                     break;
+
+                case "ram_mem":
+                    RAMModule.wypisz_pamiec_char();
+                    break;
+
                 case "ram_part":
                     VirtualMemory.displayBinaryTree();
                     break;
