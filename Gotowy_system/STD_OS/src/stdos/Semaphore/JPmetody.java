@@ -36,29 +36,17 @@ public class JPmetody {
     //================================================wypisywanie semafora na ekran=====================================
 
     public static void JPwypisz(String nazwa){ //wypisanie wartosci semafora
-        try {
-            Plik P = Pliki.KP_dlaJP(nazwa);
-            if(P!=null) {
-                System.out.println(P.sem.wartosc);
-            }
-            else{
-                throw new Exception("bledna nazwa pliku");
-            }
-        }
+
+        Plik P=Pliki.KP_dlaJP(nazwa);
+        System.out.println(P.sem.wartosc);
     }
     public static void JPwypiszKolejke(String nazwa){ //wypisanie wartosci semafora
-        try {
-            Plik P = Pliki.KP_dlaJP(nazwa);
-            if(P!=null) {
-                Deque<PCB> pom = P.sem.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
-                PCB pompcb;
-                for (int i = 0; i < pom.size(); i++) {
-                    pompcb = pom.pollFirst();
-                    System.out.println(pompcb.getPid() + " " + pompcb.getPn());
-                }
-            }else{
-                throw new Exception("bledna nazwa pliku");
-            }
+        Plik P=Pliki.KP_dlaJP(nazwa);
+        Deque<PCB> pom = P.sem.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
+        PCB pompcb;
+        for(int i=0; i<pom.size();i++){
+            pompcb=pom.pollFirst();
+            System.out.println(pompcb.getPid()+" "+pompcb.getPn());
         }
     }
 
