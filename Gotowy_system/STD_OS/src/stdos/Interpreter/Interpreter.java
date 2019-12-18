@@ -3,6 +3,7 @@ package stdos.Interpreter;
 import stdos.Processes.*;
 import stdos.Filesystem.*;
 import stdos.Processes.ProcessManager;
+import stdos.VM.VirtualMemory;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -810,6 +811,9 @@ public class Interpreter {
                         }
                         case "DX":{
                             set_value(Integer.parseInt(Instruction.get(2)),(short)pcb.getDx());
+                        }
+                        default:{
+                            set_value(Integer.parseInt(Instruction.get(2)), Short.parseShort(Instruction.get(4)));
                         }
                     }
             }
