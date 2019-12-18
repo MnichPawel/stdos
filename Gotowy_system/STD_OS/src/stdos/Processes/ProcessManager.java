@@ -2,6 +2,8 @@ package stdos.Processes;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
+
 import stdos.CPU.*;
 import stdos.Filesystem.Katalogi;
 import stdos.VM.VirtualMemory;
@@ -101,11 +103,27 @@ public class ProcessManager {
     }
 
     public static boolean KM_TerminateProcess (String _processname) throws Exception {
-        PCB pcb = KM_getPCBbyPN(_processname);
-        if(pcb==null) {
-            throw new Exception("KM_TerminateProcess:ProcessNotExist");
+        return KM_TerminateProcess(_processname, false);
+    }
+
+    public static boolean KM_TerminateProcess (String _processname, boolean firstOnly) throws Exception {
+        if(firstOnly) {
+            List<PCB> pcbList = KM_getPCBbyPN(_processname);
+            if(pcbList.isEmpty()) {
+                throw new Exception("KM_TerminateProcess:ProcessNotExist");
+            } else {
+                return KM_TerminateProcess(pcbList.get(0));
+            }
         } else {
-            return KM_TerminateProcess(pcb);
+            List<PCB> pcbList = KM_getPCBbyPN(_processname);
+            if(pcbList.isEmpty()) {
+                throw new Exception("KM_TerminateProcess:ProcessNotExist");
+            } else {
+                for(PCB _p:pcbList) {
+                    KM_TerminateProcess(_p);
+                }
+                return true;
+            }
         }
     }
 
@@ -229,8 +247,13 @@ public class ProcessManager {
         return readyProc;
     }
 
-    public static void KM_printRunningRegisters() { //For Interface
-        PCB pcb = CPU.RUNNING;
+    public static void KM_printRunningRegistersSimple() {
+        PCB pcb = CPU.MM_getRUNNING();
+        System.out.printf("AX: %d, BX: %d, CX: %d, DX: %d", pcb.getAx(), pcb.getBx(), pcb.getCx(), pcb.getDx());
+    }
+
+    public static void KM_printRunningRegisters() { //For Interface command register
+        PCB pcb = CPU.MM_getRUNNING();
         System.out.printf("Register state for process PID: %d, ProcessName: %s, Filename: %s\n", pcb.getPid(), pcb.getPn(), pcb.getFilename());
         System.out.printf("AX: %d, BX: %d, CX: %d, DX: %d\n", pcb.getAx(), pcb.getBx(), pcb.getCx(), pcb.getDx());
     }
@@ -244,13 +267,14 @@ public class ProcessManager {
         return null;
     }
 
-    private static PCB KM_getPCBbyPN (String _processname) {
+    private static List<PCB> KM_getPCBbyPN (String _processname) {
+        List<PCB> pcbList = new ArrayList<>();
         for(PCB _p : activeProcesses) {
             if(_p.getPn().equalsIgnoreCase(_processname)) {
-                return _p;
+                pcbList.add(_p);
             }
         }
-        return null;
+        return pcbList;
     }
 
     public static String getStringFromByteArray(byte[] arr) {
