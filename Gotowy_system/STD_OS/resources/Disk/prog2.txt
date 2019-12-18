@@ -1,0 +1,9 @@
+CF semafor 
+CP prog21.txt p21 15 
+CP prog22.txt p22 15 
+OF semafor 
+FC semafor 
+TF semafor 
+TF suma 
+TF roznica 
+SP 

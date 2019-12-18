@@ -1,0 +1,10 @@
+OF semafor 
+MO [100] 100 
+AD AX 30 
+AD AX [100] 
+CF suma 
+OF suma 
+AF suma AX 
+FC suma 
+FC semafor 
+SP 

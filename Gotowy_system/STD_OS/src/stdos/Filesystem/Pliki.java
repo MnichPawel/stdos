@@ -109,16 +109,16 @@ public class Pliki extends Plik{
     public void KP_usunP(String nazwa){
         for (Plik e : Files){
             if (e.Nazwa().equals(nazwa)){
-                if (czyPotw(nazwa)) {
+                //if (czyPotw(nazwa)) {
                     Dysk.remove(e.getIndexBlock());
                     Files.remove(e);
                     return;
 
-                }
-                else{
-                    System.out.println("Plik " + nazwa + " nie jest otwarty");
-                    return;
-                }
+               // }
+                //else{
+                    //System.out.println("Plik " + nazwa + " nie jest otwarty");
+                    //return;
+               // }
 
             }
         }

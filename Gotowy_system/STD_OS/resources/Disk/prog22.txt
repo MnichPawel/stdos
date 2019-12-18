@@ -1,0 +1,10 @@
+OF semafor 
+MO [100] 100 
+AD AX 30 
+SU AX [100] 
+CF roznica 
+OF roznica 
+AF roznica AX 
+FC roznica 
+FC semafor 
+SP 
