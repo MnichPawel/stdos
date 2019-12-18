@@ -145,7 +145,6 @@ public class VirtualMemory {
         int reservation = RAMModule.zarezerwuj_pamiec(2);
         if(reservation != -1) {
             RAMModule.zapisz_bajty(val, reservation);
-            System.out.println(reservation);
             addressTableFinal.put(new Pair<>(running, address), new Pair<>(true, reservation));
         }
         else {
@@ -198,12 +197,12 @@ public class VirtualMemory {
             System.out.println();
         }
         if(!addressTableFinal.isEmpty()) {
-            System.out.println("\nPID\tADDR\tVALUE");
+            System.out.println("\nPID\t\tADDR\t\tVALUE");
             Pair pair = null;
             int PID = -1;
             for(Map.Entry<Pair<Integer, Integer>, Pair<Boolean, Integer>> entry : addressTableFinal.entrySet()) {
                 pair = entry.getKey();
-                System.out.print(pair.getKey() + "\t" + pair.getValue() + "\t");
+                System.out.print(pair.getKey() + "\t\t" + pair.getValue() + "\t\t");
                 pair = entry.getValue();
                 if((boolean)pair.getKey()) {
                     Pair pair_addr = entry.getKey();
