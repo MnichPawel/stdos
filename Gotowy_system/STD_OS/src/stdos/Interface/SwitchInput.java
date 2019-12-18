@@ -1,6 +1,7 @@
 package stdos.Interface;
 
 import stdos.CPU.CPU;
+import stdos.Filesystem.Dysk;
 import stdos.Filesystem.Katalog;
 import stdos.Filesystem.Katalogi;
 import stdos.Filesystem.Pliki;
@@ -41,7 +42,9 @@ class SwitchInput {
                     VirtualMemory.display();
                     break;
                 /*pamięć wirtualna*/
-
+                case "dvm_file":
+                    VirtualMemory.displaySegmentFile();
+                break;
                 /*semafor*/
                 case "semstate":
                     JPmetody.JPwypisz(String.valueOf(arguments[1]));
@@ -141,7 +144,7 @@ class SwitchInput {
 
                 case "opnfile":
                     byte[] code = Katalogi.getCurrentDir().getFiles().KP_pobP(String.valueOf(arguments[1]));
-                    System.out.println("Otworzono plik o nazwie: "  + arguments[1]);
+                    System.out.println("Otwarto plik o nazwie: "  + arguments[1]);
                     System.out.print(stdos.Processes.ProcessManager.getStringFromByteArray(code));
                     break;
 
@@ -149,9 +152,12 @@ class SwitchInput {
                     Katalogi.getCurrentDir().getFiles().KP_pokP();
                     break;
 
+                case "disk":
+                    Dysk.show();
+                    break;
+
                 case "erase":
                     Katalogi.getCurrentDir().getFiles().KP_usunP(arguments[1]);
-                    System.out.println("Usunieto plik o nazwie: "  + arguments[1]);
                     break;
                 /*zarządzanie plikami i katalogami*/
 
