@@ -24,6 +24,15 @@ public class Pliki extends Plik{
         return false;
     }
 
+    public static boolean czyPotw(String nazwa) {
+        for (Plik e : Open) {
+            if (e.Nazwa().equals(nazwa)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static Plik KP_dlaJP(String nazwa) {
         for (Plik e : Files) {
             if (e.Nazwa().equals(nazwa)) {
@@ -53,9 +62,16 @@ public class Pliki extends Plik{
         if (czyPjest(nazwa)) {
             for (Plik e : Files) {
                 if (e.Nazwa().equals(nazwa)) {
-                    e.setIndexBlock(Dysk.addContent(content, indeks));
-                    e.UstRozm(content.length);
-                    return;
+                    if (czyPotw(nazwa)) {
+                        e.setIndexBlock(Dysk.addContent(content, indeks));
+                        e.UstRozm(content.length);
+                        return;
+
+                    }
+                   else{
+                       System.out.println("Plik " + nazwa + " nie jest otwarty");
+                        return;
+                    }
                 }
             }
         }
@@ -68,8 +84,14 @@ public class Pliki extends Plik{
     public byte[] KP_pobP(String nazwa) {
         for (Plik e : Files) {
             if (e.Nazwa().equals(nazwa)) {
-                byte[] a =Dysk.getBlockByIndex(e.getIndexBlock());
-                return a;
+                if (czyPotw(nazwa)) {
+                    byte[] a =Dysk.getBlockByIndex(e.getIndexBlock());
+                    return a;
+                }
+                else{
+                    System.out.println("Plik " + nazwa + " nie jest otwarty");
+                    return;
+                }
             }
         }
         System.out.println("Nie ma takiego pliku");
@@ -87,9 +109,17 @@ public class Pliki extends Plik{
     public void KP_usunP(String nazwa){
         for (Plik e : Files){
             if (e.Nazwa().equals(nazwa)){
-                Dysk.remove(e.getIndexBlock());
-                Files.remove(e);
-                return;
+                if (czyPotw(nazwa)) {
+                    Dysk.remove(e.getIndexBlock());
+                    Files.remove(e);
+                    return;
+
+                }
+                else{
+                    System.out.println("Plik " + nazwa + " nie jest otwarty");
+                    return;
+                }
+
             }
         }
         System.out.println("Brak pliku o nazwie: " + nazwa);
