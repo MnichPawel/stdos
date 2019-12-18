@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 class Input{
     public static void startInterface() throws UnsupportedOperationException {
-
         Help.printLogo();
 
         Scanner inputScanner = new Scanner(System.in);
@@ -18,6 +17,7 @@ class Input{
                 try {
                     SwitchInput.inputSwitch(input);
                } catch (Exception e) {
+                    Sound.errorSound();
                    System.out.println("[Shell]: Blad modulu" + e.getMessage());
                 }
             }
