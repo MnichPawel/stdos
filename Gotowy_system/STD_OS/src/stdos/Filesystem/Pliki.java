@@ -6,7 +6,7 @@ import java.util.Vector;
 public class Pliki extends Plik{
 
     public static Vector<Plik> Files = new Vector<>();
-    public static Vector<Plik> Open = new Vector<>();
+
     public Pliki(String nazwa) {
         super(nazwa);
     }
@@ -98,15 +98,14 @@ public class Pliki extends Plik{
         for (Plik p : Files) {
             if (p.Nazwa().equals(nazwa)) {
                 JPmetody.wait(p.sem);
-                Open.add(p);
             }
+
         }
     }
     public void KP_zamkP(String nazwa) {
         for (Plik p : Files) {
             if (p.Nazwa().equals(nazwa)) {
                 JPmetody.signal(p.sem);
-                Open.remove(p);
             }
         }
 
