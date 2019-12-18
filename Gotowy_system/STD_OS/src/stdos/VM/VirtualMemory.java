@@ -96,7 +96,8 @@ public class VirtualMemory {
 
     /*===============================ASEMBLER=================================*/
     public static short get_value_from_addr_table(int address) {
-        int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        //int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        int runningID = 0;
 
         Pair pair;
         for(Map.Entry<Pair<Integer, Integer>, Pair<Boolean, Integer>> entry : addressTableFinal.entrySet()) {
@@ -120,7 +121,8 @@ public class VirtualMemory {
     }
 
     public static byte get_value(int address) {
-        int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        //int runningID = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        int runningID = 0;
 
         if(VM.get(runningID)) {
             Vector<Segment> tempGVVector = new Vector<>();
@@ -136,7 +138,8 @@ public class VirtualMemory {
     }
 
     public static void set_value(int address, short value) {
-        int running = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        //int running = stdos.CPU.CPU.MM_getRUNNING().getPid();
+        int running = 0;
 
         byte[] val = new byte[2];
         val[0] = (byte)(address);
