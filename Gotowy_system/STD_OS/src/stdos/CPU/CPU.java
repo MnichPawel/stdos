@@ -11,7 +11,7 @@ import static stdos.Processes.ProcessManager.*;
 
 public class CPU {
 
-    public static PCB RUNNING;
+    public static PCB RUNNING, prevRUNNING;
     private static PCB ZEROPRIORITY;
     private static PriorityList priorityList = new PriorityList();
 
@@ -38,6 +38,7 @@ public class CPU {
 
     /*Wykonanie kroku procesora. Skutkuje wykonaniem jednego rozkazu. Po wykonanym rozkazie uruchamiany jest planista*/
     public static void MM_go() throws Exception {
+        prevRUNNING = RUNNING;
 
         if (!KK_Interpret()) {//funkcja zwraca  0, gdy wykona ostatni rozkaz lub nie ma dalszych rozkazów
             if(ProcessManager.KM_TerminateProcess(RUNNING)) RUNNING = null;
