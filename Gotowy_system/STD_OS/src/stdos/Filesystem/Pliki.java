@@ -90,7 +90,7 @@ public class Pliki extends Plik{
                 }
                 else{
                     System.out.println("Plik " + nazwa + " nie jest otwarty");
-                    return;
+                    return null;
                 }
             }
         }

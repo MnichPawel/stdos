@@ -166,7 +166,7 @@ public abstract class Dysk {
     /***
      * Shows disk content in a formatted table
      */
-    private static void show() {
+    public static void show() {
         System.out.print("     ");
         for (int i = 0; i <= BLOCK_SIZE / 10; i++) {
             System.out.print(i + "                             ");
