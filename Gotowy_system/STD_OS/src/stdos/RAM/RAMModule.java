@@ -205,6 +205,16 @@ public class RAMModule {
         }
     }
 
+    public static void wypisz_pamiec_char(){
+        for(int x = 0; x <RAM_SIZE; x += 16){
+            for(int i = 0; i < 16; ++i){
+                System.out.print((char)RAM[i + x]);
+            }
+            System.out.println();
+        }
+
+    }
+
     /* wypisuje podział */
     public static void wypisz_podzial(){
         binary_tree.print_division();
