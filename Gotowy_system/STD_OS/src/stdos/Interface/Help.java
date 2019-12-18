@@ -32,7 +32,7 @@ class Help {
 
         System.out.println("  _____________________________________PROCESOR____________________________________________________________________________________");
         /* zarządzanie procesami: semafor, pamiec ram, pamiec wirtualna*/
-        System.out.println("  tc   [nazwa_pliku] [nazwa_procesu} [priorytet]              - tworzenie procesu");
+        System.out.println("  tc   [nazwa_pliku] [nazwa_procesu] [priorytet]              - tworzenie procesu");
         System.out.println("  kill [nazwa_procesu]                                        - zakonczenie dzialania danego procesu");
         System.out.println("  tasklist                                                    - wyswietla liste wszystkich procesow");
         System.out.println("  rtasklist                                                   - wyswietla liste gotowych procesow");
