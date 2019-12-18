@@ -47,17 +47,22 @@ public class JPmetody {
     }
     public static void JPwypiszKolejke(String nazwa) throws Exception { //wypisanie wartosci semafora
             Plik P = Pliki.KP_dlaJP(nazwa);
-            if(P!=null) {
-                Deque<PCB> pom = P.sem.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
-                PCB pompcb;
-                for (int i = 0; i < pom.size(); i++) {
-                    pompcb = pom.pollFirst();
-                    System.out.println(pompcb.getPid() + " " + pompcb.getPn());
-                }
-            }else{
+            if(P==null) {
                 throw new Exception("Bledna nazwa pliku");
             }
-
+            else{
+                Deque<PCB> pom = P.sem.kolejka.clone(); //kopiowanie by zabezpieczyć się przed utratą zawartości oryginalnej kolejki
+                PCB pompcb;
+                if(pom.size()==0){
+                    System.out.println("Kolejka jest pusta");
+                }
+                else {
+                    for (int i = 0; i < pom.size(); i++) {
+                        pompcb = pom.pollFirst();
+                        System.out.println(pompcb.getPid() + " " + pompcb.getPn());
+                    }
+                }
+            }
     }
 
     //================================================== wyswietlanie; funkcje ogolne, raczej nie beda uzywane=======================
