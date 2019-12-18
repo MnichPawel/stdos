@@ -222,4 +222,13 @@ public class VirtualMemory {
     public static void displayBinaryTree() {
         RAMModule.wypisz_podzial();
     }
+
+    public static void displaySegmentFile() {
+        for(Map.Entry<Integer, byte[]> entry : SegmentFile.entrySet()) {
+            for(byte b : entry.getValue()) {
+                System.out.print(b+" ");
+            }
+            System.out.println();
+        }
+    }
 }
