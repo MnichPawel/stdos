@@ -46,7 +46,7 @@ class SwitchInput {
                 /*semafor*/
 
                     /*zarządzanie procesami*/
-                case "taskcreate":
+                case "tc":
                     try {
                         ProcessManager.KM_CreateProcess(String.valueOf(arguments[1]), String.valueOf(arguments[2]), Integer.parseInt(arguments[3]));
                         System.out.println("Utworzono proces: "+ arguments[1] +" proces: "+ arguments[2] + " priorytet: " +arguments[3]);
