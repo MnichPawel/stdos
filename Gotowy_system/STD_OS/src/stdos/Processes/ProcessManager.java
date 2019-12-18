@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Vector;
 
 import stdos.CPU.*;
+import stdos.Filesystem.Katalog;
 import stdos.Filesystem.Katalogi;
 import stdos.VM.VirtualMemory;
 
@@ -58,6 +59,7 @@ public class ProcessManager {
         }
         Katalogi.getTargetDir().getFiles().KP_otwP(_filename);
         byte[] code = Katalogi.getTargetDir().getFiles().KP_pobP(_filename);
+        Katalogi.getTargetDir().getFiles().KP_zamkP(_filename);
         if(code[0] != -1) {
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
             actPid++;

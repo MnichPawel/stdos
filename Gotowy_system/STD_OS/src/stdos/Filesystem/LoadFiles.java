@@ -57,7 +57,9 @@ public class LoadFiles {
                 System.out.println("Blad: " + e.getMessage());
             }
             Katalogi.getCurrentDir().getFiles().KP_utwP(f.getName());
+            Katalogi.getCurrentDir().getFiles().KP_otwP(f.getName());
             Katalogi.getCurrentDir().getFiles().KP_dopP(f.getName(), fileContent.getBytes());
+            Katalogi.getCurrentDir().getFiles().KP_zamkP(f.getName());
         }
     }
 }
