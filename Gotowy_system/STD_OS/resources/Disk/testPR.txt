@@ -1,0 +1,6 @@
+CP testPR2.txt testPR2 3 
+CP testPR2.txt testPR2 3 
+CP testPR2.txt testPR2 3 
+CP testPR2.txt testPR2 3 
+DP testPR2 
+SP 

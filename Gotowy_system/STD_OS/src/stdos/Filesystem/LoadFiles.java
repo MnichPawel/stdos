@@ -7,8 +7,7 @@ import java.io.*;
 public class LoadFiles {
 
     //private static final String PathToDiskWin = "Gotowy_system/STD_OS/src/stdos/Disk/"; //For project cloned from Github directly to IntelliJ
-    private static final String PathToDiskWin = "src/stdos/Disk/"; //For project copied from Github
-    //private static final String[] INITIAL_PROGRAMS = new String[] {"dummy.txt", "prog1.txt"};
+    private static final String PathToDiskWin = "resources/Disk/"; //For project copied from Github
     private static final String PathForFilesFS = "C";
     private static final String[] allowedExtension = new String[] {"txt", "exe"}; //Extensions without dot
 
