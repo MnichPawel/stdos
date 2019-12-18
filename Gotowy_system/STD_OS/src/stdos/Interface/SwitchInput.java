@@ -11,6 +11,8 @@ import stdos.Semaphore.JPmetody;
 import stdos.Semaphore.semafor;
 import stdos.VM.VirtualMemory;
 
+import static stdos.Processes.ProcessManager.KM_printRegisters;
+
 class SwitchInput {
     /*flaga kończąca działanie*/
         static boolean exitFlag = false;
@@ -133,19 +135,30 @@ class SwitchInput {
                     break;
                     /*wyświetlenie aktualnych procesów */
                 case "register":
-                    ProcessManager.KM_printRunningRegisters();
+                    KM_printRegisters(CPU.prevRUNNING);
                     break;
 
                    /*zarządzanie plikami i katalogami*/
-                case "mkfile": //file create
+                case "mkfile": //utworzenie pliku
                     Katalogi.getCurrentDir().getFiles().KP_utwP(String.valueOf(arguments[1]));
                     System.out.println("Uworzono plik o nazwie: "  + arguments[1]);
                     break;
 
                 case "opnfile":
+                    /*otwarcie pliku*/
+                    Katalogi.getCurrentDir().getFiles().KP_otwP(String.valueOf(arguments[1]));
+                    /*otwarcie pliku*/
+
+                    /*pobranie zawartości pliku*/
                     byte[] code = Katalogi.getCurrentDir().getFiles().KP_pobP(String.valueOf(arguments[1]));
-                    System.out.println("Otwarto plik o nazwie: "  + arguments[1]);
+                    /*pobranie zawartości pliku*/
+
+                    System.out.println("Pobrano zawartosc pliku o nazwie: "  + arguments[1]);
                     System.out.print(stdos.Processes.ProcessManager.getStringFromByteArray(code));
+
+                    /*zamkniecie pliku*/
+                    Katalogi.getCurrentDir().getFiles().KP_zamkP(String.valueOf(arguments[1]));
+                    /*zamkniecie pliku*/
                     break;
 
                 case "dir":
