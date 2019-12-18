@@ -8,11 +8,11 @@ import java.util.Vector;
 import static java.lang.Integer.parseInt;
 
 public abstract class Dysk {
-    private static final int BLOCK_SIZE = 32;
+    private static final int BLOCK_SIZE = 128;
     static final byte EMPTY_CELL = -3;
     static final byte INDEX_CELL = -2; //marks beginning of an index block
 
-    private static byte physicalDisk[] = new byte[1024];
+    private static byte physicalDisk[] = new byte[4096];
     private static boolean blockTaken[] = new boolean[physicalDisk.length / BLOCK_SIZE];
     private static int blockAmount = blockTaken.length;
     private static int currentBlock = 0;
