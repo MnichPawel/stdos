@@ -1,8 +1,6 @@
 package stdos.Interface;
-
 import javax.sound.sampled.*;
 import java.io.File;
-
 
 public class Sound {
 
@@ -10,6 +8,7 @@ public class Sound {
     static File EXIT_FILE = new File("resources/logoff.wav");
     static File ERROR_FILE = new File("resources/error.wav");
 
+    /*dźwięk start systemu*/
     public static void startSystem() {
         try {
             Clip clip = AudioSystem.getClip();
@@ -21,7 +20,9 @@ public class Sound {
             ex.printStackTrace();
         }
     }
+    /*dźwięk start systemu*/
 
+    /*dźwięk exit systemu*/
     public static void exitSystem() {
         try {
             Clip clip = AudioSystem.getClip();
@@ -33,6 +34,9 @@ public class Sound {
             ex.printStackTrace();
         }
     }
+    /*dźwięk exit systemu*/
+
+    /*dźwięk error*/
      public static void errorSound() {
         try {
             Clip clip = AudioSystem.getClip();
@@ -44,6 +48,7 @@ public class Sound {
             ex.printStackTrace();
         }
     }
+    /*dźwięk error*/
 }
 
 
