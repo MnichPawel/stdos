@@ -19,6 +19,8 @@ class Help {
         System.out.println("  _____________________________________PAMIĘĆ WIRTUALNA___________________________________________________________________________");
         System.out.println("  erasevm                                                     - czysci segmenty pamieci wirtualnej");
         System.out.println("  dvm                                                         - wyswietla aktualna zawartosc pamieci wirtualnej");
+        System.out.println("  dvm_file                                                    - wyswietla aktualna zawartosc pliku podrecznego");
+
         /* pamięc wirtualna*/
 
 
@@ -47,6 +49,7 @@ class Help {
         System.out.println("  mkfile [nazwa_pliku]                                        - utworzenie pliku");
         System.out.println("  opnfile [nazwa_pliku]                                       - pobranie zawartosci pliku");
         System.out.println("  dir                                                         - wyswietla wszystkie pliki");
+        System.out.println("  disk                                                        - wyswietla zawartosc dysku");
         System.out.println("  erase [nazwa_pliku]                                         - usuniecie pliku");
         /*zarządzanie plikami i katalogami*/
 
