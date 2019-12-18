@@ -13,7 +13,7 @@ class SwitchInput {
     /*flaga kończąca działanie*/
         static boolean exitFlag = false;
 
-        static void inputSwitch(String komunikat)  {
+        static void inputSwitch(String komunikat) throws Exception {
             String[] arguments =  komunikat.split("\\s+"); //one or more space space after (splits)
 
             switch (arguments[0]) {
