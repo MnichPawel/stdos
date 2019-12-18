@@ -54,6 +54,7 @@ class Help {
         /*interpreter*/
         System.out.println("  step                                                        - wykonaj 1 rozkaz assemblera");
         System.out.println("  step [liczba_krokow]                                        - wykonaj n rozkazow assemblera");
+        System.out.println("  stepr                                                       - wykonaj 1 rozkaz assemblera i wyswietl stan rejestrow");
         System.out.println("  register                                                    - wyswietla stan rejestrow");
         /*interpreter*/
         System.out.println(" __________________________________________________________________________________________________________________________________");

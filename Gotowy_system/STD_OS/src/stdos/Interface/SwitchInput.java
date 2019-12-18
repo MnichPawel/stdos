@@ -100,7 +100,7 @@ class SwitchInput {
                             CPU.MM_go();
                         } catch (Exception e) {
                             Sound.errorSound();
-                            System.out.println("Blad assemblera: polecenie {step}: za duzo wymaganych krokow ");
+                            System.out.println("Blad assemblera: polecenie {step}");
                             System.out.println("Tresc bledu: " + e.getMessage());
                         }
                     }
@@ -110,15 +110,24 @@ class SwitchInput {
                                 CPU.MM_go();
                             } catch (Exception e) {
                                 Sound.errorSound();
-                                System.out.println("Blad assemblera: polecenie {step}: za duzo wymaganych krokow ");
+                                System.out.println("Blad assemblera: polecenie {step}");
                                 System.out.println("Tresc bledu: " + e.getMessage());
-                                e.printStackTrace();
                             }
                         }
                     }
                     break;
                     /* wyświetlaj krokowo*/
+                case "stepr": //jeden krok asemblera i wyświetlenie rejestrów
+                    try {
+                        CPU.MM_go();
+                        ProcessManager.KM_printRunningRegisters();
+                    } catch (Exception e) {
+                        Sound.errorSound();
+                        System.out.println("Blad assemblera: polecenie {step}");
+                        System.out.println("Tresc bledu: " + e.getMessage());
+                    }
 
+                    break;
                     /*wyświetlenie aktualnych procesów */
                 case "register":
                     ProcessManager.KM_printRunningRegisters();
