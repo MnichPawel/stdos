@@ -16,6 +16,7 @@ public class JPmetody {
         //^ oraz dodanie procesu do listy kolejek priorytetowych
     }
     private static void block(PCB p){
+        System.out.println("Semafor; zmiana stanu procesu na WAITING");
         KM_setProcessState (p, ProcessState.WAITING);//zmiana stanu procesu na waiting
         //^ oraz usuniecie procesu z listy kolejek priorytetowych
     }
