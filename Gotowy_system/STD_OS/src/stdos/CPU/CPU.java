@@ -33,6 +33,7 @@ public class CPU {
             }
         }
         MM_scheduler();
+        prevRUNNING = RUNNING;
     }
 
 
