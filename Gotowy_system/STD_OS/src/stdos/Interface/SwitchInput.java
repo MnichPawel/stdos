@@ -64,7 +64,7 @@ class SwitchInput {
                     }
                     catch(Exception e){
                         Sound.errorSound();
-                        System.out.println("Blad Process Manager: polecenie {taskcreate}");
+                        System.out.println("Blad Process Manager: polecenie taskcreate");
                     }
                     break;
 
@@ -74,7 +74,7 @@ class SwitchInput {
                     }
                     catch(Exception e){
                         Sound.errorSound();
-                        System.out.println("Blad Process Manager: polecenie {kill} ");
+                        System.out.println("Blad Process Manager: polecenie kill");
                         System.out.println("Tresc bledu: "  + e.getMessage());
                     }
                     break;
@@ -105,7 +105,7 @@ class SwitchInput {
                             CPU.MM_go();
                         } catch (Exception e) {
                             Sound.errorSound();
-                            System.out.println("Blad assemblera: polecenie {step}");
+                            System.out.println("Blad assemblera: polecenie step");
                             System.out.println("Tresc bledu: " + e.getMessage());
                         }
                     }
@@ -115,7 +115,7 @@ class SwitchInput {
                                 CPU.MM_go();
                             } catch (Exception e) {
                                 Sound.errorSound();
-                                System.out.println("Blad assemblera: polecenie {step}");
+                                System.out.println("Blad assemblera: polecenie step");
                                 System.out.println("Tresc bledu: " + e.getMessage());
                             }
                         }
@@ -128,7 +128,7 @@ class SwitchInput {
                         ProcessManager.KM_printRunningRegisters();
                     } catch (Exception e) {
                         Sound.errorSound();
-                        System.out.println("Blad assemblera: polecenie {step}");
+                        System.out.println("Blad assemblera: polecenie step");
                         System.out.println("Tresc bledu: " + e.getMessage());
                     }
 
