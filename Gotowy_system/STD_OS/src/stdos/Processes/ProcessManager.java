@@ -56,6 +56,7 @@ public class ProcessManager {
                 throw new Exception("KM_CreateProcess:priorityOutsideRange");
             }
         }
+        Katalogi.getTargetDir().getFiles().KP_otwP(_filename);
         byte[] code = Katalogi.getTargetDir().getFiles().KP_pobP(_filename);
         if(code[0] != -1) {
             PCB pcb1 = new PCB(actPid, _filename, _processname, _p);
