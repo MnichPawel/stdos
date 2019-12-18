@@ -55,7 +55,7 @@ class Help {
         System.out.println("  _____________________________________PLIKI I KATALOGI____________________________________________________________________________");
         /*zarządzanie plikami i katalogami*/
         System.out.println("  mkfile [nazwa_pliku]                                        - utworzenie pliku");
-       // System.out.println("  opnfile [nazwa_pliku]                                       - pobranie zawartosci pliku");
+        System.out.println("  opnfile [nazwa_pliku]                                       - pobranie zawartosci pliku");
         System.out.println("  dir                                                         - wyswietla wszystkie pliki");
         System.out.println("  erase [nazwa_pliku]                                         - usuniecie pliku");
 //        System.out.println("  mkdir [nazwa_katalogu]                                      - utworzenie katalogu");
@@ -74,16 +74,15 @@ class Help {
 
     }
     static void printLogo() {
-
+        /* dźwięk startu systemu*/
         Sound.startSystem();
-        System.out.println("  _      _           _     _        ____   _____ \n" +
-                "     | |    | |  _   _  | |   (_)      / __ \\ / ____|\n" +
-                "  ___| |_ __| | (_) (_) | |__  _  __ _| |  | | (___  \n" +
-                " / __| __/ _` |         | '_ \\| |/ _` | |  | |\\___ \\ \n" +
-                " \\__ \\ || (_| |  _   _  | |_) | | (_| | |__| |____) |\n" +
-                " |___/\\__\\__,_| (_) (_) |_.__/|_|\\__, |\\____/|_____/ \n" +
-                "                                  __/ |              \n" +
-                "                                 |___/            ");
+        /* logo std:: OS*/
+
+        System.out.println(" _____    _______   _______      _    _    _______    _____\n" +
+                "/ / \\_\\  /_______\\ | |   \\ \\    |_|  |_|  / /   \\ \\  / / \\_\\\n" +
+                "\\_\\____     | |    | |    | |             | |   | |  \\_\\____ \n" +
+                "__   \\ \\    | |    | |    | |    _    _   | |   | |  __   \\ \\\n" +
+                "\\_\\__/_/    |_|    |_|___/_/    |_|  |_|  \\_\\___/_/  \\_\\__/_/ ");
 
         System.out.println(" Wpisz help, aby wyswietlic dostepne polecenia");
 
