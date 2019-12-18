@@ -56,7 +56,7 @@ class Help {
         System.out.println("  step [liczba_krokow]                                        - wykonaj n rozkazow assemblera");
         System.out.println("  register                                                    - wyswietla stan rejestrow");
         /*interpreter*/
-        System.out.println("  __________________________________________________________________________________________________________________________________");
+        System.out.println(" __________________________________________________________________________________________________________________________________");
     }
     static void printLogo() {
         /* dźwięk startu systemu*/
