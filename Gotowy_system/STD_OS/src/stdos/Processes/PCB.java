@@ -1,7 +1,5 @@
 package stdos.Processes;
 
-import stdos.Processes.ProcessManager;
-
 public class PCB {
     private int pid; //PID - processID
     private String pn; //Process name
@@ -10,7 +8,6 @@ public class PCB {
     private int priS; //Static priority
     private ProcessState ps; //ProcessState
     private int wt; //Waiting time
-    //private int pl; //Program length TODO: useless
     private int PC; //Program Counter ?
     private int ax,bx,cx,dx; //Registry
 
@@ -23,7 +20,6 @@ public class PCB {
         this.priS = 0;
         this.ps = ProcessState.NEW;
         this.wt = 0;
-        //this.pl = 0;
         this.PC = 0;
         this.ax = 0;
         this.bx = 0;
@@ -39,7 +35,6 @@ public class PCB {
         this.priS = priS;
         this.ps = ProcessState.NEW;
         this.wt = 0;
-        //this.pl = pl;
         this.PC = 0;
         this.ax = 0;
         this.bx = 0;
@@ -49,10 +44,6 @@ public class PCB {
 
     public String getPn() { return pn; }
 
-    /*
-    public void setPn(String pn) { this.pn = pn; }
-    */
-
     public int getWt() { return wt; }
 
     public void setWt(int wt) { this.wt = wt; }
@@ -61,34 +52,9 @@ public class PCB {
         return pid;
     }
 
-    //useless, no one change PID
-    /*
-    public void setPid(int pid) {
-        this.pid = pid;
-    }
-     */
-
     public String getFilename() {
         return filename;
     }
-
-    /*
-    public void setFilename(String filename) {
-        this.filename = filename;
-    }
-    */
-
-    /*
-    public int getPl() {
-        return pl;
-    }
-    */
-
-    /*
-    public void setPl(int pl) {
-        this.pl = pl;
-    }
-    */
 
     public int getPC() {
         return PC;

@@ -1,13 +1,11 @@
 package stdos.Processes;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
-
-import stdos.CPU.*;
-import stdos.Filesystem.Katalog;
+import stdos.CPU.CPU;
 import stdos.Filesystem.Katalogi;
 import stdos.VM.VirtualMemory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProcessManager {
     private static int actPid = 0;
@@ -16,7 +14,6 @@ public class ProcessManager {
     private static String idleProcessFilename = "dummy.txt";
 
     private static PCB zeroPriority;
-    //static CPU cpu = new CPU();
 
     /*
     Constructor of ProcessManager()
@@ -65,7 +62,7 @@ public class ProcessManager {
             actPid++;
             String codeStr = getStringFromByteArray(code);
             codeStr = removeNewLineCharacters(codeStr);
-            VirtualMemory.load_to_virtualmemory(pcb1.getPid(), codeStr); //TODO: program data?
+            VirtualMemory.load_to_virtualmemory(pcb1.getPid(), codeStr);
             KM_setProcessState(pcb1, ProcessState.READY);
             activeProcesses.add(pcb1);
             readyProcesses.add(pcb1);
@@ -99,9 +96,6 @@ public class ProcessManager {
         readyProcesses.remove(pcb);
         CPU.MM_unreadyProcess(pcb);
 
-        /*if(pcb==CPU.MM_getRUNNING()) {
-            CPU.MM_terminateRunning();
-        }*/
         return true;
     }
 
@@ -214,7 +208,6 @@ public class ProcessManager {
         System.out.format("%-3s %-16s %-16s %-2s %-2s %-7s \n", "PID", "ProName", "FileName", "PS", "PD", "PState");
         for(PCB _p  : activeProcesses) {
             System.out.format("%-3d %-16s %-16s %-2d %-2d %-7s\n", _p.getPid(), _p.getPn(), _p.getFilename(), _p.getPriS(), _p.getPriD(), _p.getPs());
-            //System.out.print("- "+_p.getPid()+"\t"+_p.getPn()+"\t"+_p.getFilename()+"\t\t"+_p.getPriS()+"\t\t"+_p.getPriD()+"\t\t"+_p.getPs()+"\n");
         }
     }
 
@@ -237,17 +230,7 @@ public class ProcessManager {
     }
 
     public static List<PCB> KM_getReadyProcessList() {
-        //return readyProcesses; //too simple
-        if(activeProcesses.isEmpty()) {
-            return null;
-        }
-        List<PCB> readyProc = new ArrayList<>();
-        for (PCB _p : activeProcesses) {
-            if(_p.getPs()==ProcessState.READY) {
-                readyProc.add(_p);
-            }
-        }
-        return readyProc;
+        return readyProcesses;
     }
 
     public static void KM_printRunningRegistersSimple() {
