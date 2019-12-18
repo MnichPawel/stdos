@@ -53,6 +53,7 @@ class SwitchInput {
                         System.out.println("Utworzono proces: "+ arguments[1] +" proces: "+ arguments[2] + " priorytet: " +arguments[3]);
                     }
                     catch(Exception e){
+                        Sound.errorSound();
                         System.out.println("Blad Process Manager: polecenie {taskcreate}");
 
                     }
@@ -62,6 +63,7 @@ class SwitchInput {
                         ProcessManager.KM_TerminateProcess(String.valueOf(arguments[1]));
                     }
                     catch(Exception e){
+                        Sound.errorSound();
                         System.out.println("Blad Process Manager: polecenie {kill} ");
                         System.out.println("Tresc bledu: "  + e.getMessage());
                     }
@@ -91,6 +93,7 @@ class SwitchInput {
                         try {
                             CPU.MM_go();
                         } catch (Exception e) {
+                            Sound.errorSound();
                             System.out.println("Blad assemblera: polecenie {step}: za duzo wymaganych krokow ");
                             System.out.println("Tresc bledu: " + e.getMessage());
                         }
@@ -100,6 +103,7 @@ class SwitchInput {
                             try {
                                 CPU.MM_go();
                             } catch (Exception e) {
+                                Sound.errorSound();
                                 System.out.println("Blad assemblera: polecenie {step}: za duzo wymaganych krokow ");
                                 System.out.println("Tresc bledu: " + e.getMessage());
                                 e.printStackTrace();
@@ -113,7 +117,6 @@ class SwitchInput {
                 case "register":
                     ProcessManager.KM_printRunningRegisters();
                     break;
-//#TODO: PLIKI I KATALOGI OD TESTU !
 
 //                /*zarządzanie plikami i katalogami*/
                 case "mkfile": //file create
@@ -149,7 +152,6 @@ class SwitchInput {
                 /*funkcje interfejsu*/
                 case "exit":
                     Sound.exitSystem();
-
                     exitFlag = true;
                     break;
                 case "help":
