@@ -884,7 +884,7 @@ public class Interpreter {
         for(String s : Instruction) {
             if(s.equalsIgnoreCase("]")) {
                 inAddress = false;
-                temp.append(s);
+                temp.append(s).append(" ");
             } else if(s.equalsIgnoreCase("[")) {
                 inAddress = true;
                 temp.append(s);
