@@ -4,9 +4,9 @@ import java.io.File;
 
 public class Sound {
 
-    static File START_UP_FILE = new File("resources/startup.wav");
-    static File EXIT_FILE = new File("resources/logoff.wav");
-    static File ERROR_FILE = new File("resources/error.wav");
+    static File START_UP_FILE = new File("resources/Music/startup.wav");
+    static File EXIT_FILE = new File("resources/Music/logoff.wav");
+    static File ERROR_FILE = new File("resources/Music/error.wav");
 
     /*dźwięk start systemu*/
     public static void startSystem() {
