@@ -134,7 +134,7 @@ class BinaryTree {
 }
 
 public class RAMModule {
-    static final int RAM_SIZE = 128;
+    static final int RAM_SIZE = 256;
     static byte[] RAM;
     static BinaryTree binary_tree;
 
