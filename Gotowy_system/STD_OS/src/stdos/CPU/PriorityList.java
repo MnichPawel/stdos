@@ -72,11 +72,11 @@ class PriorityList {
         int tmp;
         for (int i = 0; i < NOP; i++){
             for(PCB e: priorityList[i]){
-                e.setWt(e.getWt() + 1); //TODO: mozna usunac Wt chyba
+                e.setWt(e.getWt() + 1);
                 tmp = e.getPriD() + 1;
                 if(tmp > 15) tmp = 15;
-                else if(tmp < 1) tmp = 1; //TODO: useless
-                else if(tmp < e.getPriS()) tmp = e.getPriS(); //TODO: useless
+                else if(tmp < 1) tmp = 1;
+                else if(tmp < e.getPriS()) tmp = e.getPriS();
                 e.setPriD(tmp);
             }
         }
@@ -85,7 +85,7 @@ class PriorityList {
     }
 
 
-    /*Wyswietla zawartosc wszystkich kolejek*///TODO: jakis wzor jak to jest wypisywane?
+    /*Wyswietla zawartosc wszystkich kolejek*/
     void displayQueues(){
         System.out.println("Priority Queues:");
         for(int i = 0; i < NOP; i++){

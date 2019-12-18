@@ -127,11 +127,11 @@ public class CPU {
         if (RUNNING == null) {
             RUNNING = tmp;
 
-            ProcessManager.KM_setProcessState(RUNNING, ProcessState.RUNNING); //Zwraca T / F
+            ProcessManager.KM_setProcessState(RUNNING, ProcessState.RUNNING);
         } else {
             if (tmp.getPriD() > RUNNING.getPriD()) {
-                KM_setProcessState(RUNNING, ProcessState.READY); //Zwraca T / F
-                KM_setProcessState(tmp, ProcessState.RUNNING); // Zwraca T / F
+                KM_setProcessState(RUNNING, ProcessState.READY);
+                KM_setProcessState(tmp, ProcessState.RUNNING);
                 RUNNING = tmp;
             }
         }
