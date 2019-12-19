@@ -36,9 +36,6 @@ class SwitchInput {
                 /*pamięć RAM*/
 
                 /*pamięć wirtualna*/
-                case "erasevm":
-                    VirtualMemory.erase();
-                    break;
 
                 case "dvm":
                     VirtualMemory.display();
