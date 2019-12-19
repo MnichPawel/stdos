@@ -105,7 +105,7 @@ class SwitchInput {
                             CPU.MM_go();
                         } catch (Exception e) {
                             Sound.errorSound();
-                            System.out.println("Blad assemblera: polecenie step");
+                            System.out.println("Blad: polecenie step");
                             System.out.println("Tresc bledu: " + e.getMessage());
                         }
                     }
@@ -115,7 +115,7 @@ class SwitchInput {
                                 CPU.MM_go();
                             } catch (Exception e) {
                                 Sound.errorSound();
-                                System.out.println("Blad assemblera: polecenie step");
+                                System.out.println("Blad: polecenie step");
                                 System.out.println("Tresc bledu: " + e.getMessage());
                             }
                         }
@@ -128,7 +128,7 @@ class SwitchInput {
                         ProcessManager.KM_printRunningRegisters();
                     } catch (Exception e) {
                         Sound.errorSound();
-                        System.out.println("Blad assemblera: polecenie step");
+                        System.out.println("Blad: polecenie step");
                         System.out.println("Tresc bledu: " + e.getMessage());
                     }
 
