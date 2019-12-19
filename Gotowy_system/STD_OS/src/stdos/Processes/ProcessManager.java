@@ -46,6 +46,7 @@ public class ProcessManager {
         }
         if(_filename.equalsIgnoreCase(idleProcessFilename)) { // Check if filename is not idle process filename
             if(_p!=0) throw new Exception("KM_CreateProcess:idleProcessPriorityMustBeZero");
+            if(zeroPriority!=null) throw new Exception("KM_CreateProcess:idleProcessAlreadyExist");
         } else {
             if(_p==0) throw new Exception("KM_CreateProcess:notIdleProcessPriorityMustBeGreaterThanZero");
         }

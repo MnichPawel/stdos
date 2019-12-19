@@ -62,6 +62,7 @@ class SwitchInput {
                     catch(Exception e){
                         Sound.errorSound();
                         System.out.println("Blad Process Manager: polecenie taskcreate");
+                        System.out.println("Tresc bledu: " + e.getMessage());
                     }
                     break;
 
