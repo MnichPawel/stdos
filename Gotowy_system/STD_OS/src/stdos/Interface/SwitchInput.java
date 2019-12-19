@@ -153,7 +153,7 @@ class SwitchInput {
                     byte[] code = Katalogi.getCurrentDir().getFiles().KP_pobP(String.valueOf(arguments[1]));
                     /*pobranie zawartości pliku*/
 
-                    System.out.println("Pobrano zawartosc pliku o nazwie: "  + arguments[1]);
+                   // System.out.println("Pobrano zawartosc pliku o nazwie: "  + arguments[1]);
                     System.out.print(stdos.Processes.ProcessManager.getStringFromByteArray(code));
 
                     /*zamkniecie pliku*/
