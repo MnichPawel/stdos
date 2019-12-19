@@ -153,26 +153,7 @@ public class VirtualMemory {
         }
     }
     /*===============================/ASEMBLER=================================*/
-
-    public static void erase() {
-        for(Map.Entry<Integer, Vector<Segment>> entry : segmentTable.entrySet()) {
-            for(Segment segment : entry.getValue()) {
-                RAMModule.zwolnij_pamiec(segment.beginAddress);
-            }
-        }
-        for(Map.Entry<Pair<Integer, Integer>, Pair<Boolean, Integer>> entry : addressTableFinal.entrySet()) {
-            Pair pair_data = entry.getValue();
-            if ((boolean) pair_data.getKey()) {
-                RAMModule.zwolnij_pamiec((Integer) pair_data.getValue());
-            }
-            addressTableFinal.remove(entry.getKey());
-        }
-        addressTableFinal.clear();
-        SegmentFile.clear();
-        segmentTable.clear();
-        VM.clear();
-        System.out.println("Wyczyszczono pamięć wirtualną");
-    }
+    
 
     public static void display() {
         System.out.println("PID\tCODE");
