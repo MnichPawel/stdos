@@ -17,7 +17,7 @@ class Help {
 
         /* pamięc wirtualna*/
         System.out.println("  _____________________________________ PAMIEC WIRTUALNA ___________________________________________________________________________");
-        System.out.println("  erasevm                                                     - czysci segmenty pamieci wirtualnej");
+       // System.out.println("  erasevm                                                     - czysci segmenty pamieci wirtualnej");
         System.out.println("  dvm                                                         - wyswietla aktualna zawartosc pamieci wirtualnej");
         System.out.println("  dvm_file                                                    - wyswietla aktualna zawartosc pliku podrecznego");
 
